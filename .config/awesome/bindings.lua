@@ -1,13 +1,11 @@
-local awful = require "awful"
+local awful         = require "awful"
 local hotkeys_popup = require "awful.hotkeys_popup"
-local xrandr = require "snippets.xrandr"
+local xrandr        = require "snippets.xrandr"
 
--- Default modkey.
--- Usually, Mod4 is the key with a logo between Control and Alt.
--- If you do not like this or do not have such a key,
--- I suggest you to remap Mod4 to another key using xmodmap or other tools.
--- However, you can use another modifier like Mod1, but it may interact with others.
-modkey = "Mod4"
+local modkey = "Mod4"
+local shift  = "Shift"
+local ctrl   = "Control"
+local alt    = "Mod1"
 
 -- {{{ Mouse bindings
 awful.mouse.append_global_mousebindings {

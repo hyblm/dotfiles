@@ -2,13 +2,11 @@
 --  / _ `/ |/|/ / -_|_-</ _ \/  ' \/ -_)
 -- \_,_/|__,__/\__/___/\___/_/_/_/\__/
 
--- awesome_mode: api-level=4:screen=on
-pcall(require, "luarocks.loader")
+pcall (require, "luarocks.loader")
 
 local gfs = require "gears.filesystem"
 local naughty = require "naughty"
 local awful = require "awful"
-require "awful.autofocus"
 
 -- {{{ Error handling
 -- Check if awesome encountered an error during startup and fell back to
@@ -27,6 +25,7 @@ awful.spawn(gfs.get_xdg_config_home() .. "/wm_autostart")
 -- {{{ Variable definitions
 -- This is used later as the default terminal and editor to run.
 terminal = "wezterm"
+browser = "firefox-developer-edition"
 editor = os.getenv("EDITOR") or "nvim"
 editor_cmd = "wezterm start " .. editor
 -- editor_cmd = terminal .. " -e " .. editor

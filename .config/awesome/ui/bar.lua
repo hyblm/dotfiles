@@ -1,11 +1,8 @@
-local awful = require "awful"
-local wibox = require "wibox"
-local gears = require "gears"
+local awful     = require "awful"
+local wibox     = require "wibox"
 local beautiful = require "beautiful"
-local gfs   = require "gears.filesystem"
-local xrdb = beautiful.xresources.get_current_theme()
-
-require "widgets.tod"
+local xrdb      = beautiful.xresources.get_current_theme()
+local dpi       = beautiful.xresources.apply_dpi
 
 tag.connect_signal("request::default_layouts", function()
 	awful.layout.append_default_layouts({
@@ -16,8 +13,7 @@ tag.connect_signal("request::default_layouts", function()
 end)
 
 screen.connect_signal("request::desktop_decoration", function(s)
-	s.mypromptbox = awful.widget.prompt()
-	s.mylayoutbox = awful.widget.layoutbox {
+	local layoutbox = awful.widget.layoutbox {
 		screen  = s,
 		buttons = {
 			awful.button({ }, 1, function () awful.layout.inc( 1) end),
@@ -28,10 +24,11 @@ screen.connect_signal("request::desktop_decoration", function(s)
 	}
 
 	awful.tag({ "󰵅", "󰆋", "󰘸", "󰘳", "󰭛", "󰟡", "󰙀"}, s, awful.layout.layouts[1])
-	s.mytaglist = awful.widget.taglist {
+	local taglist = awful.widget.taglist {
 		screen  = s,
 		filter  = awful.widget.taglist.filter.noempty,
-		style = { spacing = 5, font = "Material Design Icons Desktop 14"},
+		style = { spacing = 12, font = "Material Design Icons Desktop 15"},
+    layout = wibox.layout.fixed.vertical,
 		buttons = {
 			awful.button({ }, 1, function(t) t:view_only() end),
 			awful.button({ modkey }, 1, function(t)
@@ -50,7 +47,7 @@ screen.connect_signal("request::desktop_decoration", function(s)
 		}
 	}
 
-	s.mytasklist = awful.widget.tasklist {
+	local tasklist = awful.widget.tasklist {
 		screen  = s,
 		filter  = awful.widget.tasklist.filter.currenttags,
 		buttons = {
@@ -72,23 +69,14 @@ screen.connect_signal("request::desktop_decoration", function(s)
 		},
 		layout = {
 			spacing = 20,
-			layout = wibox.layout.flex.horizontal,
-		},
-		style = {
-			shape = function(cr, w, h) gears.shape.partially_rounded_rect(cr, w, h, false, false, true, true, 12) end,
+			layout = wibox.layout.flex.vertical,
 		},
 		widget_template = {
 			{nil,
 				{{
 					awful.widget.clienticon,
-					top = 1 ,
-					bottom = 2,
-					right = 8,
+					margins = 2,
 					widget = wibox.container.margin,
-					},
-					{
-						id = "text_role",
-						widget = wibox.widget.textbox,
 					},
 					layout = wibox.layout.align.horizontal,
 				},
@@ -100,28 +88,64 @@ screen.connect_signal("request::desktop_decoration", function(s)
 		},
 	}
 
+  local clock = wibox.widget {
+    {
+      widget = wibox.widget.textclock,
+      format = "%I\n%M",
+      valign = "center",
+      align = "center",
+    },
+    --[[ {
+      widget = wibox.widget.textclock,
+      format = "%b %e",
+      valign = "center",
+      align = "center",
+    }, ]]
+    layout = wibox.layout.fixed.vertical,
+    spacing = dpi (5),
+  }
+
 	-- Create the wibox
-	s.mywibox = awful.wibar {
-		position = "top",
-		screen   = s,
-		bg = xrdb.background .. '99',
-		widget   = {
-			layout = wibox.layout.align.horizontal,
-			{ -- Left widgets
-				layout = wibox.layout.fixed.horizontal,
-				wibox.container.margin(s.mylayoutbox, 5,10,5,5),
-				s.mytaglist,
-				wibox.container.margin(awful.widget.keyboardlayout, 5, 5),
-        require 'widgets.tod',
-				s.mypromptbox,
-			},
-			wibox.container.margin(s.mytasklist, 20, 20),
-			{ -- Right widgets
-				layout = wibox.layout.fixed.horizontal,
-				wibox.container.margin(wibox.widget.systray, 0, 0),
-				wibox.container.margin(require "widgets.battery" {path_to_icons = gfs.get_xdg_data_home() .. "/icons/WhiteSur-purple-dark/status/24/"}, 18, 10),
-				wibox.container.margin(wibox.widget.textclock("%a  %b %e  %l:%M %p"), 10, 15),
-			},
-		}
+  local mybar = awful.wibar {
+		position  = "left",
+		bg        = xrdb.background .. '99',
+    width     = dpi(35),
+    type      = "dock",
+    screen    = s,
 	}
+
+  mybar:setup {
+    {
+      { -- top widgets
+        {
+          layoutbox,
+          margins = 8,
+          widget = wibox.container.margin,
+        },
+        {
+          taglist,
+          margins = 3,
+          widget = wibox.container.margin,
+        },
+        layout = wibox.layout.fixed.vertical,
+        spacing = dpi (4),
+      },
+      { -- middle widgets
+        tasklist,
+        margins = 3,
+        widget = wibox.container.margin,
+      },
+      { -- bottom widgets
+        require "widgets.battery",
+        clock,
+        layout = wibox.layout.fixed.vertical,
+        spacing = dpi (15),
+      },
+      layout = wibox.layout.align.vertical,
+      expand = "none",
+    },
+    layout = wibox.container.margin,
+    top = 5,
+    bottom = 15,
+  }
 end)
