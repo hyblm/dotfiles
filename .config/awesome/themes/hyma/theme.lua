@@ -17,7 +17,8 @@ local images = gfs.get_xdg_data_home() .. "/themes/Graphite-purple-dark-compact-
 local theme = dofile(themes_path.."default/theme.lua")
 -- load vector assets' generators for this theme
 
-theme.font          = "SF Pro Display Semibold 11"
+theme.fontf         = "SF Pro Display"
+theme.font          = theme.fontf .. " Semibold 11"
 
 theme.bg_normal     = xrdb.background --.. "00"
 theme.bg_focus      = xrdb.background --.. "aa"

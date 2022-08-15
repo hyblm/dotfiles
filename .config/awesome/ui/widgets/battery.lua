@@ -22,8 +22,8 @@ local battery_progress = wibox.widget{
   border_width     = dpi(1),
   border_color     = "#eee9",
   paddings         = dpi(1),
-  bar_shape        = function(cr, width, height) gears.shape.rounded_rect(cr, width, height, 3) end,
-  shape				     = function(cr, width, height) gears.shape.rounded_rect(cr, width, height, 5) end,
+  bar_shape        = function(cr, width, height) gears.shape.rounded_rect(cr, width, height, 2) end,
+  shape				     = function(cr, width, height) gears.shape.rounded_rect(cr, width, height, 4) end,
   value            = 70,
   max_value 			 = 100,
   widget           = wibox.widget.progressbar,
@@ -74,9 +74,13 @@ local battery_listener = upower_widget {
 battery_listener:connect_signal("upower::update", function(_, device)
   awesome.emit_signal("signal::battery", math.floor(device.percentage), device.state)
 end)
+
 awesome.connect_signal("signal::battery", function(value, state)
   battery_progress.value = value
 
+  if value < 15 then
+    battery_progress.color = xrdb.color1
+  end
 
   if state == 1 then
     bat_icon.visible = true
