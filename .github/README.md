@@ -1,5 +1,6 @@
 dotfiles
 **managed with [yadm](https://github.com/TheLocehiliosan/yadm)**
+![Screenshot of the desktop](desktop.jpg)
 
 ---
 ### credits
