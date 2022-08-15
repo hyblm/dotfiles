@@ -9,8 +9,6 @@ local naughty = require "naughty"
 local awful = require "awful"
 
 -- {{{ Error handling
--- Check if awesome encountered an error during startup and fell back to
--- another config (This code will only ever execute for the fallback config)
 naughty.connect_signal("request::display_error", function(message, startup)
 	naughty.notification {
 		urgency = "critical",
@@ -32,6 +30,4 @@ editor_cmd = "wezterm start " .. editor
 -- }}}
 
 require "ui"
-require "bindings"
-require "rules"
-require "notifications"
+require "config"

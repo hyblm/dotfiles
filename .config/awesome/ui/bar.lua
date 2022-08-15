@@ -1,4 +1,5 @@
 local awful     = require "awful"
+local gears     = require "gears"
 local wibox     = require "wibox"
 local beautiful = require "beautiful"
 local xrdb      = beautiful.xresources.get_current_theme()
@@ -88,6 +89,21 @@ screen.connect_signal("request::desktop_decoration", function(s)
 		},
 	}
 
+
+  require "ui.widgets.controls"
+  local control = wibox.widget{
+    markup = "",
+    font = "Material Icons Round 17",
+    valign = "center",
+    align = "center",
+    widget = wibox.widget.textbox
+  }
+  control:buttons{gears.table.join(
+    awful.button({}, 1, function()
+      cc_toggle(s)
+    end)
+  )}
+
   local clock = wibox.widget {
     {
       widget = wibox.widget.textclock,
@@ -95,14 +111,18 @@ screen.connect_signal("request::desktop_decoration", function(s)
       valign = "center",
       align = "center",
     },
-    --[[ {
-      widget = wibox.widget.textclock,
-      format = "%b %e",
-      valign = "center",
-      align = "center",
-    }, ]]
     layout = wibox.layout.fixed.vertical,
     spacing = dpi (5),
+  }
+
+  local tray = wibox.widget {
+    {
+      widget = wibox.widget.systray,
+      horizontal = false,
+    },
+    left = 4,
+    right = 4,
+    widget = wibox.container.margin,
   }
 
 	-- Create the wibox
@@ -136,7 +156,9 @@ screen.connect_signal("request::desktop_decoration", function(s)
         widget = wibox.container.margin,
       },
       { -- bottom widgets
-        require "widgets.battery",
+        tray,
+        control,
+        require "ui.widgets.battery",
         clock,
         layout = wibox.layout.fixed.vertical,
         spacing = dpi (15),

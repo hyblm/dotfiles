@@ -8,8 +8,8 @@ local dpi           = beautiful.xresources.apply_dpi
 local upower_widget = require 'modules.battery'
 
 local bat_icon = wibox.widget {
-  markup = "<span foreground='" .. "#000" .. "'></span>",
-  font = " Material Icons Round 10",
+  markup = "<span foreground='" .. "#eee" .. "'></span>",
+  font = " Material Icons Round 12",
   align = "center",
   valign = "center",
   widget = wibox.widget.textbox
