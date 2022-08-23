@@ -144,7 +144,7 @@ end)
     end)
   )}
 
-  local clock = wibox.widget {
+  local time = wibox.widget {
     {
       widget = wibox.widget.textclock,
       format = "%I\n%M",
@@ -154,6 +154,17 @@ end)
     layout = wibox.layout.fixed.vertical,
     spacing = dpi (5),
   }
+  local date = wibox.widget {
+    {
+      widget = wibox.widget.textclock,
+      format = "%b\n%e",
+      valign = "center",
+      align = "center",
+    },
+    layout = wibox.layout.fixed.vertical,
+    spacing = dpi (5),
+  }
+
 
   local tray = wibox.widget {
     {
@@ -211,7 +222,8 @@ end)
         tray,
         control,
         require "ui.widgets.battery",
-        clock,
+        time,
+        date,
         layout = wibox.layout.fixed.vertical,
         spacing = dpi (15),
       },
