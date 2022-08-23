@@ -7,35 +7,35 @@ local xrdb          = beautiful.xresources.get_current_theme()
 local dpi           = beautiful.xresources.apply_dpi
 local upower_widget = require 'modules.battery'
 
-local bat_icon = wibox.widget {
-  markup = "<span foreground='" .. "#eee" .. "'></span>",
-  font = " Material Icons Round 12",
+local charging_icon = wibox.widget {
+  markup = "<span foreground='" .. "#fff" .. "'></span>",
+  font = " Material Icons Round 13",
   align = "center",
   valign = "center",
+  visible = false,
   widget = wibox.widget.textbox
 }
 
-local battery_progress = wibox.widget{
+local battery_bar = wibox.widget {
+  max_value 			 = 100,
+  value            = 70,
+  forced_width     = dpi(26),
+  border_width     = dpi(2),
   color				     = xrdb.color6,
   background_color = "#0000",
-  forced_width     = dpi(30),
-  border_width     = dpi(1),
-  border_color     = "#eee9",
+  border_color     = "#eee5",
   paddings         = dpi(1),
   bar_shape        = function(cr, width, height) gears.shape.rounded_rect(cr, width, height, 2) end,
   shape				     = function(cr, width, height) gears.shape.rounded_rect(cr, width, height, 4) end,
-  value            = 70,
-  max_value 			 = 100,
   widget           = wibox.widget.progressbar,
 }
 
 local battery_bud = wibox.widget {
   widget = wibox.container.background,
-  bg = "#eee9",
-  forced_width = dpi(9),
-  forced_height = dpi(9),
+  forced_height = 6,
+  bg = "#eee5",
   shape = function(cr, width, height)
-    gears.shape.pie(cr,width, height, 0, math.pi)
+    gears.shape.pie(cr, width, height, math.pi, 0)
   end
 }
 
@@ -44,20 +44,20 @@ local battery = wibox.widget {
     {
       {
         battery_bud,
-        direction = "south",
-        widget = wibox.container.rotate
+        margins = 0,
+        widget = wibox.container.margin
       },
       {
-        battery_progress,
+        battery_bar,
         direction = "east",
-        widget = wibox.container.rotate()
+        widget = wibox.container.rotate
       },
-      layout = wibox.layout.fixed.vertical,
-      spacing = dpi(-4)
+      spacing = dpi(-2),
+      layout = wibox.layout.fixed.vertical
     },
     {
-      bat_icon,
-      margins = {top = dpi(8)},
+      charging_icon,
+      margins = {top = dpi(4)},
       widget = wibox.container.margin,
     },
     layout = wibox.layout.stack,
@@ -76,16 +76,19 @@ battery_listener:connect_signal("upower::update", function(_, device)
 end)
 
 awesome.connect_signal("signal::battery", function(value, state)
-  battery_progress.value = value
+  battery_bar.value = value
 
-  if value < 15 then
-    battery_progress.color = xrdb.color1
-  end
 
   if state == 1 then
-    bat_icon.visible = true
+    -- charging_icon.visible = true
+    battery_bar.color = xrdb.color6
   else
-    bat_icon.visible = false
+    -- charging_icon.visible = true
+    if value < 15 then
+      battery_bar.color = xrdb.color1
+    else
+      battery_bar.color = beautiful.fg_normal
+    end
   end
 
 end)

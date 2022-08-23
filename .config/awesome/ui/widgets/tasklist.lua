@@ -2,7 +2,7 @@ local awful = require "awful"
 local wibox = require "wibox"
 
 local tasklist = awful.widget.tasklist {
-  screen  = s,
+  -- screen  = s,
   filter  = awful.widget.tasklist.filter.currenttags,
   buttons = {
     awful.button({ }, 1, function (c)

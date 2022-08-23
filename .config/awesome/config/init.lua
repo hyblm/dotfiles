@@ -1,2 +1,3 @@
-require "config.keys"
-require "config.rules"
+require(... .. '.desktop')
+require(... .. '.keys')
+require(... .. '.rules')

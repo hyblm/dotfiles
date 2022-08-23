@@ -25,7 +25,7 @@ theme.bg_focus      = xrdb.background --.. "aa"
 theme.bg_clicked    = xrdb.color3
 theme.bg_urgent     = xrdb.color9
 theme.bg_minimize   = xrdb.color0 .. "cc"
-theme.bg_systray    = '#171413'
+theme.bg_systray    = theme.bg_normal
 
 theme.fg_normal     = '#ddd'
 theme.fg_focus      = '#fff'

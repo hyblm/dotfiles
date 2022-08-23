@@ -48,10 +48,7 @@ screen.connect_signal("request::desktop_decoration", function(s)
 		}
 	}
 
-	local tasklist = awful.widget.tasklist {
-		screen  = s,
-		filter  = awful.widget.tasklist.filter.currenttags,
-		buttons = {
+  local tasklist_buttons = {
 			awful.button({ }, 1, function (c)
 				c:activate { context = "tasklist", action = "toggle_minimization" }
 			end),
@@ -67,28 +64,33 @@ screen.connect_signal("request::desktop_decoration", function(s)
 			end),
 			awful.button({ }, 4, function() awful.client.focus.byidx(-1) end),
 			awful.button({ }, 5, function() awful.client.focus.byidx( 1) end),
-		},
-		layout = {
-			spacing = 20,
-			layout = wibox.layout.flex.vertical,
-		},
-		widget_template = {
-			{nil,
-				{{
-					awful.widget.clienticon,
-					margins = 2,
-					widget = wibox.container.margin,
-					},
-					layout = wibox.layout.align.horizontal,
-				},
-				expand = "outside",
-				layout = wibox.layout.align.horizontal,
-			},
-			id = "background_role",
-			widget = wibox.container.background,
-		},
-	}
+		}
 
+  local tasklist = awful.widget.tasklist {
+    screen   = s,
+    filter   = awful.widget.tasklist.filter.currenttags,
+    buttons  = tasklist_buttons,
+    style    = {
+      shape = function(cr, width, height)
+        gears.shape.partially_rounded_rect(cr, width, height, false, true, true, false, 15)
+      end,
+    },
+    layout   = {
+      spacing = 5,
+      layout  = wibox.layout.fixed.vertical
+    },
+    widget_template = {
+      {
+        awful.widget.clienticon,
+        left = 1,
+        right = 1,
+        margins = 15,
+        widget  = wibox.container.margin
+      },
+      id = "background_role",
+      widget = wibox.container.background
+    },
+  }
 
   require "ui.widgets.controls"
   local control = wibox.widget{
@@ -117,19 +119,31 @@ screen.connect_signal("request::desktop_decoration", function(s)
 
   local tray = wibox.widget {
     {
-      widget = wibox.widget.systray,
-      horizontal = false,
+      {
+        {
+          {
+            widget = wibox.widget.systray,
+            horizontal = false,
+          },
+          margins = 4,
+          widget = wibox.container.margin
+        },
+        bg = beautiful.bg_systray,
+        shape = function(cr,width,height) gears.shape.rounded_bar(cr, width, height) end,
+        widget = wibox.container.background
+      },
+      margins = 1,
+      widget = wibox.container.margin
     },
-    left = 4,
-    right = 4,
-    widget = wibox.container.margin,
+    screen = "primary",
+    widget = awful.widget.only_on_screen
   }
 
 	-- Create the wibox
   local mybar = awful.wibar {
 		position  = "left",
 		bg        = xrdb.background .. '99',
-    width     = dpi(35),
+    width     = dpi(32),
     type      = "dock",
     screen    = s,
 	}
@@ -144,7 +158,7 @@ screen.connect_signal("request::desktop_decoration", function(s)
         },
         {
           taglist,
-          margins = 3,
+          margins = 2,
           widget = wibox.container.margin,
         },
         layout = wibox.layout.fixed.vertical,

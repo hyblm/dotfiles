@@ -29,5 +29,5 @@ editor_cmd = "wezterm start " .. editor
 -- editor_cmd = terminal .. " -e " .. editor
 -- }}}
 
-require "ui"
 require "config"
+require "ui"
