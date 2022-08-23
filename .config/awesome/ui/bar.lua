@@ -76,21 +76,59 @@ screen.connect_signal("request::desktop_decoration", function(s)
       end,
     },
     layout   = {
-      spacing = 5,
+      spacing = 2,
       layout  = wibox.layout.fixed.vertical
     },
     widget_template = {
       {
-        awful.widget.clienticon,
-        left = 1,
-        right = 1,
-        margins = 15,
-        widget  = wibox.container.margin
+        {
+          wibox.widget.base.make_widget(),
+          forced_width = 2,
+          id = "background_role",
+          shape = gears.shape.circle,
+          widget = wibox.container.background
+        },
+        {
+          awful.widget.clienticon,
+          left = 4,
+          right = 2,
+          top = -8,
+          bottom = -8,
+          widget  = wibox.container.margin
+        },
+        nil,
+        layout = wibox.layout.align.horizontal,
       },
-      id = "background_role",
-      widget = wibox.container.background
+      top = 15,
+      bottom = 15,
+      widget = wibox.container.margin
     },
   }
+
+  client.connect_signal("manage", function(c)
+  local apply_icon = function (icon)
+      local cairo = require("lgi").cairo
+      local s = gears.surface(icon)
+      local img = cairo.ImageSurface.create(cairo.Format.ARGB32, s:get_width(), s:get_height())
+      local cr = cairo.Context(img)
+        cr:set_source_surface(s, 0, 0)
+        cr:paint()
+        c.icon = img._native
+  end
+    local icon = "/home/matt/.local/share/icons/WhiteSur-purple-dark-folders/categories/32/applications-other.svg"
+    if c.class == "obsidian" then
+      icon = "/usr/share/icons/Papirus-Dark/64x64/apps/obsidian.svg"
+    elseif c.name == "Spotify" then
+      icon = "/usr/share/icons/Papirus-Dark/64x64/apps/spotify.svg"
+    end
+    if c and c.valid and not c.icon then
+      apply_icon(icon)
+    end
+    if c.name == "nvim" then
+      icon = "/usr/share/icons/Papirus-Dark/64x64/apps/nvim.svg"
+      apply_icon(icon)
+    end
+end)
 
   require "ui.widgets.controls"
   local control = wibox.widget{
@@ -166,7 +204,7 @@ screen.connect_signal("request::desktop_decoration", function(s)
       },
       { -- middle widgets
         tasklist,
-        margins = 3,
+        right = 0,
         widget = wibox.container.margin,
       },
       { -- bottom widgets

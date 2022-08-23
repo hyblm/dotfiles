@@ -58,6 +58,7 @@ return require('packer').startup({function(use)
   -- Visual
   use 'kyazdani42/nvim-web-devicons'
   use 'ellisonleao/gruvbox.nvim'
+  use 'rockerBOO/boo-colorscheme-nvim'
   --[[ use { "folke/todo-comments.nvim",
     requires = "nvim-lua/plenary.nvim",
     config = function ()

@@ -1,3 +1,3 @@
-require(... .. '.desktop')
+-- require(... .. '.desktop')
 require(... .. '.keys')
 require(... .. '.rules')

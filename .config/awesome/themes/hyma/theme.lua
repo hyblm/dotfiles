@@ -28,6 +28,7 @@ theme.bg_minimize   = xrdb.color0 .. "cc"
 theme.bg_systray    = theme.bg_normal
 
 theme.fg_normal     = '#ddd'
+theme.fg_darker     = theme.fg_normal .. "7"
 theme.fg_focus      = '#fff'
 theme.fg_urgent     = theme.bg_normal
 theme.fg_minimize   = xrdb.color15
@@ -39,10 +40,10 @@ theme.border_color_active = xrdb.color0 .. "55"
 theme.border_color_marked = xrdb.color10
 
 theme.taglist_bg_focus = "#0000"
--- theme.taglist_fg_focus = '#fc0'
-theme.taglist_fg_occupied = xrdb.color7
-theme.tasklist_bg_focus = "#0000"
-theme.tasklist_bg_normal = "#0000"
+theme.taglist_fg_occupied = theme.fg_darker
+theme.tasklist_bg_focus = theme.fg_focus
+theme.tasklist_bg_normal = theme.fg_darker
+theme.tasklist_bg_minimize = theme.fg_normal .. "2"
 theme.tasklist_fg_normal = xrdb.color7
 
 theme.tooltip_fg = theme.fg_normal

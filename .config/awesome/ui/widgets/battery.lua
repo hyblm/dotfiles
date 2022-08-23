@@ -21,9 +21,9 @@ local battery_bar = wibox.widget {
   value            = 70,
   forced_width     = dpi(26),
   border_width     = dpi(2),
-  color				     = xrdb.color6,
+  color				     = beautiful.fg_normal,
   background_color = "#0000",
-  border_color     = "#eee5",
+  border_color     = beautiful.fg_darker,
   paddings         = dpi(1),
   bar_shape        = function(cr, width, height) gears.shape.rounded_rect(cr, width, height, 2) end,
   shape				     = function(cr, width, height) gears.shape.rounded_rect(cr, width, height, 4) end,
@@ -33,7 +33,7 @@ local battery_bar = wibox.widget {
 local battery_bud = wibox.widget {
   widget = wibox.container.background,
   forced_height = 6,
-  bg = "#eee5",
+  bg = beautiful.fg_darker,
   shape = function(cr, width, height)
     gears.shape.pie(cr, width, height, math.pi, 0)
   end
