@@ -3,7 +3,7 @@ local gears     = require "gears"
 local gfs       = require "gears.filesystem"
 
 -- Source wallpaper once, if a theme sets a wallpaper it will overwrite this option
-beautiful.wallpaper = os.getenv("XDG_CONFIG_HOME") .. "/wall.png"
+-- beautiful.wallpaper = os.getenv("XDG_CONFIG_HOME") .. "/wall.png"
 
 -- Set the theme
 local theme = "hyma"

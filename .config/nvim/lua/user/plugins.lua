@@ -38,11 +38,13 @@ return require('packer').startup({function(use)
   use 'hrsh7th/cmp-nvim-lsp'
   use 'hrsh7th/cmp-nvim-lua'
   use {'saadparwaiz1/cmp_luasnip', requires = 'L3MON4D3/LuaSnip' }
+  use 'mattn/emmet-vim'
 
   -- Navigation
   use 'nvim-telescope/telescope.nvim'
   use 'nvim-telescope/telescope-file-browser.nvim'
   use {'nvim-telescope/telescope-fzf-native.nvim', run = 'make' }
+  use {'nvim-telescope/telescope-ui-select.nvim' }
   use 'nanotee/zoxide.vim'
   use { 'goolord/alpha-nvim',
     config = function ()
@@ -58,6 +60,7 @@ return require('packer').startup({function(use)
   -- Visual
   use 'kyazdani42/nvim-web-devicons'
   use 'ellisonleao/gruvbox.nvim'
+  use 'folke/tokyonight.nvim'
   use 'rockerBOO/boo-colorscheme-nvim'
   --[[ use { "folke/todo-comments.nvim",
     requires = "nvim-lua/plenary.nvim",

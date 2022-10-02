@@ -145,14 +145,10 @@ end)
   )}
 
   local time = wibox.widget {
-    {
       widget = wibox.widget.textclock,
       format = "%I\n%M",
       valign = "center",
       align = "center",
-    },
-    layout = wibox.layout.fixed.vertical,
-    spacing = dpi (5),
   }
   local date = wibox.widget {
     {
@@ -161,8 +157,8 @@ end)
       valign = "center",
       align = "center",
     },
-    layout = wibox.layout.fixed.vertical,
-    spacing = dpi (5),
+    top = -8,
+    widget = wibox.container.margin
   }
 
 
@@ -191,7 +187,7 @@ end)
 	-- Create the wibox
   local mybar = awful.wibar {
 		position  = "left",
-		bg        = xrdb.background .. '99',
+		bg        = xrdb.background .. 'cc',
     width     = dpi(32),
     type      = "dock",
     screen    = s,

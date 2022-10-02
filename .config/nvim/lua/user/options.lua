@@ -48,5 +48,5 @@ end
 
 vim.opt.shortmess:append("c")
 
-vim.cmd[[colorscheme boo]]
+vim.cmd[[colorscheme tokyonight-night]]
 vim.cmd[[highlight Normal guibg=none]] -- use the background of the terminal emulator

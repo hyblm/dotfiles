@@ -19,7 +19,7 @@ local charging_icon = wibox.widget {
 local battery_bar = wibox.widget {
   max_value 			 = 100,
   value            = 70,
-  forced_width     = dpi(26),
+  forced_width     = dpi(28),
   border_width     = dpi(2),
   color				     = beautiful.fg_normal,
   background_color = "#0000",
@@ -84,7 +84,7 @@ awesome.connect_signal("signal::battery", function(value, state)
     battery_bar.color = xrdb.color6
   else
     -- charging_icon.visible = true
-    if value < 15 then
+    if value < 16 then
       battery_bar.color = xrdb.color1
     else
       battery_bar.color = beautiful.fg_normal

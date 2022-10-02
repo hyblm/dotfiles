@@ -1,8 +1,7 @@
 local wezterm = require("wezterm")
 
 return {
-	color_scheme = "Gruvbox Dark",
-  -- color_scheme = "Gruvbox Dark",
+	color_scheme = "tokyonight",
 	font_size = 12,
 	font = wezterm.font( "Fira Code" ),
 	harfbuzz_features = { "zero", "cv14", "cv31", "ss03", "ss02" },
