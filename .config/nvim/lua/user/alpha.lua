@@ -2,6 +2,7 @@ local dashboard = require 'alpha.themes.dashboard'
 
 dashboard.section.buttons.val = {
     dashboard.button("SPC f d", "Telescope Find File"),
+    dashboard.button("SPC f g", "Telescope Live Grep"),
 }
 
 dashboard.section.header.val = {

@@ -6,11 +6,14 @@ local beautiful = require("beautiful")
 local dpi       = beautiful.xresources.apply_dpi
 
 ruled.notification.connect_signal('request::rules', function()
-    -- All notifications will match this rule.
-    ruled.notification.append_rule {
-        rule       = { },
-        properties = { screen = awful.screen.preferred, implicit_timeout = 5}
+  -- All notifications will match this rule.
+  ruled.notification.append_rule {
+    rule       = { },
+    properties = {
+      screen = awful.screen.preferred,
+      implicit_timeout = 5,
     }
+  }
 end)
 
 naughty.connect_signal("request::display", function(n)
@@ -40,4 +43,5 @@ naughty.connect_signal("request::display", function(n)
     widget = naughty.list.actions
   }
 
+  naughty.layout.box { notification = n }
 end)

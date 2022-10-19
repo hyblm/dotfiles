@@ -62,7 +62,6 @@ awful.keyboard.append_global_keybindings {
 -- General Awesome keys
 awful.keyboard.append_global_keybindings({
 
-
     awful.key({ modkey }, "s", hotkeys_popup.show_help,
               {description="show help", group="awesome"}),
     awful.key({ modkey }, "F1", hotkeys_popup.show_help,

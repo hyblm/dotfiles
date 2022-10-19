@@ -13,6 +13,10 @@ vim.g.maplocalleader = ' '
 --
 -- Telescope
 vim.keymap.set( 'n', ' fd', require 'telescope.builtin'.find_files )
+vim.keymap.set( 'n', ' fg', require 'telescope.builtin'.live_grep )
+-- vim.keymap.set( 'n', ' nv', :cd lua function()
+--   require 'telescope.builtin'.find_files()
+-- end, {desc = ""})
 vim.keymap.set( 'n', ' /', function()
 	require 'telescope.builtin'.current_buffer_fuzzy_find(require('telescope.themes').get_ivy {} )
 end, {desc = '[/] Fuzzy find in current buffer' })

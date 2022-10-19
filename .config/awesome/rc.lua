@@ -4,17 +4,7 @@
 
 pcall (require, "luarocks.loader")
 
-local naughty = require "naughty"
-
--- {{{ Error handling
-naughty.connect_signal("request::display_error", function(message, startup)
-	naughty.notification {
-		urgency = "critical",
-		title   = "Oops, an error happened"..(startup and " during startup!" or "!"),
-		message = message
-	}
-end)
--- }}}
+require("awful.autofocus")
 
 -- {{{ Variable definitions
 -- This is used later as the default terminal and editor to run.
