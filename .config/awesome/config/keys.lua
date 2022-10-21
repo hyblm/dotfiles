@@ -95,7 +95,9 @@ awful.keyboard.append_global_keybindings({
     awful.key({ modkey, "Control" }, " ",     function () awful.spawn("rofi -show emoji") end,
               {description = "😀 Rofi Emoji picker", group = "launcher"}),
     awful.key({ modkey, "Shift" }, "a",     function () awful.spawn("rofi-todo") end,
-              {description = "😀 Rofi Emoji picker", group = "launcher"}),
+              {description = " Rofi todoist quick add", group = "launcher"}),
+    awful.key({ modkey, "Shift" }, "n",     function () awful.spawn("tod_notification.sh") end,
+              {description = " Rofi todoist show next task", group = "launcher"}),
 })
 
 -- Tags related keybindings
