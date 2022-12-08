@@ -7,16 +7,15 @@ local round_corners = function(cr, w, h)
 end
 
 local function toggle_round_corners(client)
-	local have_round_corners = true
-  -- local have_round_corners = not client.maximized
-  -- local have_round_corners = not client.fullscreen
+	-- local have_round_corners = true
+  local have_round_corners = not client.maximized and not client.fullscreen
   if have_round_corners then
     client.shape = round_corners
     else
-    -- client.shape = gears.shape.rect
+    client.shape = gears.shape.rect
   end
 end
 
 client.connect_signal("manage", toggle_round_corners)
--- client.connect_signal("property::maximized", toggle_round_corners)
--- client.connect_signal("property::fullscreen", toggle_round_corners)
+client.connect_signal("property::maximized", toggle_round_corners)
+client.connect_signal("property::fullscreen", toggle_round_corners)

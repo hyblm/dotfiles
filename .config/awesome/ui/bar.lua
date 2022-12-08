@@ -153,7 +153,7 @@ end)
   local date = wibox.widget {
     {
       widget = wibox.widget.textclock,
-      format = "%b\n%e",
+      format = "%-a\n%-b\n%-e",
       valign = "center",
       align = "center",
     },

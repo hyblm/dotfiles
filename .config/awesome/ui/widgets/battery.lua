@@ -81,7 +81,7 @@ awesome.connect_signal("signal::battery", function(value, state)
 
   if state == 1 then
     -- charging_icon.visible = true
-    battery_bar.color = xrdb.color6
+    battery_bar.color = xrdb.color2
   else
     -- charging_icon.visible = true
     if value < 16 then

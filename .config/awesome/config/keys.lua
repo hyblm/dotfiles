@@ -2,11 +2,27 @@ local awful         = require "awful"
 local beautiful     = require "beautiful"
 local hotkeys_popup = require "awful.hotkeys_popup"
 local xrandr        = require "snippets.xrandr"
+local handy         = require "modules.handy"
 
 local modkey = "Mod4"
 local shift  = "Shift"
 local ctrl   = "Control"
 local alt    = "Mod1"
+
+function run_once (prog, arg_string, pname, screen)
+    if not prog then
+    do return nil end
+    end
+if not pname then
+       pname = prog
+    end
+
+    if not arg_string then 
+        awful.util.spawn_with_shell("pgrep -f -u $USER -x '" .. pname .. "' || (" .. prg .. ")",screen)
+      else
+        awful.util.spawn_with_shell("pgrep -f -u $USER -x '" .. pname .. " ".. arg_string .."' || (" .. prg .. " " .. arg_string .. ")",screen)
+    end
+end
 
 -- {{{ Mouse bindings
 awful.mouse.append_global_mousebindings {
@@ -62,6 +78,11 @@ awful.keyboard.append_global_keybindings {
 -- General Awesome keys
 awful.keyboard.append_global_keybindings({
 
+-- Handy Scratchpads
+  awful.key({modkey, "Control", "Shift"}, "s", function ()
+    handy("spotify", awful.placement.centered, 0.9, 0.7) end,
+    {description = "Open spotify in the center of the screen", group = "Handy Scratchpads"}),
+
     awful.key({ modkey }, "s", hotkeys_popup.show_help,
               {description="show help", group="awesome"}),
     awful.key({ modkey }, "F1", hotkeys_popup.show_help,
@@ -90,7 +111,11 @@ awful.keyboard.append_global_keybindings({
               {description = "Screencapture with flameshot", group = "launcher"}),
     awful.key({ modkey }, "Return", function () awful.spawn(terminal) end,
               {description = "open a terminal", group = "launcher"}),
+    awful.key({ modkey, "Shift" }, "Return", function () run_once("obsidian") end,
+              {description = "open a terminal", group = "launcher"}),
     awful.key({ modkey }, " ",     function () awful.spawn("rofi-launcher") end,
+              {description = "Launch Rofi", group = "launcher"}),
+    awful.key({ modkey }, "a",     function () awful.spawn("misa") end,
               {description = "Launch Rofi", group = "launcher"}),
     awful.key({ modkey, "Control" }, " ",     function () awful.spawn("rofi -show emoji") end,
               {description = "😀 Rofi Emoji picker", group = "launcher"}),
@@ -136,7 +161,7 @@ awful.keyboard.append_global_keybindings({
               {description = "focus the next screen", group = "screen"}),
     awful.key({ modkey, "Control" }, "k", function () awful.screen.focus_relative(-1) end,
               {description = "focus the previous screen", group = "screen"}),
-    awful.key({ modkey, "Control" }, "n",
+    awful.key({ modkey, "Shift" }, "m",
               function ()
                   local c = awful.client.restore()
                   -- Focus restored client
@@ -259,7 +284,7 @@ end)
 
 client.connect_signal("request::default_keybindings", function()
     awful.keyboard.append_client_keybindings({
-        awful.key({ modkey,           }, "f",
+        awful.key({ modkey, "Control" }, "f",
             function (c)
                 c.fullscreen = not c.fullscreen
                 c:raise()
@@ -275,26 +300,26 @@ client.connect_signal("request::default_keybindings", function()
                 {description = "move to screen", group = "client"}),
         awful.key({ modkey,           }, "t",      function (c) c.ontop = not c.ontop            end,
                 {description = "toggle keep on top", group = "client"}),
-        awful.key({ modkey,           }, "n",
+        awful.key({ modkey,           }, "m",
             function (c)
                 -- The client currently has the input focus, so it cannot be
                 -- minimized, since minimized clients can't have the focus.
                 c.minimized = true
             end ,
             {description = "minimize", group = "client"}),
-        awful.key({ modkey,           }, "m",
+        awful.key({ modkey, "Control" }, "g",
             function (c)
                 c.maximized = not c.maximized
                 c:raise()
             end ,
             {description = "(un)maximize", group = "client"}),
-        awful.key({ modkey, "Control" }, "m",
+        awful.key({ modkey, "Control" }, "v",
             function (c)
                 c.maximized_vertical = not c.maximized_vertical
                 c:raise()
             end ,
             {description = "(un)maximize vertically", group = "client"}),
-        awful.key({ modkey, "Shift"   }, "m",
+        awful.key({ modkey, "Control" }, "h",
             function (c)
                 c.maximized_horizontal = not c.maximized_horizontal
                 c:raise()

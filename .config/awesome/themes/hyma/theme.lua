@@ -8,10 +8,8 @@ local xresources = require("beautiful.xresources")
 local rnotification = require("ruled.notification")
 local dpi = xresources.apply_dpi
 local xrdb = xresources.get_current_theme()
-local gdebug = require("gears.debug")
 local gfs = require("gears.filesystem")
 local themes_path = gfs.get_themes_dir()
-local images = gfs.get_xdg_data_home() .. "/themes/Graphite-purple-dark-compact-hdpi/xfwm4/"
 
 -- inherit default theme
 local theme = dofile(themes_path.."default/theme.lua")
@@ -33,7 +31,7 @@ theme.fg_focus      = '#fff'
 theme.fg_urgent     = theme.bg_normal
 theme.fg_minimize   = xrdb.color15
 
-theme.useless_gap   = dpi(2)
+theme.useless_gap   = dpi(5)
 theme.border_width  = dpi(1)
 theme.border_color_normal = theme.bg_normal
 theme.border_color_active = xrdb.color0 .. "55"
@@ -119,7 +117,6 @@ local bg_numberic_value = 0;
 for s in theme.bg_normal:gmatch("[a-fA-F0-9][a-fA-F0-9]") do
     bg_numberic_value = bg_numberic_value + tonumber("0x"..s);
 end
-local is_dark_bg = (bg_numberic_value < 383)
 
 -- Set different colors for urgent notifications.
 rnotification.connect_signal('request::rules', function()
