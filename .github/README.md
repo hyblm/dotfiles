@@ -6,6 +6,6 @@ dotfiles
 
 - Awesome WM
 - Wezterm
-- Neovim - ⚠ currently broken
+- Neovim
 
 The colors are a combination of [tokyonight](https://github.com/folke/tokyonight.nvim) and [boo](https://github.com/rockerBOO/boo-colorscheme-nvim) colorschemes.
