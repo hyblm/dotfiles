@@ -1,7 +1,11 @@
 dotfiles
 **managed with [yadm](https://github.com/TheLocehiliosan/yadm)**
+
+
 ![Screenshot of the desktop](desktop.png)
 
----
-### credits
-* battery and clock widget inspiration - [saimoomedits](https://github.com/saimoomedits/dotfiles)
+- Awesome WM
+- Wezterm
+- Neovim - ⚠ currently broken
+
+The colors are a combination of [tokyonight](https://github.com/folke/tokyonight.nvim) and [boo](https://github.com/rockerBOO/boo-colorscheme-nvim) colorschemes.
