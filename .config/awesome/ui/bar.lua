@@ -24,7 +24,7 @@ screen.connect_signal("request::desktop_decoration", function(s)
 		}
 	}
 
-	awful.tag({ "󰵅", "󰆋", "󰘸", "󰘳", "󰭛", "󰟡", "󰙀"}, s, awful.layout.layouts[1])
+	awful.tag({ "󰒊", "󰆋", "󰘸", "󰘳", "󰏘", "󰯙", "󰒓"}, s, awful.layout.layouts[1])
 	local taglist = awful.widget.taglist {
 		screen  = s,
 		filter  = awful.widget.taglist.filter.noempty,
@@ -161,7 +161,8 @@ end)
     widget = wibox.container.margin
   }
 
-
+  -- Have a systray container with rounded borders
+  -- TODO: make it collapsable
   local tray = wibox.widget {
     {
       {
@@ -188,7 +189,8 @@ end)
   local mybar = awful.wibar {
 		position  = "left",
 		bg        = xrdb.background .. 'cc',
-    width     = dpi(32),
+    -- width     = dpi(64),
+    width     = dpi(34),
     type      = "dock",
     screen    = s,
 	}
@@ -216,8 +218,11 @@ end)
       },
       { -- bottom widgets
         tray,
-        control,
+        -- control,
         require "ui.widgets.battery",
+        -- string.sub(awful.widget.keyboardlayout, 1, 2),
+        -- awful.widget.keyboardlayout,
+	require "ui.widgets.kbd",
         time,
         date,
         layout = wibox.layout.fixed.vertical,

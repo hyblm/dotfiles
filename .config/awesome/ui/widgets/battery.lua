@@ -8,18 +8,19 @@ local dpi           = beautiful.xresources.apply_dpi
 local upower_widget = require 'modules.battery'
 
 local charging_icon = wibox.widget {
-  markup = "<span foreground='" .. "#fff" .. "'></span>",
-  font = " Material Icons Round 13",
-  align = "center",
+  markup = "<span foreground='" .. "#e6fbf5" .. "'>󱐋</span>",
+  font = " Material Icons Round 15",
+  halign = "center",
   valign = "center",
+  ellipsize = "none",
   visible = false,
   widget = wibox.widget.textbox
 }
 
 local battery_bar = wibox.widget {
   max_value 			 = 100,
-  value            = 70,
-  forced_width     = dpi(28),
+  -- value            = 70,
+  forced_width     = dpi(30),
   border_width     = dpi(2),
   color				     = beautiful.fg_normal,
   background_color = "#0000",
@@ -80,10 +81,10 @@ awesome.connect_signal("signal::battery", function(value, state)
 
 
   if state == 1 then
-    -- charging_icon.visible = true
+    charging_icon.visible = true
     battery_bar.color = xrdb.color2
   else
-    -- charging_icon.visible = true
+    charging_icon.visible = false
     if value < 16 then
       battery_bar.color = xrdb.color1
     else
