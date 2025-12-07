@@ -1,0 +1,14 @@
+[helpers]
+
+[default]
+depends = [ ]
+
+[default.files]
+nvim = "~/.config/nvim"
+nushell = "~/.config/nushell"
+starship = "~/.config/starship.toml"
+
+[default.variables]
+
+[settings]
+default_target_type = "automatic"
