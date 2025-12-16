@@ -10,5 +10,8 @@ starship = "~/.config/starship.toml"
 
 [default.variables]
 
+[zed.files]
+"zed-settings.json"= "~/.config/zed/settings.json"
+
 [settings]
 default_target_type = "automatic"
