@@ -1,17 +1,24 @@
 [helpers]
 
 [default]
-depends = [ ]
+depends = []
 
-[default.files]
-nvim = "~/.config/nvim"
-nushell = "~/.config/nushell"
-starship = "~/.config/starship.toml"
+[starship.files]
+"starship.toml" = "~/.config/starship.toml"
 
 [default.variables]
 
 [zed.files]
-"zed-settings.json"= "~/.config/zed/settings.json"
+"zed-settings.json" = "~/.config/zed/settings.json"
+
+[nu.files]
+nushell = "~/.config/nushell"
+
+[nvim.files]
+nvim = "~/.config/nvim"
+
+[alacritty.files]
+"alacritty.toml" = "~/.config/alacritty.toml"
 
 [settings]
 default_target_type = "automatic"

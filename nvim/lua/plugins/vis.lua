@@ -1,8 +1,5 @@
 return {
-  { "rockerBOO/boo-colorscheme-nvim" },
-  { "zenbones-theme/zenbones.nvim", dependencies = "rktjmp/lush.nvim", lazy = false, priority = 1000 },
   { "savq/melange-nvim", name = "malange" },
-  { "webhooked/kanso.nvim", name = "kanso" },
   {
     "wtfox/jellybeans.nvim",
     lazy = false,

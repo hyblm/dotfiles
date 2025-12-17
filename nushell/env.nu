@@ -16,5 +16,6 @@
 #
 # You can remove these comments if you want or leave
 # them for future reference.
+$env.EDITOR = "nvim"
 
-zoxide init nushell | save -f ~/.zoxide.nu
+# zoxide init nushell | save -f ~/.zoxide.nu

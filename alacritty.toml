@@ -1,0 +1,65 @@
+[general]
+live_config_reload = true
+working_directory = "C:/Users/hybl/Documents/Code"
+
+[window]
+dynamic_padding = true
+
+[font]
+normal = { family = "GeistMono NF", style = "Regular" }
+bold = { family = "GeistMono NF", style = "Bold" }
+italic = { family = "GeistMono NF", style = "Italic" }
+bold_italic = { family = "GeistMono NF", style = "Bold Italic" }
+size = 12
+
+[terminal]
+shell = "nu"
+
+[mouse]
+hide_when_typing = true
+
+[colors.bright]
+black = "#100F0F"
+blue = "#4385BE"
+cyan = "#3AA99F"
+green = "#879A39"
+magenta = "#CE5D97"
+red = "#D14D41"
+white = "#FFFCF0"
+yellow = "#D0A215"
+
+[colors.cursor]
+cursor = "#100F0F"
+text = "#FFFCF0"
+
+[colors.dim]
+black = "#100F0F"
+blue = "#4385BE"
+cyan = "#3AA99F"
+green = "#879A39"
+magenta = "#CE5D97"
+red = "#D14D41"
+white = "#FFFCF0"
+yellow = "#D0A215"
+
+[colors.normal]
+black = "#100F0F"
+blue = "#4385BE"
+cyan = "#3AA99F"
+green = "#879A39"
+magenta = "#CE5D97"
+red = "#D14D41"
+white = "#FFFCF0"
+yellow = "#D0A215"
+
+[colors.primary]
+background = "#FFFCF0"
+bright_foreground = "#100F0F"
+dim_foreground = "#100F0F"
+foreground = "#100F0F"
+
+[keyboard]
+bindings = [
+  { key = "N", mods = "Control|Shift", action = "CreateNewWindow" },
+  { key = "T", mods = "Control|Shift", action = "CreateNewTab" },
+]
