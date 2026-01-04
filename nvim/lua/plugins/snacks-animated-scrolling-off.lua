@@ -1,8 +1,10 @@
 return {
-	"folke/snacks.nvim",
-	opts = {
-		scroll = {
-			enabled = false, -- Disable scrolling animations
-		},
-	},
+  {
+    "folke/snacks.nvim",
+    opts = {
+      scroll = { enabled = false },
+      animate = { enabled = false },
+    },
+  },
+  { "akinsho/bufferline.nvim", enabled = false },
 }

@@ -1,5 +1,5 @@
 return {
-  { "savq/melange-nvim", name = "malange" },
+  { "savq/melange-nvim", name = "melange" },
   {
     "wtfox/jellybeans.nvim",
     lazy = false,
@@ -9,7 +9,7 @@ return {
   {
     "LazyVim/LazyVim",
     opts = {
-      colorscheme = "jellybeans",
+      colorscheme = "jellybeans-mono",
     },
   },
   {
