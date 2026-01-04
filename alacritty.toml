@@ -28,9 +28,9 @@ red = "#D14D41"
 white = "#FFFCF0"
 yellow = "#D0A215"
 
-[colors.cursor]
-cursor = "#100F0F"
-text = "#FFFCF0"
+# [colors.cursor]
+# cursor = "#100F0F"
+# text = "#FFFCF0"
 
 [colors.dim]
 black = "#100F0F"
@@ -52,14 +52,46 @@ red = "#D14D41"
 white = "#FFFCF0"
 yellow = "#D0A215"
 
-[colors.primary]
-background = "#FFFCF0"
-bright_foreground = "#100F0F"
-dim_foreground = "#100F0F"
-foreground = "#100F0F"
+# [colors.primary]
+# background = "#FFFCF0"
+# bright_foreground = "#100F0F"
+# dim_foreground = "#100F0F"
+# foreground = "#100F0F"
 
 [keyboard]
 bindings = [
   { key = "N", mods = "Control|Shift", action = "CreateNewWindow" },
   { key = "T", mods = "Control|Shift", action = "CreateNewTab" },
 ]
+
+[colors.primary]
+background = '#161616'
+foreground = '#e4e4e4'
+
+[colors.cursor]
+text = '#feffff'
+cursor = '#ffb472'
+
+# [colors.normal]
+# black = '#a3a3a3'
+# red = '#e98885'
+# green = '#a3c38b'
+# yellow = '#ffc68d'
+# blue = '#a6cae2'
+# magenta = '#e7cdfb'
+# cyan = '#00a69f'
+# white = '#e4e4e4'
+
+# [colors.bright]
+# black = '#c8c8c8'
+# red = '#ffb2b0'
+# green = '#c8e2b9'
+# yellow = '#ffe1af'
+# blue = '#bddff7'
+# magenta = '#fce2ff'
+# cyan = '#0bbdb6'
+# white = '#feffff'
+
+[colors.selection]
+text = '#5963a2'
+background = '#f6f6f6'

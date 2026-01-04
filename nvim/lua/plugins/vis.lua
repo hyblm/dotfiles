@@ -4,7 +4,10 @@ return {
     "wtfox/jellybeans.nvim",
     lazy = false,
     priority = 1000,
-    opts = {}, -- Optional
+    opts = {
+      -- italics = false,
+      -- bold = false,
+    },
   },
   {
     "LazyVim/LazyVim",
@@ -21,6 +24,12 @@ return {
       search = {
         pattern = [[\b(KEYWORDS)(?:\(\w+\))?\s*:]],
       },
+    },
+  },
+  {
+    "stevearc/overseer.nvim",
+    keys = {
+      { "<leader>ow", "<cmd>OverseerToggle right<cr>", desc = "Task list" },
     },
   },
 }
