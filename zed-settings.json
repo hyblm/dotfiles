@@ -31,7 +31,7 @@
   "theme": {
     "mode": "system",
     "light": "Melange Light",
-    "dark": "Melange Dark",
+    "dark": "Jellybeans",
   },
   "theme_overrides": {
     "Melange Dark": {
