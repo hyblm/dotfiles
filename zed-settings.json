@@ -1,0 +1,58 @@
+//
+// For information on how to configure Zed, see the Zed
+// documentation: https://zed.dev/docs/configuring-zed
+//
+// To see all of Zed's default settings without changing your
+// custom settings, run `zed: open default settings` from the
+// command palette (cmd-shift-p / ctrl-shift-p)
+{
+  "buffer_font_family": ".ZedMono",
+  "preferred_line_length": 100,
+  "soft_wrap": "editor_width",
+  "inlay_hints": {
+    "enabled": false,
+  },
+  "scrollbar": {
+    "show": "never",
+  },
+  "use_smartcase_search": true,
+  "tab_bar": {
+    "show": false,
+  },
+  "gutter": {
+    "line_numbers": false,
+  },
+  "terminal": {
+    "dock": "right",
+  },
+  "vim_mode": true,
+  "ui_font_size": 12.0,
+  "buffer_font_size": 13.5,
+  "theme": {
+    "mode": "system",
+    "light": "Melange Light",
+    "dark": "Jellybeans",
+  },
+  "theme_overrides": {
+    "Melange Dark": {
+      "border": "#343331",
+      "status_bar.background": "#1c1b1a",
+      "title_bar.background": "#1c1b1a",
+      "tab_bar.background": "#1c1b1a",
+      "panel.background": "#1c1b1a",
+      "editor.background": "#101010",
+      "editor.gutter.background": "#101010",
+      "editor.subheader.background": "#1c1b1a",
+    },
+    "Jellybeans": {
+      "border": "#343331",
+      "status_bar.background": "#1c1b1a",
+      "title_bar.background": "#1c1b1a",
+      "tab_bar.background": "#1c1b1a",
+      "panel.background": "#1c1b1a",
+      "editor.background": "#101010",
+      "editor.gutter.background": "#101010",
+      "editor.subheader.background": "#1c1b1a",
+    },
+  },
+}
