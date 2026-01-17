@@ -1,7 +1,7 @@
 [helpers]
 
 [default]
-depends = []
+depends = ["starship"]
 
 [starship.files]
 "starship.toml" = "~/.config/starship.toml"

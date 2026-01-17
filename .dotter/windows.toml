@@ -7,8 +7,5 @@ nvim = "~/AppData/Local/nvim"
 [nu.files]
 nushell = "~/AppData/Roaming/nushell"
 
-[starship.files]
-"starship.toml" = "~/.config/starship.toml"
-
 [alacritty.files]
 "alacritty.toml" = "~/AppData/Roaming/alacritty/alacritty.toml"
