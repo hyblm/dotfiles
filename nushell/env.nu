@@ -18,4 +18,8 @@
 # them for future reference.
 $env.EDITOR = "nvim"
 
+{{#if dotter.windows}}
+$env.PATH ++= ['C:\Program Files\LLVM\bin']
+{{/if}}
+
 # zoxide init nushell | save -f ~/.zoxide.nu
