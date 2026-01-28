@@ -1,3 +1,6 @@
+[helix.files]
+"helix" = "~/AppData/Roaming/helix/"
+
 [nvim.files]
 nvim = "~/AppData/Local/nvim"
 

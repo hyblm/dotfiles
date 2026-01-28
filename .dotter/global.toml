@@ -17,6 +17,9 @@ nushell = "~/.config/nushell"
 [nvim.files]
 nvim = "~/.config/nvim"
 
+[helix.files]
+helix = "~/.config/helix"
+
 [alacritty.files]
 "alacritty.toml" = "~/.config/alacritty.toml"
 

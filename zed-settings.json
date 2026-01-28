@@ -6,7 +6,7 @@
 // custom settings, run `zed: open default settings` from the
 // command palette (cmd-shift-p / ctrl-shift-p)
 {
-  "buffer_font_family": ".ZedMono",
+  "helix_mode": true,
   "preferred_line_length": 100,
   "soft_wrap": "editor_width",
   "inlay_hints": {
@@ -25,7 +25,6 @@
   "terminal": {
     "dock": "right",
   },
-  "vim_mode": true,
   "ui_font_size": 12.0,
   "buffer_font_size": 13.5,
   "theme": {

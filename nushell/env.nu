@@ -16,7 +16,8 @@
 #
 # You can remove these comments if you want or leave
 # them for future reference.
-$env.EDITOR = "nvim"
+alias hx = helix
+$env.EDITOR = "helix"
 
 {{#if dotter.windows}}
 $env.PATH ++= ['C:\Program Files\LLVM\bin']
