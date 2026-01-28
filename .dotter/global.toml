@@ -20,5 +20,9 @@ nvim = "~/.config/nvim"
 [alacritty.files]
 "alacritty.toml" = "~/.config/alacritty.toml"
 
+[fonts.files.fonts]
+"target" = "~/.local/share/fonts/"
+"type" = "symbolic"
+
 [settings]
 default_target_type = "automatic"
