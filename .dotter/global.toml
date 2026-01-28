@@ -6,6 +6,9 @@ depends = ["starship"]
 [starship.files]
 "starship.toml" = "~/.config/starship.toml"
 
+[starship-jj.files]
+"starship-jj.toml" = "~/.config/starship-jj/starship-jj.toml"
+
 [default.variables]
 
 [zed.files]

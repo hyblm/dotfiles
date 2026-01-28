@@ -12,3 +12,7 @@ nushell = "~/AppData/Roaming/nushell"
 
 [alacritty.files]
 "alacritty.toml" = "~/AppData/Roaming/alacritty/alacritty.toml"
+
+[starship-jj.files]
+"starship-jj.toml" = "~/AppData/Roaming/starship-jj/starship-jj.toml"
+

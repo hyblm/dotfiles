@@ -27,6 +27,12 @@ def --env y [...args] {
 
 def --env gxc [repo:string] {
   git clone $"git@github.com:hyblm/($repo).git"
+  cd $repo
+}
+
+def --env jc [repo:string] {
+  jj git clone $"git@github.com:hyblm/($repo).git"
+  cd $repo
 }
 
 mkdir ($nu.data-dir | path join "vendor/autoload")
