@@ -19,7 +19,23 @@ C-g = [
 ]
 
 [keys.normal."space"]
+# TODO: unclober the jumplist after we execute all this
+# TODO: unclober the search register
 t = [
-    ":vsplit-new",
-    ":insert-output rg TODO",
+    ":open todos",
+    "select_all",
+    "delete_selection",
+    ''':insert-output \
+    rg --column --line-number --no-heading --color=always --smart-case -- '(TODO|FIXME|BUG|ERROR|NOTE)(\s*\(.*\))?:' | \
+    perl -pe 's/\n/\0/; s/^([^:]+:){3}/$&\n  /' | \
+    fzf --read0 --ansi --highlight-line --multi \
+        --delimiter : --preview 'bat --style=numbers --color=always --highlight-line {2} {1}' --preview-window '+{2}/4' --gap''',
+    ":redraw",
+    "move_char_left",
+    "select_mode",
+    "goto_first_nonwhitespace",
+    "search_selection_detect_word_boundaries",
+    "goto_file_start",
+    "goto_file",
+    "search_next",
 ]
