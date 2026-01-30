@@ -1,34 +1,37 @@
 [helpers]
 
 [default]
-depends = ["starship"]
-
-[starship.files]
-"starship.toml" = "~/.config/starship.toml"
-
-[starship-jj.files]
-"starship-jj.toml" = "~/.config/starship-jj/starship-jj.toml"
-
-[default.variables]
+depends = ["alacritty", "zed"]
 
 [zed.files]
 "zed-settings.json" = "~/.config/zed/settings.json"
 
-[nu.files]
-nushell = "~/.config/nushell"
-
-[nvim.files]
-nvim = "~/.config/nvim"
-
-[helix.files]
-helix = "~/.config/helix"
-
 [alacritty.files]
 "alacritty.toml" = "~/.config/alacritty.toml"
+[alacritty]
+depends = ["nu", "fonts"]
 
 [fonts.files.fonts]
 "target" = "~/.local/share/fonts/"
 "type" = "symbolic"
 
+[nu.files]
+nushell = "~/.config/nushell"
+[nu]
+depends = ["starship", "helix"]
+
+[starship.files]
+"starship.toml" = "~/.config/starship.toml"
+"starship-jj.toml" = "~/.config/starship-jj/starship-jj.toml"
+
+[helix.files]
+helix = "~/.config/helix"
+
+[nvim.files]
+nvim = "~/.config/nvim"
+
 [settings]
 default_target_type = "automatic"
+
+[default.variables]
+

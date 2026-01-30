@@ -16,11 +16,14 @@
 #
 # You can remove these comments if you want or leave
 # them for future reference.
+{{#if dotter.linux}}
 alias hx = helix
-$env.EDITOR = "helix"
+{{/if}}
+$env.EDITOR = "hx"
 
 {{#if dotter.windows}}
 $env.PATH ++= ['C:\Program Files\LLVM\bin']
 {{/if}}
+
 
 # zoxide init nushell | save -f ~/.zoxide.nu
