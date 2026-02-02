@@ -4,7 +4,7 @@
 depends = ["alacritty", "zed"]
 
 [zed.files]
-"zed-settings.json" = "~/.config/zed/settings.json"
+"zed-settings.jsonc" = "~/.config/zed/settings.json"
 
 [alacritty.files]
 "alacritty.toml" = "~/.config/alacritty.toml"
@@ -34,4 +34,3 @@ nvim = "~/.config/nvim"
 default_target_type = "automatic"
 
 [default.variables]
-

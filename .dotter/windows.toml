@@ -5,7 +5,7 @@
 nvim = "~/AppData/Local/nvim"
 
 [zed.files]
-"zed-settings.json" = "~/AppData/Roaming/Zed/settings.json"
+"zed-settings.jsonc" = "~/AppData/Roaming/Zed/settings.json"
 
 [nu.files]
 nushell = "~/AppData/Roaming/nushell"
@@ -15,4 +15,3 @@ nushell = "~/AppData/Roaming/nushell"
 
 [starship.files]
 "starship-jj.toml" = "~/AppData/Roaming/starship-jj/starship-jj.toml"
-

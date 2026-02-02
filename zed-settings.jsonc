@@ -11,23 +11,23 @@
   "soft_wrap": "editor_width",
   "show_wrap_guides": true,
   "inlay_hints": {
-    "enabled": false
+    "enabled": false,
   },
   "scrollbar": {
-    "show": "never"
+    "show": "never",
   },
   "use_smartcase_search": true,
   "tab_bar": {
-    "show": true
+    "show": true,
   },
   "gutter": {
-    "line_numbers": false
+    "line_numbers": false,
   },
   "terminal": {
     "shell": {
-      "program": "nu"
+      "program": "nu",
     },
-    "dock": "right"
+    "dock": "right",
   },
   "ui_font_size": 12.0,
   "buffer_font_size": 13.5,
@@ -35,7 +35,7 @@
   "theme": {
     "mode": "system",
     "light": "Melange Light",
-    "dark": "Jellybeans"
+    "dark": "Jellybeans",
   },
   "theme_overrides": {
     "Melange Dark": {
@@ -46,7 +46,7 @@
       "panel.background": "#1c1b1a",
       "editor.background": "#101010",
       "editor.gutter.background": "#101010",
-      "editor.subheader.background": "#1c1b1a"
+      "editor.subheader.background": "#1c1b1a",
     },
     "Jellybeans": {
       "border": "#343331",
@@ -56,7 +56,7 @@
       "panel.background": "#1c1b1a",
       "editor.background": "#101010",
       "editor.gutter.background": "#101010",
-      "editor.subheader.background": "#1c1b1a"
-    }
-  }
+      "editor.subheader.background": "#1c1b1a",
+    },
+  },
 }
