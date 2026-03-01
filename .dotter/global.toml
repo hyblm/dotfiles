@@ -30,6 +30,9 @@ helix = "~/.config/helix"
 [nvim.files]
 nvim = "~/.config/nvim"
 
+[niri.files]
+niri = "~/.config/niri"
+
 [settings]
 default_target_type = "automatic"
 

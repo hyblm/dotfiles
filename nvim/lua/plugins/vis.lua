@@ -9,10 +9,11 @@ return {
       -- bold = false,
     },
   },
+  { "p00f/alabaster.nvim" },
   {
     "LazyVim/LazyVim",
     opts = {
-      colorscheme = "jellybeans-mono",
+      colorscheme = "jellybeans",
     },
   },
   {

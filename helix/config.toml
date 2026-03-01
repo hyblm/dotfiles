@@ -1,5 +1,11 @@
 theme = "jellybeans"
 
+[editor.soft-wrap]
+enable = true
+
+[editor.inline-diagnostics]
+cursor-line = "error"
+
 [keys.normal]
 C-j = [
     ":write-all",

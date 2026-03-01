@@ -1,10 +1,3 @@
-//
-// For information on how to configure Zed, see the Zed
-// documentation: https://zed.dev/docs/configuring-zed
-//
-// To see all of Zed's default settings without changing your
-// custom settings, run `zed: open default settings` from the
-// command palette (cmd-shift-p / ctrl-shift-p)
 {
   "helix_mode": true,
   "preferred_line_length": 100,
@@ -19,21 +12,42 @@
   "use_smartcase_search": true,
   "tab_bar": {
     "show": true,
+  "agent_servers": {
+    "SymposiumDev": {
+      "args": [
+        "run"
+      ],
+      "command": "/home/matyas/.cargo/bin/symposium-acp-agent",
+      "env": {},
+      "type": "custom"
+    }
   },
+  "buffer_font_size": 13.5,
   "gutter": {
     "line_numbers": false,
   },
+  "helix_mode": true,
+  "inlay_hints": {
+    "enabled": false
+  },
+  "preferred_line_length": 100,
+  "scrollbar": {
+    "show": "never"
+  },
+  "show_wrap_guides": true,
+  "soft_wrap": "editor_width",
+  "tab_bar": {
+    "show": true
+  },
   "terminal": {
+    "dock": "right",
     "shell": {
       "program": "nu",
     },
     "dock": "right",
   },
-  "ui_font_size": 12.0,
-  "buffer_font_size": 13.5,
-  "unnecessary_code_fade": 0.4,
   "theme": {
-    "mode": "system",
+    "dark": "Jellybeans",
     "light": "Melange Light",
     "dark": "Jellybeans",
   },
@@ -50,13 +64,26 @@
     },
     "Jellybeans": {
       "border": "#343331",
-      "status_bar.background": "#1c1b1a",
-      "title_bar.background": "#1c1b1a",
-      "tab_bar.background": "#1c1b1a",
-      "panel.background": "#1c1b1a",
       "editor.background": "#101010",
       "editor.gutter.background": "#101010",
       "editor.subheader.background": "#1c1b1a",
+      "panel.background": "#1c1b1a",
+      "status_bar.background": "#1c1b1a",
+      "tab_bar.background": "#1c1b1a",
+      "title_bar.background": "#1c1b1a"
     },
+    "Melange Dark": {
+      "border": "#343331",
+      "editor.background": "#101010",
+      "editor.gutter.background": "#101010",
+      "editor.subheader.background": "#1c1b1a",
+      "panel.background": "#1c1b1a",
+      "status_bar.background": "#1c1b1a",
+      "tab_bar.background": "#1c1b1a",
+      "title_bar.background": "#1c1b1a"
+    }
   },
+  "ui_font_size": 15.0,
+  "unnecessary_code_fade": 0.4,
+  "use_smartcase_search": true
 }
