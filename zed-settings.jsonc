@@ -9,48 +9,28 @@
   "scrollbar": {
     "show": "never",
   },
-  "use_smartcase_search": true,
-  "tab_bar": {
-    "show": true,
   "agent_servers": {
     "SymposiumDev": {
-      "args": [
-        "run"
-      ],
+      "args": ["run"],
       "command": "/home/matyas/.cargo/bin/symposium-acp-agent",
       "env": {},
-      "type": "custom"
-    }
+      "type": "custom",
+    },
   },
   "buffer_font_size": 13.5,
   "gutter": {
     "line_numbers": false,
   },
-  "helix_mode": true,
-  "inlay_hints": {
-    "enabled": false
-  },
-  "preferred_line_length": 100,
-  "scrollbar": {
-    "show": "never"
-  },
-  "show_wrap_guides": true,
-  "soft_wrap": "editor_width",
   "tab_bar": {
-    "show": true
+    "show": false,
   },
   "terminal": {
-    "dock": "right",
     "shell": {
       "program": "nu",
     },
     "dock": "right",
   },
-  "theme": {
-    "dark": "Jellybeans",
-    "light": "Melange Light",
-    "dark": "Jellybeans",
-  },
+  "theme": "Jellybeans",
   "theme_overrides": {
     "Melange Dark": {
       "border": "#343331",
@@ -62,28 +42,8 @@
       "editor.gutter.background": "#101010",
       "editor.subheader.background": "#1c1b1a",
     },
-    "Jellybeans": {
-      "border": "#343331",
-      "editor.background": "#101010",
-      "editor.gutter.background": "#101010",
-      "editor.subheader.background": "#1c1b1a",
-      "panel.background": "#1c1b1a",
-      "status_bar.background": "#1c1b1a",
-      "tab_bar.background": "#1c1b1a",
-      "title_bar.background": "#1c1b1a"
-    },
-    "Melange Dark": {
-      "border": "#343331",
-      "editor.background": "#101010",
-      "editor.gutter.background": "#101010",
-      "editor.subheader.background": "#1c1b1a",
-      "panel.background": "#1c1b1a",
-      "status_bar.background": "#1c1b1a",
-      "tab_bar.background": "#1c1b1a",
-      "title_bar.background": "#1c1b1a"
-    }
   },
   "ui_font_size": 15.0,
   "unnecessary_code_fade": 0.4,
-  "use_smartcase_search": true
+  "use_smartcase_search": true,
 }

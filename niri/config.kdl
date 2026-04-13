@@ -52,7 +52,6 @@ input { // https://yalter.github.io/niri/Configuration:-Input
 }
 
 layout { // https://yalter.github.io/niri/Configuration:-Layout
-    empty-workspace-above-first
     default-column-display "tabbed"
 
     // When to center a column when changing focus, options are:

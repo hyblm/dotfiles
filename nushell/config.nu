@@ -38,3 +38,5 @@ def --env jc [repo:string] {
 mkdir ($nu.data-dir | path join "vendor/autoload")
 starship init nu | save -f ($nu.data-dir | path join "vendor/autoload/starship.nu")
 source ~/.zoxide.nu
+
+use '/home/matyas/.config/broot/launcher/nushell/br' *
