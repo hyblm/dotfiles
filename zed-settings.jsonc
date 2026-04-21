@@ -1,4 +1,10 @@
 {
+  "disable_ai": true,
+  "agent": {
+    "favorite_models": [],
+    "play_sound_when_agent_done": "never",
+    "model_parameters": [],
+  },
   "helix_mode": true,
   "preferred_line_length": 100,
   "soft_wrap": "editor_width",
@@ -15,6 +21,11 @@
       "command": "/home/matyas/.cargo/bin/symposium-acp-agent",
       "env": {},
       "type": "custom",
+    },
+  },
+  "languages": {
+    "Assembly": {
+      "language_servers": [],
     },
   },
   "buffer_font_size": 13.5,
