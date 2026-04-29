@@ -17,6 +17,7 @@ depends = ["nu", "fonts"]
 
 [nu.files]
 nushell = "~/.config/nushell"
+
 [nu]
 depends = ["starship", "helix"]
 
@@ -29,6 +30,9 @@ helix = "~/.config/helix"
 
 [nvim.files]
 nvim = "~/.config/nvim"
+
+[ghostty.files]
+ghostty = "~/.config/ghostty"
 
 [niri.files]
 niri = "~/.config/niri"
