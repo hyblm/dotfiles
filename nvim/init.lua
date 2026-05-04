@@ -1,25 +1,25 @@
 vim.pack.add({
-        'https://github.com/nvim-mini/mini.completion',      -- Autocompletion
-        'https://github.com/stevearc/quicker.nvim',          -- Enhanced quickfix/loclist
-        'https://github.com/lewis6991/gitsigns.nvim',        -- Git integration
-        'https://github.com/wtfox/jellybeans.nvim',          -- colorscheme
-        'https://github.com/nvim-mini/mini.ai',
-        'https://github.com/nvim-mini/mini.surround',
-        'https://github.com/nvim-mini/mini.operators',
-        'https://github.com/nvim-mini/mini.icons',
-        'https://github.com/nvim-mini/mini.snippets',
-        'https://github.com/ramojus/mellifluous.nvim'
+  'https://github.com/nvim-mini/mini.completion', -- Autocompletion
+  'https://github.com/stevearc/quicker.nvim',     -- Enhanced quickfix/loclist
+  'https://github.com/lewis6991/gitsigns.nvim',   -- Git integration
+  'https://github.com/wtfox/jellybeans.nvim',     -- colorscheme
+  'https://github.com/nvim-mini/mini.ai',
+  'https://github.com/nvim-mini/mini.surround',
+  'https://github.com/nvim-mini/mini.operators',
+  'https://github.com/nvim-mini/mini.icons',
+  'https://github.com/nvim-mini/mini.snippets',
+  'https://github.com/ramojus/mellifluous.nvim'
 })
 
 require('mellifluous').setup {
-        colorset = "kanagawa_dragon",
-        transparent_background = {
-                enabled = true,
-                floating_windows = false,
-                cursor_line = false,
-                status_line = true,
+  colorset = "kanagawa_dragon",
+  transparent_background = {
+    enabled = true,
+    floating_windows = false,
+    cursor_line = false,
+    status_line = true,
 
-        },
+  },
 }
 vim.cmd.colorscheme("mellifluous")
 

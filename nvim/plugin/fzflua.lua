@@ -18,4 +18,3 @@ vim.keymap.set('n', '<leader>z', function() fzflua.zoxide({}) end)
 vim.keymap.set('n', '<leader>h', function() fzflua.helptags({}) end)
 vim.keymap.set('n', '<leader>/', function() fzflua.live_grep({}) end)
 vim.keymap.set('n', '<leader><leader><leader>', function() fzflua.builtin({}) end)
-
