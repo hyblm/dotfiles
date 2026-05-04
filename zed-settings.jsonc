@@ -1,11 +1,25 @@
 {
+  "project_panel": {
+    "dock": "left",
+  },
+  "outline_panel": {
+    "dock": "left",
+  },
+  "collaboration_panel": {
+    "dock": "left",
+  },
+  "git_panel": {
+    "dock": "left",
+  },
   "disable_ai": true,
   "agent": {
+    "dock": "right",
     "favorite_models": [],
     "play_sound_when_agent_done": "never",
     "model_parameters": [],
   },
-  "helix_mode": true,
+  "helix_mode": false,
+  "vim_mode": true,
   "preferred_line_length": 100,
   "soft_wrap": "editor_width",
   "show_wrap_guides": true,
@@ -41,7 +55,7 @@
     },
     "dock": "right",
   },
-  "theme": "Jellybeans",
+  "theme": "Kanagawa Dragon",
   "theme_overrides": {
     "Melange Dark": {
       "border": "#343331",
