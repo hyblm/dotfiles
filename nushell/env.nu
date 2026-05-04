@@ -21,15 +21,18 @@
 $env.PATH ++= [
   'C:\Program Files\LLVM\bin'
 ]
-$env.EDITOR = "hx"
+$env.EDITOR = "nvim"
 {{/if}}
 
 {{#if dotter.linux}}
 alias hx = helix
-$env.EDITOR = "helix"
+$env.EDITOR = "nvim"
 $env.PATH ++= [
+  '~/.cargo/bin'
   '~/.cache/.bun/bin'
-]
+  '~/.bun/bin'
+  '~/.local/bin'
+  ]
 {{/if}}
 
 # zoxide init nushell | save -f ~/.zoxide.nu
