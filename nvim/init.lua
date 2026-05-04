@@ -7,8 +7,21 @@ vim.pack.add({
         'https://github.com/nvim-mini/mini.surround',
         'https://github.com/nvim-mini/mini.operators',
         'https://github.com/nvim-mini/mini.icons',
-        'https://github.com/nvim-mini/mini.snippets'
+        'https://github.com/nvim-mini/mini.snippets',
+        'https://github.com/ramojus/mellifluous.nvim'
 })
+
+require('mellifluous').setup {
+        colorset = "kanagawa_dragon",
+        transparent_background = {
+                enabled = true,
+                floating_windows = false,
+                cursor_line = false,
+                status_line = true,
+
+        },
+}
+vim.cmd.colorscheme("mellifluous")
 
 require('mini.completion').setup {}
 require('mini.ai').setup {}
@@ -24,5 +37,5 @@ require("hyblm.keymaps")
 require('hyblm.task_runner')
 require("hyblm.neovide")
 require("hyblm.lsp")
+require("hyblm.dap")
 
-vim.cmd.colorscheme("jellybeans")

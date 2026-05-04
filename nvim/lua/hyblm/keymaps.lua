@@ -14,6 +14,13 @@ vim.keymap.set({ 'n' }, '<A-j>', '<C-w>j')
 vim.keymap.set({ 'n' }, '<A-k>', '<C-w>k')
 vim.keymap.set({ 'n' }, '<A-l>', '<C-w>l')
 
+vim.keymap.set({ 'n' }, ']q', ':cnext<CR>')
+vim.keymap.set({ 'n' }, '[q', ':cprev<CR>')
+vim.keymap.set({ 'n' }, '<M-n>', ':cnext<CR>')
+vim.keymap.set({ 'n' }, '<M-p>', ':cprev<CR>')
+
+vim.keymap.set('t', '<Esc>', '<C-\\><C-n>')
+
 -- HELIX compat
 vim.keymap.set('n', 'gh', '^')
 vim.keymap.set('n', 'gl', '$')
@@ -24,4 +31,7 @@ vim.keymap.set('n', '<C-A-h>', function ()
         vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())
         end)
 
+vim.keymap.set('n', '<leader>k', vim.lsp.buf.hover )
+vim.keymap.set('n', '<leader>r', vim.lsp.buf.rename )
+vim.keymap.set('n', '<leader>a', vim.lsp.buf.code_action )
 vim.keymap.set('t', '<Esc>', '<C-\\><C-n>')

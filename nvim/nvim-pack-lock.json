@@ -12,6 +12,14 @@
       "rev": "29f4c17981f70c0919c2f3f918da9a89f906bf37",
       "src": "https://github.com/wtfox/jellybeans.nvim"
     },
+    "kanagawa.nvim": {
+      "rev": "8ad3b4cdcc804b332c32db8f9743667e1bb82b99",
+      "src": "https://github.com/rebelot/kanagawa.nvim"
+    },
+    "mellifluous.nvim": {
+      "rev": "ec0575bdb63594c5e7fba6eb9607b009aa1fb74e",
+      "src": "https://github.com/ramojus/mellifluous.nvim"
+    },
     "mini.ai": {
       "rev": "43eb2074843950a3a25aae56a5f41362ec043bfa",
       "src": "https://github.com/nvim-mini/mini.ai"
@@ -36,6 +44,14 @@
       "rev": "2715e04bea3ec9244f15b421dc5b18c0fe326210",
       "src": "https://github.com/nvim-mini/mini.surround"
     },
+    "nvim-dap": {
+      "rev": "45a69eba683a2c448dd9ecfc4de89511f0646b5f",
+      "src": "https://github.com/mfussenegger/nvim-dap"
+    },
+    "nvim-dap-virtual-text": {
+      "rev": "fbdb48c2ed45f4a8293d0d483f7730d24467ccb6",
+      "src": "https://github.com/theHamsta/nvim-dap-virtual-text"
+    },
     "nvim-lspconfig": {
       "rev": "bf5abe69c1874531f359a822d0cff4d73e26113f",
       "src": "https://github.com/neovim/nvim-lspconfig"
@@ -52,9 +68,22 @@
       "rev": "063cc44da1eef8681bbd653b29d3bc961780886a",
       "src": "https://github.com/stevearc/quicker.nvim"
     },
+    "rustaceanvim": {
+      "rev": "bc391bbb8db0dbf3e3e9fe8f9f03112ecbab7463",
+      "src": "https://github.com/mrcjkb/rustaceanvim",
+      "version": "9.0.0 - 10.0.0"
+    },
+    "tairiki.nvim": {
+      "rev": "4699c41536fb83e2dadae436e1eba2435fa64b08",
+      "src": "https://github.com/deparr/tairiki.nvim"
+    },
     "todo-comments.nvim": {
       "rev": "31e3c38ce9b29781e4422fc0322eb0a21f4e8668",
       "src": "https://github.com/folke/todo-comments.nvim"
+    },
+    "webapi-vim": {
+      "rev": "c7eec04aad31e1665164d8292d0ec8b5c3cc5a57",
+      "src": "https://github.com/mattn/webapi-vim"
     }
   }
 }
