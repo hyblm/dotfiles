@@ -1,8 +1,7 @@
-local last_task = nil
+local task = nil
 
 local function run_task(cmd)
-  vim.cmd("write")
-  vim.cmd("!" .. cmd)
+  vim.cmd({ cmd = "make", args = { task } })
 end
 
 vim.keymap.set("n", "<M-C-T>", function()
@@ -12,15 +11,20 @@ vim.keymap.set("n", "<M-C-T>", function()
     return
   end
 
-  last_task = cmd
+  task = cmd
   run_task(cmd)
 end, { desc = "Run task" })
 
 vim.keymap.set("n", "<M-t>", function()
-  if not last_task then
-    vim.notify("No task has been run yet", vim.log.levels.WARN)
-    return
+  if not task then
+    local cmd = vim.fn.input("Task: ")
+
+    if cmd == "" then
+      return
+    end
+
+    task = cmd
   end
 
-  run_task(last_task)
+  run_task(task)
 end, { desc = "Rerun last task" })

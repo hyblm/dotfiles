@@ -32,6 +32,14 @@
       "rev": "bac6317300e205335df425296570d84322730067",
       "src": "https://github.com/nvim-mini/mini.icons"
     },
+    "mini.jump": {
+      "rev": "9e94f41a3ebcd5f5771d36fdedb18fde9d28da76",
+      "src": "https://github.com/nvim-mini/mini.jump"
+    },
+    "mini.jump2d": {
+      "rev": "c0df3170873b712b61951781aeee9942a92ba1f1",
+      "src": "https://github.com/nvim-mini/mini.jump2d"
+    },
     "mini.operators": {
       "rev": "fccb5e3ef0cc319b217ed9c7db1a4672dd6b766c",
       "src": "https://github.com/nvim-mini/mini.operators"
@@ -72,6 +80,10 @@
       "rev": "bc391bbb8db0dbf3e3e9fe8f9f03112ecbab7463",
       "src": "https://github.com/mrcjkb/rustaceanvim",
       "version": "9.0.0 - 10.0.0"
+    },
+    "shannon": {
+      "rev": "f392c5cdce17999cf63adf075e49ac9ad6d9daca",
+      "src": "https://github.com/wincent/shannon"
     },
     "tairiki.nvim": {
       "rev": "4699c41536fb83e2dadae436e1eba2435fa64b08",

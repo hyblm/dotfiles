@@ -14,17 +14,36 @@ vim.keymap.set({ 'n' }, '<A-j>', '<C-w>j')
 vim.keymap.set({ 'n' }, '<A-k>', '<C-w>k')
 vim.keymap.set({ 'n' }, '<A-l>', '<C-w>l')
 
-vim.keymap.set({ 'n' }, ']q', ':cnext<CR>')
-vim.keymap.set({ 'n' }, '[q', ':cprev<CR>')
-vim.keymap.set({ 'n' }, '<M-n>', ':cnext<CR>')
-vim.keymap.set({ 'n' }, '<M-p>', ':cprev<CR>')
+-- inspired by Greg Hurrell Vim screencast #2: folding https://youtu.be/oqYQ7IeDs0E?si=4hi3_yeqi-vdpLGB
+vim.keymap.set({ 'n' }, '<S-Tab>', 'za')
+
+local function qf_next()
+  if not pcall(vim.cmd.cnext) then
+    vim.cmd.cfirst()
+  end
+end
+
+local function qf_prev()
+  if not pcall(vim.cmd.cprevious) then
+    vim.cmd.clast()
+  end
+end
+
+vim.keymap.set({ 'n' }, ']q', qf_next, { desc = 'Next quickfix item, wrapping' })
+vim.keymap.set({ 'n' }, '[q', qf_prev, { desc = 'Previous quickfix item, wrapping' })
+vim.keymap.set({ 'n' }, '<M-n>', qf_next, { desc = 'Next quickfix item, wrapping' })
+vim.keymap.set({ 'n' }, '<M-p>', qf_prev, { desc = 'Previous quickfix item, wrapping' })
 
 vim.keymap.set('t', '<Esc>', '<C-\\><C-n>')
 
 -- HELIX compat
 vim.keymap.set('n', 'gh', '^')
+vim.keymap.set('n', 'gn', ':bnext<CR>')
+vim.keymap.set('n', 'gp', ':bprev<CR>')
 vim.keymap.set('n', 'gl', '$')
 vim.keymap.set('n', 'ge', 'G')
+vim.keymap.set('n', '<leader>c', 'gcc', { remap = true, desc = "Comment line" })
+vim.keymap.set('n', '<M-c>', 'gcc', { remap = true, desc = "Comment line" })
 vim.keymap.set('n', 'ga', '<C-^>')
 vim.keymap.set('n', 'ga', '<C-^>')
 vim.keymap.set('n', '<C-A-h>', function()
