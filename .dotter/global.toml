@@ -6,6 +6,10 @@ depends = ["alacritty", "zed"]
 [zed.files]
 "zed-settings.jsonc" = "~/.config/zed/settings.json"
 
+[agents.files]
+"agents" = "~/.agents"
+"pi" = "~/.pi"
+
 [alacritty.files]
 "alacritty.toml" = "~/.config/alacritty.toml"
 [alacritty]
