@@ -9,8 +9,8 @@ require('nvim-treesitter').install(langs)
 for _, lang in ipairs(langs) do
   vim.api.nvim_create_autocmd('FileType', {
     pattern = { lang },
-    callback = function()
-      vim.treesitter.start()
+    callback = function(ev)
+      vim.treesitter.start(ev.buf, lang)
     end,
   })
 end

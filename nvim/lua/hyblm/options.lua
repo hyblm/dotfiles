@@ -19,6 +19,7 @@ vim.o.listchars = "tab:» ,trail:•" -- Show <tab> and trailing spaces.
 vim.o.breakindent = true -- Keep soft-wrapped lines aligned with their original indentation.
 vim.o.breakindentopt = 'sbr' -- Show the soft-wrap indicator before indentation.
 vim.o.showbreak = '↪ ' -- Visual indicator at the start of soft-wrapped lines.
+vim.o.signcolumn = "yes"
 
 -- folding inspired by https://youtu.be/89A0IMvB6z8?si=drwMXkxonBAGKQzd
 vim.o.foldlevelstart = 99
@@ -36,9 +37,9 @@ require('vim._core.ui2').enable()
 -- increase startup-time. Remove this option if you want your OS clipboard to remain independent.
 -- See `:h 'clipboard'`
 vim.api.nvim_create_autocmd('UIEnter', {
-    callback = function()
-        vim.o.clipboard = 'unnamedplus'
-    end,
+  callback = function()
+    vim.o.clipboard = 'unnamedplus'
+  end,
 })
 
 -- AUTOCOMMANDS (EVENT HANDLERS)
@@ -48,10 +49,10 @@ vim.api.nvim_create_autocmd('UIEnter', {
 -- Highlight when yanking (copying) text.
 -- Try it with `yap` in normal mode. See `:h vim.hl.on_yank()`
 vim.api.nvim_create_autocmd('TextYankPost', {
-    desc = 'Highlight when yanking (copying) text',
-    callback = function()
-        vim.hl.on_yank()
-    end,
+  desc = 'Highlight when yanking (copying) text',
+  callback = function()
+    vim.hl.on_yank()
+  end,
 })
 
 -- USER COMMANDS: DEFINE CUSTOM COMMANDS
@@ -60,9 +61,9 @@ vim.api.nvim_create_autocmd('TextYankPost', {
 
 -- Create a command `:GitBlameLine` that print the git blame for the current line
 vim.api.nvim_create_user_command('GitBlameLine', function()
-    local line_number = vim.fn.line('.') -- Get the current line number. See `:h line()`
-    local filename = vim.api.nvim_buf_get_name(0)
-    print(vim.system({ 'git', 'blame', '-L', line_number .. ',+1', filename }):wait().stdout)
+  local line_number = vim.fn.line('.') -- Get the current line number. See `:h line()`
+  local filename = vim.api.nvim_buf_get_name(0)
+  print(vim.system({ 'git', 'blame', '-L', line_number .. ',+1', filename }):wait().stdout)
 end, { desc = 'Print the git blame for the current line' })
 
 -- PLUGINS
