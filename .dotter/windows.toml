@@ -6,6 +6,7 @@ nvim = "~/AppData/Local/nvim"
 
 [zed.files]
 "zed-settings.jsonc" = "~/AppData/Roaming/Zed/settings.json"
+"zed-keymap.jsonc" = "~/AppData/Roaming/Zed/keymap.json"
 
 [nu.files]
 nushell = "~/AppData/Roaming/nushell"
