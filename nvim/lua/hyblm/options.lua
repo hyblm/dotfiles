@@ -6,9 +6,9 @@
 vim.o.undofile = true
 vim.o.smoothscroll = true
 vim.o.expandtab = true
+
 vim.o.shiftwidth = 4
-vim.o.softtabstop = 2
-vim.o.tabstop = 2
+vim.o.tabstop = 4
 vim.o.ignorecase = true -- Case-insensitive searching UNLESS \C or one or more capital letters in the search term
 vim.o.smartcase = true
 vim.o.cursorline = true -- Highlight the line where the cursor is on.
@@ -19,6 +19,7 @@ vim.o.listchars = "tab:» ,trail:•" -- Show <tab> and trailing spaces.
 vim.o.breakindent = true -- Keep soft-wrapped lines aligned with their original indentation.
 vim.o.breakindentopt = 'sbr' -- Show the soft-wrap indicator before indentation.
 vim.o.showbreak = '↪ ' -- Visual indicator at the start of soft-wrapped lines.
+vim.o.signcolumn = "yes"
 
 -- folding inspired by https://youtu.be/89A0IMvB6z8?si=drwMXkxonBAGKQzd
 vim.o.foldlevelstart = 99
