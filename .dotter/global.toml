@@ -7,6 +7,10 @@ depends = ["alacritty", "zed"]
 "zed-settings.jsonc" = "~/.config/zed/settings.json"
 "zed-keymap.jsonc" = "~/.config/zed/keymap.json"
 
+[agents.files]
+"agents" = "~/.agents"
+"pi" = "~/.pi"
+
 [alacritty.files]
 "alacritty.toml" = "~/.config/alacritty.toml"
 [alacritty]

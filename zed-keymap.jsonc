@@ -1,0 +1,26 @@
+[
+  {
+    "context": "vim_mode != insert",
+    "bindings": {
+      "space z": "projects::OpenRecent",
+    },
+  },
+  {
+    "context": "!Editor && !Terminal",
+    "bindings": {
+      "space s": "project_symbols::Toggle"
+    }
+  },
+  {
+    "context": "!Editor && !Terminal",
+    "unbind": {
+      "space shift-s": "project_symbols::Toggle"
+    }
+  },
+  {
+    "context": "!Terminal && vim_mode != insert",
+    "bindings": {
+      "space f": "file_finder::Toggle"
+    }
+  }
+]
