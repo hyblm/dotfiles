@@ -39,6 +39,9 @@ nvim = "~/.config/nvim"
 [ghostty.files]
 ghostty = "~/.config/ghostty"
 
+[tmux.files]
+tmux = "~/.config/tmux"
+
 [niri.files]
 niri = "~/.config/niri"
 
