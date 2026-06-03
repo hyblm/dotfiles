@@ -1,5 +1,25 @@
 [
   {
+    "context": "Workspace",
+    "bindings": {
+      // Tmux-style pane focus navigation.
+      "alt-h": "workspace::ActivatePaneLeft",
+      "alt-j": "workspace::ActivatePaneDown",
+      "alt-k": "workspace::ActivatePaneUp",
+      "alt-l": "workspace::ActivatePaneRight",
+      "alt-left": "workspace::ActivatePaneLeft",
+      "alt-down": "workspace::ActivatePaneDown",
+      "alt-up": "workspace::ActivatePaneUp",
+      "alt-right": "workspace::ActivatePaneRight",
+
+      // Tmux-style window/item navigation.
+      "alt-shift-h": "pane::ActivatePreviousItem",
+      "alt-shift-l": "pane::ActivateNextItem",
+      "alt-shift-left": "pane::ActivatePreviousItem",
+      "alt-shift-right": "pane::ActivateNextItem",
+    },
+  },
+  {
     "context": "vim_mode != insert",
     "bindings": {
       "space z": "projects::OpenRecent",
@@ -8,19 +28,19 @@
   {
     "context": "!Editor && !Terminal",
     "bindings": {
-      "space s": "project_symbols::Toggle"
-    }
+      "space s": "project_symbols::Toggle",
+    },
   },
   {
     "context": "!Editor && !Terminal",
     "unbind": {
-      "space shift-s": "project_symbols::Toggle"
-    }
+      "space shift-s": "project_symbols::Toggle",
+    },
   },
   {
     "context": "!Terminal && vim_mode != insert",
     "bindings": {
-      "space f": "file_finder::Toggle"
-    }
-  }
+      "space f": "file_finder::Toggle",
+    },
+  },
 ]
