@@ -2,7 +2,7 @@
   {
     "context": "Workspace",
     "bindings": {
-      // Tmux-style pane focus navigation.
+      // Neovim: <A-h/j/k/l> window navigation.
       "alt-h": "workspace::ActivatePaneLeft",
       "alt-j": "workspace::ActivatePaneDown",
       "alt-k": "workspace::ActivatePaneUp",
@@ -12,7 +12,7 @@
       "alt-up": "workspace::ActivatePaneUp",
       "alt-right": "workspace::ActivatePaneRight",
 
-      // Tmux-style window/item navigation.
+      // Neovim: gn/gp buffer navigation.
       "alt-shift-h": "pane::ActivatePreviousItem",
       "alt-shift-l": "pane::ActivateNextItem",
       "alt-shift-left": "pane::ActivatePreviousItem",
@@ -20,14 +20,48 @@
     },
   },
   {
-    "context": "vim_mode != insert",
+    "context": "Editor && vim_mode == normal",
     "bindings": {
+      // HELIX-compat mappings from nvim/lua/hyblm/keymaps.lua.
+      "g h": "editor::MoveToBeginningOfLine",
+      "g l": "editor::MoveToEndOfLine",
+      "g e": "editor::MoveToEnd",
+      "g n": "pane::ActivateNextItem",
+      "g p": "pane::ActivatePreviousItem",
+      "g a": "pane::ActivatePreviousItem",
+
+      // Folding: nvim maps <S-Tab> to za.
+      "shift-tab": "editor::ToggleFold",
+
+      // Comments: nvim maps <leader>c and <M-c> to gcc.
+      "space c": "editor::ToggleComments",
+      "alt-c": "editor::ToggleComments",
+
+      // LSP: nvim maps <leader>k/K to hover, <leader>r to rename,
+      // <leader>a to code actions, and <leader>R to references.
+      "space k": "editor::Hover",
+      "space shift-k": "editor::Hover",
+      "space r": "editor::Rename",
+      "space a": "editor::ToggleCodeActions",
+      "space shift-r": "editor::FindAllReferences",
+    },
+  },
+  {
+    "context": "!Terminal && vim_mode != insert",
+    "bindings": {
+      // fzf-lua-ish pickers from nvim/plugin/fzflua.lua.
+      "space f": "file_finder::Toggle",
+      "space b": "tab_switcher::Toggle",
+      "space s": "outline::Toggle",
+      "space shift-s": "project_symbols::Toggle",
+      "space slash": "pane::DeploySearch",
       "space z": "projects::OpenRecent",
     },
   },
   {
     "context": "!Editor && !Terminal",
     "bindings": {
+      // Keep symbol search available outside editors too.
       "space s": "project_symbols::Toggle",
     },
   },
@@ -35,12 +69,6 @@
     "context": "!Editor && !Terminal",
     "unbind": {
       "space shift-s": "project_symbols::Toggle",
-    },
-  },
-  {
-    "context": "!Terminal && vim_mode != insert",
-    "bindings": {
-      "space f": "file_finder::Toggle",
     },
   },
 ]
