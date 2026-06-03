@@ -26,6 +26,11 @@
   "inlay_hints": {
     "enabled": false,
   },
+  "diagnostics": {
+    "inline": {
+      "enabled": true,
+    },
+  },
   "scrollbar": {
     "show": "never",
   },
@@ -42,12 +47,48 @@
       "language_servers": [],
     },
   },
+  "lsp": {
+    "rust-analyzer": {
+      "initialization_options": {
+        "checkOnSave": true,
+        "check": {
+          "workspace": false,
+          "command": "clippy",
+          "extraArgs": [
+            "--",
+            "-D", "clippy::correctness",
+            "-D", "clippy::suspicious",
+            "-D", "clippy::style",
+            "-D", "clippy::complexity",
+            "-D", "clippy::perf",
+            // "-W", "clippy::absolute_paths",
+            // "-W", "clippy::excessive_nesting",
+            // "-W", "clippy::too_many_lines",
+            // "-W", "clippy::dbg_macro",
+            // "-W", "clippy::dbg_macro",
+            // "-W", "clippy::deref_by_slicing",
+            // "-W", "clippy::else_if_without_else",
+            // "-W", "clippy::get_unwrap",
+            // "-W", "clippy::if_then_some_else_none",
+            // "-W", "clippy::impl_trait_in_params",
+            // "-W", "clippy::missing_asserts_for_indexing",
+            // "-W", "clippy::missing_inline_in_public_items",
+            // "-W", "clippy::mod_module_files",
+            // "-W", "clippy::module_name_repetitions",
+            // "-W", "clippy::multiple_unsafe_ops_per_block",
+            // "-W", "clippy::mutex_atomic",
+            // "-W", "clippy::rc_buffer"
+          ],
+        },
+      },
+    },
+  },
   "buffer_font_size": 13.5,
   "gutter": {
     "line_numbers": false,
   },
   "tab_bar": {
-    "show": false,
+    "show": true,
   },
   "terminal": {
     "shell": {
