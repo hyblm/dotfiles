@@ -47,7 +47,7 @@
     },
   },
   {
-    "context": "!Terminal && vim_mode != insert",
+    "context": "!Terminal && vim_mode == normal",
     "bindings": {
       // fzf-lua-ish pickers from nvim/plugin/fzflua.lua.
       "space f": "file_finder::Toggle",
@@ -59,14 +59,14 @@
     },
   },
   {
-    "context": "!Editor && !Terminal",
+    "context": "!Editor && !Terminal && vim_mode == normal",
     "bindings": {
-      // Keep symbol search available outside editors too.
+      // Keep symbol search available outside editors too, but only in normal mode.
       "space s": "project_symbols::Toggle",
     },
   },
   {
-    "context": "!Editor && !Terminal",
+    "context": "!Editor && !Terminal && vim_mode == normal",
     "unbind": {
       "space shift-s": "project_symbols::Toggle",
     },
