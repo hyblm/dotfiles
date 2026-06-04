@@ -1,8 +1,6 @@
 vim.pack.add({
   'https://github.com/nvim-mini/mini.completion', -- Autocompletion
   'https://github.com/stevearc/quicker.nvim',     -- Enhanced quickfix/loclist
-  'https://github.com/lewis6991/gitsigns.nvim',   -- Git integration
-  'https://github.com/wtfox/jellybeans.nvim',     -- colorscheme
   'https://github.com/nvim-mini/mini.ai',
   'https://github.com/nvim-mini/mini.jump',
   'https://github.com/nvim-mini/mini.jump2d',
@@ -10,7 +8,12 @@ vim.pack.add({
   'https://github.com/nvim-mini/mini.operators',
   'https://github.com/nvim-mini/mini.icons',
   'https://github.com/nvim-mini/mini.snippets',
-  'https://github.com/ramojus/mellifluous.nvim'
+
+  -- colorschemes
+  'https://github.com/wtfox/jellybeans.nvim',
+  'https://github.com/ramojus/mellifluous.nvim',
+  'https://github.com/oskarnurm/koda.nvim',
+  'https://github.com/slugbyte/lackluster.nvim',
 })
 
 require('mellifluous').setup {
@@ -32,9 +35,8 @@ require('mini.ai').setup {}
 require('mini.surround').setup {}
 require('mini.operators').setup {}
 require('mini.icons').setup {}
-require('mini.snippets').setup {}
+-- require('mini.snippets').setup {}
 require('quicker').setup {}
-require('gitsigns').setup {}
 
 require("hyblm.options")
 require("hyblm.keymaps")
