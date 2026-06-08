@@ -1,0 +1,2 @@
+includes = [".dotter/windows.toml"]
+packages = ["default", "zed", "nu", "starship", "nvim"]
