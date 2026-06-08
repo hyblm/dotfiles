@@ -1,5 +1,9 @@
 {
   "plugins": {
+    "bamboo.nvim": {
+      "rev": "1309bc88bffcf1bedc3e84e7fa9004de93da774a",
+      "src": "https://github.com/ribru17/bamboo.nvim"
+    },
     "fzf-lua": {
       "rev": "2e29d5f233defe3c5587df0e4dd29af2bd95a5a7",
       "src": "https://github.com/ibhagwan/fzf-lua"
@@ -15,6 +19,18 @@
     "kanagawa.nvim": {
       "rev": "8ad3b4cdcc804b332c32db8f9743667e1bb82b99",
       "src": "https://github.com/rebelot/kanagawa.nvim"
+    },
+    "koda.nvim": {
+      "rev": "ff7ea32c2002ee18032629122f8232fc97e5ccb3",
+      "src": "https://github.com/oskarnurm/koda.nvim"
+    },
+    "lackluster.nvim": {
+      "rev": "70dd682e564784893b984deb51dd5ddd263c8cc7",
+      "src": "https://github.com/slugbyte/lackluster.nvim"
+    },
+    "melange-nvim": {
+      "rev": "ce42f6b629beeaa00591ba73a77d3eeac4cf28ce",
+      "src": "https://github.com/savq/melange-nvim"
     },
     "mellifluous.nvim": {
       "rev": "ec0575bdb63594c5e7fba6eb9607b009aa1fb74e",
@@ -86,8 +102,7 @@
     },
     "rustaceanvim": {
       "rev": "bc391bbb8db0dbf3e3e9fe8f9f03112ecbab7463",
-      "src": "https://github.com/mrcjkb/rustaceanvim",
-      "version": "9.0.0 - 10.0.0"
+      "src": "https://github.com/mrcjkb/rustaceanvim"
     },
     "shannon": {
       "rev": "f392c5cdce17999cf63adf075e49ac9ad6d9daca",
@@ -104,6 +119,10 @@
     "webapi-vim": {
       "rev": "c7eec04aad31e1665164d8292d0ec8b5c3cc5a57",
       "src": "https://github.com/mattn/webapi-vim"
+    },
+    "zenbones.nvim": {
+      "rev": "239bdb9a09c8d38c752c43590d02f654ed0da2b0",
+      "src": "https://github.com/zenbones-theme/zenbones.nvim"
     }
   }
 }

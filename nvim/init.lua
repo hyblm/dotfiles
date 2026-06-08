@@ -10,6 +10,7 @@ vim.pack.add({
   'https://github.com/nvim-mini/mini.snippets',
 
   -- colorschemes
+  'https://github.com/savq/melange-nvim',
   'https://github.com/wtfox/jellybeans.nvim',
   'https://github.com/ramojus/mellifluous.nvim',
   'https://github.com/oskarnurm/koda.nvim',
@@ -26,7 +27,7 @@ require('mellifluous').setup {
 
   },
 }
-vim.cmd.colorscheme("mellifluous")
+vim.cmd.colorscheme("melange")
 
 require('mini.completion').setup {}
 require('mini.jump').setup {}

@@ -29,11 +29,32 @@ vim.api.nvim_create_autocmd("LspAttach", {
 
     -- vim.keymap.set("n", "<S-K>", vim.lsp.buf.hover)
 
+    if client:supports_method("textDocument/definition") then
+      vim.keymap.set("n", "gd", vim.lsp.buf.definition, { buffer = args.buf, desc = "Go to definition" })
+    end
+
+    if client:supports_method("textDocument/declaration") then
+      vim.keymap.set("n", "gD", vim.lsp.buf.declaration, { buffer = args.buf, desc = "Go to declaration" })
+    end
+
+    if client:supports_method("textDocument/typeDefinition") then
+      vim.keymap.set("n", "gy", vim.lsp.buf.type_definition, { buffer = args.buf, desc = "Go to type definition" })
+    end
+
     if client:supports_method("textDocument/formatting") then
       vim.api.nvim_create_autocmd("BufWritePre", {
         buffer = args.buf,
         callback = function()
-          vim.lsp.buf.format({ bufnr = args.buf, id = client.id })
+          local format_opts = { bufnr = args.buf, id = client.id }
+
+          if client.name == 'astro' then
+            format_opts.formatting_options = {
+              insertSpaces = true,
+              tabSize = 2,
+            }
+          end
+
+          vim.lsp.buf.format(format_opts)
         end,
       })
     end
