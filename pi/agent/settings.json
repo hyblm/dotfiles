@@ -1,9 +1,10 @@
 {
-  "lastChangelogVersion": "0.78.0",
+  "lastChangelogVersion": "0.78.1",
   "defaultProvider": "openai-codex",
   "defaultModel": "gpt-5.5",
   "defaultThinkingLevel": "low",
   "skills": [
     "~/.claude/plugins/marketplaces/wincent-claude-plugins/pi"
-  ]
+  ],
+  "hideThinkingBlock": true
 }
