@@ -12,7 +12,7 @@ depends = ["alacritty", "zed"]
 "pi" = "~/.pi"
 
 [alacritty.files]
-"alacritty.toml" = "~/.config/alacritty.toml"
+"alacritty" = "~/.config/alacritty/"
 [alacritty]
 depends = ["nu", "fonts"]
 
