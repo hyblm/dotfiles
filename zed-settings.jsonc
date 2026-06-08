@@ -101,7 +101,7 @@
     },
     "dock": "right",
   },
-  "theme": "Kanagawa Dragon",
+  "theme": "Melange Light",
   "theme_overrides": {
     "Melange Dark": {
       "border": "#343331",
