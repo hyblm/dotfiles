@@ -39,4 +39,10 @@ mkdir ($nu.data-dir | path join "vendor/autoload")
 starship init nu | save -f ($nu.data-dir | path join "vendor/autoload/starship.nu")
 source ~/.zoxide.nu
 
+{{#if dotter.windows}}
+use 'C:\Users\hybl\AppData\Roaming\dystroy\broot\config\launcher\nushell\br' *
+{{/if}}
+
+{{#if dotter.linux}}
 use '/home/matyas/.config/broot/launcher/nushell/br' *
+{{/if}}
