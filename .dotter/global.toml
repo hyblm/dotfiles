@@ -3,6 +3,9 @@
 [default]
 depends = ["alacritty", "zed"]
 
+[cargo.files]
+cargo = "~/.cargo"
+
 [zed.files]
 "zed-settings.jsonc" = "~/.config/zed/settings.json"
 "zed-keymap.jsonc" = "~/.config/zed/keymap.json"
@@ -14,6 +17,11 @@ depends = ["alacritty", "zed"]
 [alacritty.files]
 "alacritty" = "~/.config/alacritty/"
 [alacritty]
+depends = ["nu", "fonts"]
+
+[foot.files]
+"foot" = "~/.config/foot/"
+[foot]
 depends = ["nu", "fonts"]
 
 [fonts.files.fonts]
