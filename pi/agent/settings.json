@@ -6,5 +6,6 @@
   "skills": [
     "~/.claude/plugins/marketplaces/wincent-claude-plugins/pi"
   ],
-  "hideThinkingBlock": true
+  "hideThinkingBlock": true,
+  "theme": "melange-light"
 }
