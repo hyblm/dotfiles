@@ -1,3 +1,3 @@
 [build]
-target-dir = "~/.local/rust-target"
+target-dir = "~/.cargo/target"
 rustc-wrapper= "sccache"
