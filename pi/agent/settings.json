@@ -1,5 +1,5 @@
 {
-  "lastChangelogVersion": "0.79.1",
+  "lastChangelogVersion": "0.79.5",
   "defaultProvider": "openai-codex",
   "defaultModel": "gpt-5.5",
   "defaultThinkingLevel": "minimal",
@@ -7,5 +7,5 @@
     "~/.claude/plugins/marketplaces/wincent-claude-plugins/pi"
   ],
   "hideThinkingBlock": true,
-  "theme": "melange-dark"
+  "theme": "dark"
 }

@@ -1,4 +1,26 @@
 {
+  "ssh_connections": [
+    {
+      "host": "edhouse",
+      "username": "hybl",
+      "args": [
+        "-i",
+        ".ssh/id_ed25519ed"
+      ],
+      "projects": [
+        {
+          "paths": [
+            "C:\\Users\\/hybl"
+          ]
+        },
+        {
+          "paths": [
+            "C:\\Users\\hybl\\Documents\\Dev\\Projects\\sky\\microanalysis\\services\\acquisition-recorder\\/.\\"
+          ]
+        }
+      ]
+    }
+  ],
   "project_panel": {
     "dock": "left",
   },
@@ -101,17 +123,21 @@
     },
     "dock": "right",
   },
-  "theme": "Melange Light",
+  "theme": {
+    "mode": "system",
+    "light": "Melange Light",
+    "dark": "Zenbones Dark",
+  },
   "theme_overrides": {
     "Melange Dark": {
-      "border": "#343331",
-      "status_bar.background": "#1c1b1a",
-      "title_bar.background": "#1c1b1a",
-      "tab_bar.background": "#1c1b1a",
-      "panel.background": "#1c1b1a",
-      "editor.background": "#101010",
-      "editor.gutter.background": "#101010",
-      "editor.subheader.background": "#1c1b1a",
+      // "border": "#343331",
+      // "status_bar.background": "#1c1b1a",
+      // "title_bar.background": "#1c1b1a",
+      // "tab_bar.background": "#1c1b1a",
+      // "panel.background": "#1c1b1a",
+      // "editor.background": "#101010",
+      // "editor.gutter.background": "#101010",
+      // "editor.subheader.background": "#1c1b1a",
     },
   },
   "ui_font_size": 15.0,

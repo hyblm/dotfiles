@@ -15,19 +15,25 @@ vim.pack.add({
   'https://github.com/ramojus/mellifluous.nvim',
   'https://github.com/oskarnurm/koda.nvim',
   'https://github.com/slugbyte/lackluster.nvim',
+  'https://github.com/RockerBOO/boo-colorscheme-nvim',
+  'https://github.com/zenbones-theme/zenbones.nvim',
+  'https://github.com/rktjmp/lush.nvim',
 })
 
 require('mellifluous').setup {
+  -- colorset = "mellifluous",
+  -- colorset = "alduin",
+  -- colorset = "mountain",
+  -- colorset = "tender",
   colorset = "kanagawa_dragon",
-  transparent_background = {
-    enabled = true,
-    floating_windows = false,
-    cursor_line = false,
-    status_line = true,
-
-  },
+  -- transparent_background = {
+  --   enabled = true,
+  --   floating_windows = false,
+  --   cursor_line = false,
+  --   status_line = true,
+  -- },
 }
-vim.cmd.colorscheme("melange")
+vim.cmd.colorscheme("zenbones")
 
 require('mini.completion').setup {}
 require('mini.jump').setup {}

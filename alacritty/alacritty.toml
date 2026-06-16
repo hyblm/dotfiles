@@ -2,7 +2,7 @@
 live_config_reload = true
 working_directory = "C:/Users/hybl/"
 
-import = ['melange_dark.toml']
+import = ['zenbones_dark.toml']
 
 [window]
 dynamic_padding = true

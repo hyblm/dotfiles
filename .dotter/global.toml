@@ -9,6 +9,7 @@ cargo = "~/.cargo"
 [zed.files]
 "zed-settings.jsonc" = "~/.config/zed/settings.json"
 "zed-keymap.jsonc" = "~/.config/zed/keymap.json"
+"zed/themes" = "~/.config/zed/themes"
 
 [agents.files]
 "agents" = "~/.agents"

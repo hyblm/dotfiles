@@ -19,7 +19,7 @@
 # ==========================
 # # The config file consists of simple key-value pairs,
 # # separated by equals signs.
-font-family = ZedMono Nerd Font
+font-family = Lilex Nerd Font Mono
 # window-padding-x = 2
 #
 # # Spacing around the equals sign does not matter.
@@ -42,7 +42,7 @@ font-family = ZedMono Nerd Font
 # # Just for example:
 # resize-overlay-duration = 4s 200ms
 command = nu
-theme = dark:Flexoki Dark,light:Flexoki Light
+theme = dark:Zenbones Dark,light:Zenbones Light
 window-padding-balance = true
 gtk-tabs-location = hidden
 font-size = 11
