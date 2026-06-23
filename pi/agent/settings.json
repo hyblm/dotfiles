@@ -7,5 +7,5 @@
     "~/.claude/plugins/marketplaces/wincent-claude-plugins/pi"
   ],
   "hideThinkingBlock": true,
-  "theme": "dark"
+  "theme": "zenbones-light/zenbones-dark"
 }

@@ -27,7 +27,8 @@ $env.EDITOR = "nvim"
 {{#if dotter.linux}}
 alias hx = helix
 $env.EDITOR = "nvim"
-$env.BAT_THEME = "Melange Dark"
+$env.BAT_THEME_DARK = "Zenbones Dark"
+$env.BAT_THEME_LIGHT = "Zenbones Light"
 $env.PAGER = "bat -p"
 $env.PATH ++= [
   '~/.cargo/bin'
