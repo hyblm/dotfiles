@@ -48,6 +48,9 @@ helix = "~/.config/helix"
 [nvim.files]
 nvim = "~/.config/nvim"
 
+[emacs.files]
+"emacs" = "~/.config/emacs"
+
 [ghostty.files]
 ghostty = "~/.config/ghostty"
 
