@@ -18,6 +18,11 @@
 (use-package tao-theme
   :config (load-theme 'tao-yin t))
 
+(use-package pi-coding-agent
+  :config (defalias 'pi 'pi-coding-agent))
+(use-package magit)
+(use-package vterm)
+(use-package eat)
 (use-package vertico
   :init (vertico-mode 1))
 (use-package marginalia
