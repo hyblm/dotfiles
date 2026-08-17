@@ -36,7 +36,7 @@ depends = ["nu", "fonts"]
 nushell = "~/.config/nushell"
 
 [nu]
-depends = ["starship", "helix"]
+depends = ["starship", "helix", "nvim"]
 
 [starship.files]
 "starship.toml" = "~/.config/starship.toml"
@@ -108,7 +108,7 @@ depends = ["fuzzel"]
 [river.files]
 river = "~/.config/river"
 [river]
-depends = ["kwm", "mako", "kanshi"]
+depends = ["kwm", "mako", "kanshi", "foot"]
 
 [kanshi.files]
 kanshi = "~/.config/kanshi"

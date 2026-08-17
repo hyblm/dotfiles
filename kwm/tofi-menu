@@ -1,0 +1,21 @@
+#!/bin/sh
+
+set -eu
+
+pick="$(printf '%s\n' \
+  '󰀻 Applications' \
+  '󰖨 Theme' \
+  '󰓃 Audio output' \
+  '󰂯 Bluetooth' \
+  '󰌪 Power profile' \
+  | tofi --prompt-text 'Menu: ')"
+
+case "$pick" in
+  '󰀻 Applications') exec tofi-drun --drun-launch=true ;;
+  '󰖨 Theme') exec "$HOME/.config/kwm/theme-menu" ;;
+  '󰓃 Audio output') exec "$HOME/.config/kwm/audio-output-menu" ;;
+  '󰂯 Bluetooth') exec "$HOME/.config/kwm/bluetooth-menu" ;;
+  '󰌪 Power profile') exec "$HOME/.config/kwm/power-profile-menu" ;;
+  '') exit 0 ;;
+  *) exit 1 ;;
+esac

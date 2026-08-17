@@ -1,0 +1,56 @@
+#!/bin/sh
+set -eu
+
+export XDG_CURRENT_DESKTOP=river
+export XDG_SESSION_DESKTOP=river
+export XDG_SESSION_TYPE=wayland
+export TERMINAL=${TERMINAL:-ghostty}
+
+# Match niri keyboard config: us/cz(qwerty), Win+Space layout toggle, Caps as Ctrl.
+# River 0.4 does not currently have the old input-management API;
+# libxkbcommon reads these defaults when River creates the keymap.
+export XKB_DEFAULT_LAYOUT="us,cz"
+export XKB_DEFAULT_VARIANT=",qwerty"
+export XKB_DEFAULT_OPTIONS="grp:win_space_toggle,ctrl:nocaps"
+
+wallpaper="$HOME/Pictures/Wallpapers/undefined - Imgur (5).jpg"
+
+# Make the Wayland environment visible to systemd/dbus activated services.
+if command -v dbus-update-activation-environment >/dev/null 2>&1; then
+  dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP XDG_SESSION_DESKTOP XDG_SESSION_TYPE DISPLAY || true
+fi
+if command -v systemctl >/dev/null 2>&1; then
+  systemctl --user import-environment WAYLAND_DISPLAY XDG_CURRENT_DESKTOP XDG_SESSION_DESKTOP XDG_SESSION_TYPE DISPLAY || true
+fi
+
+# Background services. Avoid starting a second copy after an init/config restart.
+start_once() {
+  name=$1
+  shift
+  if command -v pgrep >/dev/null 2>&1 && pgrep -x "$name" >/dev/null 2>&1; then
+    return
+  fi
+  "$@" &
+}
+
+command -v xwayland-satellite >/dev/null 2>&1 && start_once xwayland-satellite xwayland-satellite
+command -v swaybg >/dev/null 2>&1 && start_once swaybg swaybg -i "$wallpaper" -m fill
+command -v mako >/dev/null 2>&1 && start_once mako mako
+# River delegates output placement to kanshi (see ~/.config/kanshi/config).
+command -v kanshi >/dev/null 2>&1 && start_once kanshi kanshi
+
+# Portals are D-Bus activated. Starting them here causes duplicate instances.
+
+# kwm opens its status FIFO while loading the config, before startup commands run.
+# Ensure it exists first so the status area can attach to it.
+kwm_status_fifo=/tmp/kwm-status
+if [ ! -p "$kwm_status_fifo" ]; then
+  rm -f "$kwm_status_fifo"
+  mkfifo "$kwm_status_fifo"
+fi
+
+# Start the actual window manager. Keep this last.
+if [ -x "$HOME/.local/bin/kwm" ]; then
+  exec "$HOME/.local/bin/kwm"
+fi
+exec kwm

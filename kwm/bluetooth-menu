@@ -1,0 +1,33 @@
+#!/bin/sh
+
+set -eu
+
+paired="$(bluetoothctl devices Paired 2>/dev/null || true)"
+[ -n "$paired" ] || exit 0
+
+connected="$(bluetoothctl devices Connected 2>/dev/null | awk '{ print $2 }' || true)"
+
+items="$(printf '%s\n' "$paired" | while read -r _ mac name; do
+  [ -n "$mac" ] || continue
+  mark="󰂲"
+  if printf '%s\n' "$connected" | grep -qx "$mac"; then
+    mark="󰂱"
+  fi
+  printf '%s %s\t%s\n' "$mark" "$name" "$mac"
+done)"
+
+pick="$(printf '%s\n' "$items" | awk -F '\t' '{ print $1 }' | tofi --prompt-text 'Bluetooth: ')"
+[ -n "$pick" ] || exit 0
+
+mac="$(printf '%s\n' "$items" | awk -F '\t' -v pick="$pick" '$1 == pick { print $2; exit }')"
+[ -n "$mac" ] || exit 0
+
+name="${pick#* }"
+
+if printf '%s\n' "$connected" | grep -qx "$mac"; then
+  bluetoothctl disconnect "$mac"
+  notify-send "Bluetooth disconnected" "$name" 2>/dev/null || true
+else
+  bluetoothctl connect "$mac"
+  notify-send "Bluetooth connected" "$name" 2>/dev/null || true
+fi
