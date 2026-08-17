@@ -88,9 +88,10 @@
    '("'" . repeat)
    '("<escape>" . ignore)))
 
-(require 'meow)
-(meow-setup)
-(meow-global-mode 1)
+(use-package meow
+  :config
+  (meow-setup)
+  (meow-global-mode 1))
 
 (provide 'meow-config)
 ;;; meow-config.el ends here

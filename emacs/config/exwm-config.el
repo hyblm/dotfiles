@@ -1,4 +1,5 @@
-(require 'exwm)
+;; This file is intentionally loaded only by the EXWM session launcher.
+(use-package exwm)
 (require 'exwm-randr)
 ;; Make Caps Lock act as Control for EXWM.
 (call-process "setxkbmap" nil nil nil "-option" "ctrl:nocaps")
