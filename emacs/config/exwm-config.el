@@ -42,7 +42,11 @@
 (setq exwm-input-global-keys
       `(
         ([?\s-r] . exwm-reset)
-        (,(kbd "s-M-<print>") . exwm-toggle-tao-theme)
+	([?\s-f] . exwm-layout-toggle-fullscreen)
+	([?\s-t] . exwm-floating-toggle-floating)
+	([?\s-q] . delete-window)
+	([?\s-b] . balance-windows)
+        (,(kbd "M-s-<Sys_Req>") . exwm-toggle-tao-theme)
         ([?\s-w] . exwm-workspace-switch)
         ([?\s-p] . (lambda (cmd)
                      (interactive (list (read-shell-command "$ ")))
