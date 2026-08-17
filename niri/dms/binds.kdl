@@ -1,0 +1,8 @@
+    binds {
+        Mod+Shift+D hotkey-overlay-title="dictation" {
+            spawn "dictate.nu";
+        }
+        Mod+Shift+A hotkey-overlay-title="Download audiobook from clipboard" {
+            spawn "nu" "-c" "~/.cargo/bin/audiobookdl (wl-paste)";
+        }
+    }
