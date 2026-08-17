@@ -92,8 +92,9 @@
   (start-process "udiskie" nil "udiskie" "--no-notify"))
 
 ;; Enable libinput's natural scrolling on every detected touchpad.
-(start-process-shell-command
+(start-process
  "enable-natural-trackpad-scrolling" nil
+ "bash" "-c"
  "for id in $(xinput list --short 2>/dev/null | sed -n 's/.*[Tt]ouchPad.*id=\\([0-9]*\\).*/\\1/p'); do xinput set-prop \"$id\" 'libinput Natural Scrolling Enabled' 1 2>/dev/null; done")
 
 ;; Configure RandR whenever monitors are connected or disconnected.  The

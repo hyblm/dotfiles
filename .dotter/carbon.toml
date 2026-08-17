@@ -1,2 +1,1 @@
-
-packages = ["default", "bat", "foot", "cargo", "ghostty", "tmux", "nu", "zed", "starship", "niri", "nvim", "agents"]
+packages = ["default", "nix", "river", "bat", "foot", "cargo", "ghostty", "tmux", "nu", "zed", "niri", "nvim", "exwm", "agents"]

@@ -1,7 +1,7 @@
 [helpers]
 
 [default]
-depends = ["alacritty", "zed"]
+depends = ["zed"]
 
 [cargo.files]
 cargo = "~/.cargo"
@@ -45,11 +45,54 @@ depends = ["starship", "helix"]
 [helix.files]
 helix = "~/.config/helix"
 
+[nix.files]
+nix = "~/.config/nix"
+
+[kwm]
+depends = ["kwim", "tofi"]
+[kwm.files."kwm/config.zon"]
+target = "~/.config/kwm/config.zon"
+type = "symbolic"
+
+[kwm.files."kwm/kwm-status"]
+target = "~/.config/kwm/kwm-status"
+type = "symbolic"
+
+[kwm.files."kwm/theme-menu"]
+target = "~/.config/kwm/theme-menu"
+type = "symbolic"
+
+[kwm.files."kwm/audio-output-menu"]
+target = "~/.config/kwm/audio-output-menu"
+type = "symbolic"
+
+[kwm.files."kwm/bluetooth-menu"]
+target = "~/.config/kwm/bluetooth-menu"
+type = "symbolic"
+
+[kwm.files."kwm/power-profile-menu"]
+target = "~/.config/kwm/power-profile-menu"
+type = "symbolic"
+
+[kwm.files."kwm/tofi-menu"]
+target = "~/.config/kwm/tofi-menu"
+type = "symbolic"
+
+[kwim.files."kwim/config.zon"]
+target = "~/.config/kwim/config.zon"
+type = "symbolic"
+
 [nvim.files]
 nvim = "~/.config/nvim"
 
 [emacs.files]
 "emacs" = "~/.config/emacs"
+
+[exwm.files]
+"exwm/exwm.Desktop" = "~/.local/share/xsessions/exwm.Desktop"
+"exwm/udiskie/config.yml" = "~/.config/udiskie/config.yml"
+[exwm]
+depends = ["emacs"]
 
 [ghostty.files]
 ghostty = "~/.config/ghostty"
@@ -59,6 +102,28 @@ tmux = "~/.config/tmux"
 
 [niri.files]
 niri = "~/.config/niri"
+[niri]
+depends = ["fuzzel"]
+
+[river.files]
+river = "~/.config/river"
+[river]
+depends = ["kwm", "mako", "kanshi"]
+
+[kanshi.files]
+kanshi = "~/.config/kanshi"
+
+[mako.files]
+mako = "~/.config/mako"
+
+[fuzzel.files]
+fuzzel = "~/.config/fuzzel"
+
+[tofi.files]
+tofi = "~/.config/tofi"
+
+[vdirsyncer.files]
+"vdirsyncer/config" = "~/.vdirsyncer/config"
 
 [settings]
 default_target_type = "automatic"

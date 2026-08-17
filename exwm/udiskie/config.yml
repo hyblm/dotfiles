@@ -1,0 +1,4 @@
+# Mount removable filesystems through UDisks2 so GVfs/Thunar can see them.
+automount: true
+notify: false
+tray: false
