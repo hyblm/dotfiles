@@ -1,7 +1,7 @@
 local task = nil
 
 local function run_task(cmd)
-  vim.cmd({ cmd = "make", args = { task } })
+  vim.cmd({ cmd = "make", args = { cmd } })
 end
 
 vim.keymap.set("n", "<M-C-T>", function()

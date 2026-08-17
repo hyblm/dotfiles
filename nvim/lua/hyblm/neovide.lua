@@ -1,6 +1,8 @@
 if vim.g.neovide == true then
-  vim.o.guifont = "Lilex Nerd Font:h11.4"       -- the biggest that fits 2 full width views side by side
+  vim.o.guifont = "Lilex Nerd Font:h11.4" -- Fits two full-width views side by side.
   vim.g.neovide_remember_window_size = true
   vim.g.neovide_remember_window_position = true
-  vim.api.nvim_set_keymap("n", "<F11>", ":let g:neovide_fullscreen = !g:neovide_fullscreen<CR>", {})
+  vim.keymap.set("n", "<F11>", function()
+    vim.g.neovide_fullscreen = not vim.g.neovide_fullscreen
+  end, { desc = "Toggle fullscreen" })
 end
