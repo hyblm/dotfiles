@@ -1,0 +1,36 @@
+# NieR:Automata / YoRHa-inspired mako theme
+# muted parchment, warm grays, stark black typography
+font=monospace 10
+
+background-color=#D8D0BC
+text-color=#3A352C
+border-color=#7E7666
+progress-color=over #B4AA8E
+
+border-size=1
+border-radius=0
+padding=14
+margin=12
+width=380
+max-icon-size=64
+default-timeout=5000
+ignore-timeout=1
+
+[urgency=low]
+background-color=#C9C1AE
+text-color=#5B5549
+border-color=#9A907B
+
+[urgency=normal]
+background-color=#D8D0BC
+text-color=#3A352C
+border-color=#7E7666
+
+[urgency=high]
+background-color=#D8D0BC
+text-color=#211E19
+border-color=#8F4E3F
+default-timeout=0
+
+[category=mpd]
+default-timeout=2000
