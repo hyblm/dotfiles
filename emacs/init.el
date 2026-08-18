@@ -16,7 +16,31 @@
 (eval-when-compile (require 'use-package))
 
 (use-package tao-theme
-  :config (load-theme 'tao-yin t))
+  :config
+  (defun my/system-dark-mode-p ()
+    "Return non-nil when the desktop is currently using a dark theme."
+    (when (executable-find "gsettings")
+      (let ((color-scheme
+             (string-trim
+              (shell-command-to-string
+               "gsettings get org.gnome.desktop.interface color-scheme 2>/dev/null")))
+            (gtk-theme
+             (string-trim
+              (shell-command-to-string
+               "gsettings get org.gnome.desktop.interface gtk-theme 2>/dev/null"))))
+        (or (string-match-p "dark" color-scheme)
+            (string-match-p "dark" gtk-theme)))))
+
+  (defun my/sync-theme-with-system ()
+    "Select the Tao theme matching the desktop appearance."
+    (let ((theme (if (my/system-dark-mode-p) 'tao-yin 'tao-yang)))
+      (unless (custom-theme-enabled-p theme)
+        (mapc #'disable-theme custom-enabled-themes)
+        (load-theme theme t))))
+
+  ;; Select the theme once when Emacs starts.  Emacs has no portable hook for
+  ;; desktop appearance changes; reacting while running is desktop-specific.
+  (my/sync-theme-with-system))
 
 (use-package pi-coding-agent
   :config (defalias 'pi 'pi-coding-agent))
