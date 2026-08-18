@@ -277,6 +277,7 @@
 (use-package mini-modeline
   ;; :after smart-mode-line
   :config
+  (setq mini-modeline-display-gui-line nil)
   (mini-modeline-mode t))
 ;; (use-package nerd-icons
 ;;   :ensure t
