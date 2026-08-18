@@ -47,6 +47,7 @@
 (savehist-mode 1)
 (save-place-mode 1)
 
+(use-package naysayer-theme)
 (use-package doom-themes
   :ensure t)
 (use-package tao-theme)
@@ -65,7 +66,7 @@
 
 (defun my/sync-theme-with-system ()
   "Select the Tao theme matching the desktop appearance."
-  (let ((theme (if (my/system-dark-mode-p) 'doom-sourcerer 'tao-yang)))
+  (let ((theme (if (my/system-dark-mode-p) 'doom-tomorrow-night 'doom-tomorrow-day)))
     (unless (custom-theme-enabled-p theme)
       (mapc #'disable-theme custom-enabled-themes)
       (load-theme theme t))))
@@ -272,18 +273,27 @@
 (use-package embark-consult
   :ensure t) ; only need to install it, embark loads it after consult if found
 
-(use-package nerd-icons
-  :ensure t
-  :custom
-  (nerd-icons-font-family "Lilex Nerd Font Mono"))
-(use-package doom-modeline
-  :ensure t
-  :init (doom-modeline-mode 1))
+;; I'm activating mini-modeline after smart-mode-line
+(use-package mini-modeline
+  ;; :after smart-mode-line
+  :config
+  (mini-modeline-mode t))
+;; (use-package nerd-icons
+;;   :ensure t
+;;   :custom
+;;   (nerd-icons-font-family "Lilex Nerd Font Mono"))
+;; (use-package doom-modeline
+;;   :ensure t
+;;   :init (doom-modeline-mode 1))
+
 (use-package meow
   :config (require 'meow-config))
 
-;; (use-package pi-coding-agent
-;;  :config (defalias 'pi 'pi-coding-agent))
+(use-package exwm
+  :config (require 'exwm-config))
+
+(use-package pi-coding-agent
+ :config (defalias 'pi 'pi-coding-agent))
 
 
 (server-start)

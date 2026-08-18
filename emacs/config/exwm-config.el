@@ -1,33 +1,10 @@
 ;; This file is intentionally loaded only by the EXWM session launcher.
-(use-package exwm)
 (require 'exwm-randr)
 ;; Make Caps Lock act as Control for EXWM.
 (call-process "setxkbmap" nil nil nil "-option" "ctrl:nocaps")
 (setq exwm-workspace-number 4)
-
-(defun exwm-sync-gtk-theme ()
-  "Make GTK applications follow the current Tao theme."
-  (when (executable-find "gsettings")
-    (start-process
-     "sync-gtk-theme" nil "gsettings" "set"
-     "org.gnome.desktop.interface" "color-scheme"
-     (if (memq 'tao-yin custom-enabled-themes)
-         "prefer-dark"
-       "prefer-light"))))
-
-(defun exwm-toggle-tao-theme ()
-  "Toggle between the Tao Yin and Tao Yang themes and update GTK."
-  (interactive)
-  (if (memq 'tao-yin custom-enabled-themes)
-      (progn
-        (disable-theme 'tao-yin)
-        (load-theme 'tao-yang t))
-    (disable-theme 'tao-yang)
-    (load-theme 'tao-yin t))
-  (exwm-sync-gtk-theme))
-
-;; Synchronize GTK with the theme selected when EXWM starts.
-(exwm-sync-gtk-theme)
+(add-hook 'exwm-update-class-hook
+	  (lambda () (exwm-workspace-rename-buffer exwm-class-name)))
 
 (defun exwm-run-shell-command (command)
   "Run COMMAND asynchronously from an EXWM key binding."
@@ -47,32 +24,26 @@
 	([?\s-t] . exwm-floating-toggle-floating)
 	([?\s-q] . delete-window)
 	([?\s-b] . balance-windows)
-        (,(kbd "M-s-<Sys_Req>") . exwm-toggle-tao-theme)
         ([?\s-w] . exwm-workspace-switch)
         ([?\s-p] . (lambda (cmd)
                      (interactive (list (read-shell-command "$ ")))
                      (start-process-shell-command cmd nil cmd)))
         ;; Workspace selection and navigation.
-        ([?\s-1] . (lambda () (interactive) (exwm-workspace-switch 0)))
-        ([?\s-2] . (lambda () (interactive) (exwm-workspace-switch 1)))
-        ([?\s-3] . (lambda () (interactive) (exwm-workspace-switch 2)))
-        ([?\s-4] . (lambda () (interactive) (exwm-workspace-switch 3)))
+	,@(mapcar (lambda (i)
+		    `(,(kbd (format "s-%d" i)) .
+		      (lambda () (interactive) (exwm-workspace-switch-create ,i))))
+		  (number-sequence 0 9))
         ([?\s-h] . (lambda () (interactive) (exwm-switch-workspace-relative -1)))
         ([?\s-l] . (lambda () (interactive) (exwm-switch-workspace-relative 1)))
         ;; Cycle through windows on the current workspace.
         ([?\s-j] . (lambda () (interactive) (other-window 1)))
         ([?\s-k] . (lambda () (interactive) (other-window -1)))
         ;; Media keys.
-        ([XF86AudioRaiseVolume] . (lambda () (interactive)
-                                    (exwm-run-shell-command "wpctl set-volume @DEFAULT_AUDIO_SINK@ 0.1+ -l 1.0")))
-        ([XF86AudioLowerVolume] . (lambda () (interactive)
-                                    (exwm-run-shell-command "wpctl set-volume @DEFAULT_AUDIO_SINK@ 0.1-")))
-        ([XF86AudioMute] . (lambda () (interactive)
-                            (exwm-run-shell-command "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle")))
-        ([XF86MonBrightnessUp] . (lambda () (interactive)
-                                   (exwm-run-shell-command "brightnessctl --class=backlight set +10%")))
-        ([XF86MonBrightnessDown] . (lambda () (interactive)
-                                     (exwm-run-shell-command "brightnessctl --class=backlight set 10%-")))))
+        ([XF86AudioRaiseVolume]  . (lambda () (interactive) (exwm-run-shell-command "wpctl set-volume @DEFAULT_AUDIO_SINK@ 0.1+ -l 1.0")))
+        ([XF86AudioLowerVolume]  . (lambda () (interactive) (exwm-run-shell-command "wpctl set-volume @DEFAULT_AUDIO_SINK@ 0.1-")))
+        ([XF86AudioMute]         . (lambda () (interactive) (exwm-run-shell-command "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle")))
+        ([XF86MonBrightnessUp]   . (lambda () (interactive) (exwm-run-shell-command "brightnessctl --class=backlight set +10%")))
+        ([XF86MonBrightnessDown] . (lambda () (interactive) (exwm-run-shell-command "brightnessctl --class=backlight set 10%-")))))
 (defun exwm-async-run (name)
   "Run a process asynchronously"
   (interactive)
@@ -90,12 +61,6 @@
 	      (exwm-workspace-switch-to-buffer program-buffer-name)))
 	(exwm-async-run program)))))
 (start-process "nm-applet" nil "nm-applet")
-;; Let UDisks2 mount removable media for this user.  GVfs (used by
-;; Thunar) will expose the resulting mounts in its sidebar.
-(when (and (executable-find "udiskie")
-           (not (process-live-p (get-process "udiskie"))))
-  (start-process "udiskie" nil "udiskie" "--no-notify"))
-
 ;; Enable libinput's natural scrolling on every detected touchpad.
 (start-process
  "enable-natural-trackpad-scrolling" nil
