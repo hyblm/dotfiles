@@ -87,12 +87,12 @@
     (if external
         (when (= 0 (call-process "xrandr" nil nil nil
                                  "--output" laptop "--auto"
-                                 "--output" external "--auto"
+                                 "--output" external "--auto" "--primary"
                                  "--left-of" laptop))
-          ;; Keep workspace 0 on the external display; unspecified workspaces
-          ;; remain on the primary (laptop) display.
+          ;; Keep workspace 0 on the external display. Unspecified workspaces
+          ;; follow the RandR primary output, which is the external display.
           (setq exwm-randr-workspace-monitor-plist
-                (list 0 external 1 laptop))
+                (list 0 laptop 1 external))
           (when exwm-randr--connection
             (exwm-randr-refresh)))
       (setq exwm-randr-workspace-monitor-plist nil)
