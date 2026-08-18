@@ -1,0 +1,51 @@
+#!/bin/sh
+
+set -eu
+
+state_dir="${XDG_STATE_HOME:-$HOME/.local/state}"
+state_file="$state_dir/color-scheme"
+mkdir -p "$state_dir"
+
+current="dark"
+[ -r "$state_file" ] && current="$(cat "$state_file")"
+
+pick="${1:-}"
+if [ -z "$pick" ]; then
+  pick="$(printf '󰜉 Toggle\n󰖨 Light\n󰖔 Dark\n' | tofi --prompt-text 'Theme: ' | awk '{print tolower($2)}')"
+fi
+
+case "$pick" in
+  light)
+    scheme="default"
+    mode="light"
+    ;;
+  dark)
+    scheme="prefer-dark"
+    mode="dark"
+    ;;
+  toggle)
+    if [ "$current" = "dark" ]; then
+      scheme="default"
+      mode="light"
+    else
+      scheme="prefer-dark"
+      mode="dark"
+    fi
+    ;;
+  "")
+    exit 0
+    ;;
+  *)
+    printf 'usage: %s [light|dark|toggle]\n' "$0" >&2
+    exit 2
+    ;;
+esac
+
+# This is the freedesktop/GTK portal setting most Wayland apps watch.
+gsettings set org.gnome.desktop.interface color-scheme "$scheme"
+
+# Older GTK apps may still look at this boolean.
+gsettings set org.gnome.desktop.interface gtk-application-prefer-dark-theme "$([ "$mode" = dark ] && printf true || printf false)" 2>/dev/null || true
+
+printf '%s\n' "$mode" > "$state_file"
+notify-send "Theme switched" "$mode" 2>/dev/null || true

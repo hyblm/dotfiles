@@ -45,6 +45,7 @@ command = nu
 theme = dark:Zenbones Dark,light:Zenbones Light
 window-padding-balance = true
 gtk-tabs-location = hidden
+window-decoration = none
 font-size = 11
 
 # Slowdown mouse scrolling

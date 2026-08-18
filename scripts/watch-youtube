@@ -1,0 +1,12 @@
+#!/bin/env bash
+
+video=$1
+if [[ -z $video ]] then
+    video=$(wl-paste)
+fi
+if [[ -z $video ]] then
+    echo nothing to play
+else
+    mpv --ytdl-format='bestvideo[height<=1080]+bestaudio/best[height<=1080]' $video
+fi
+

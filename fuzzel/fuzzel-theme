@@ -1,0 +1,26 @@
+#!/usr/bin/env sh
+
+config_home="${XDG_CONFIG_HOME:-$HOME/.config}"
+
+mode=""
+
+# DMS is what generates the niri theme on this system, so prefer it over
+# xdg-desktop-portal/GNOME settings. Those can be "default" even while DMS is
+# in light mode.
+if command -v dms >/dev/null 2>&1; then
+    mode="$(dms ipc theme getMode 2>/dev/null || true)"
+fi
+
+if [ -z "$mode" ] && command -v gsettings >/dev/null 2>&1; then
+    case "$(gsettings get org.gnome.desktop.interface color-scheme 2>/dev/null || true)" in
+        *prefer-light*) mode="light" ;;
+        *prefer-dark*)  mode="dark" ;;
+    esac
+fi
+
+case "$mode" in
+    light) config="$config_home/fuzzel/fuzzel-light.ini" ;;
+    *)     config="$config_home/fuzzel/fuzzel-dark.ini" ;;
+esac
+
+exec fuzzel --config="$config" "$@"

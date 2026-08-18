@@ -1,0 +1,7 @@
+# River output profile. These stable manufacturer/model/serial identifiers avoid
+# connector names, which can vary with dock or driver probe order.
+
+profile laptop-external {
+    output "AU Optronics 0x173D Unknown" position 1920,0
+    output "Acer Technologies R271 T60EE0012421" position 0,0
+}

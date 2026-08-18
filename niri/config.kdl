@@ -9,7 +9,7 @@ input { // https://yalter.github.io/niri/Configuration:-Input
         xkb { // see xkeyboard-config(7)
             layout "us,cz"
             variant ",qwerty"
-            options "grp:alt_shift_toggle"
+            options "grp:win_space_toggle,ctrl:nocaps"
         }
         numlock
     }
@@ -248,7 +248,12 @@ animations {
     // off
 
     // Slow down all animations by this factor. Values below 1 speed them up instead.
-    slowdown 0.5
+    slowdown 0.2
+}
+
+// Let the wallpaper layer show through around workspaces in the overview.
+overview {
+    backdrop-color "transparent"
 }
 
 // Window rules let you adjust behavior for individual windows.
@@ -319,7 +324,7 @@ binds {
     Mod+Return hotkey-overlay-title="Open a Terminal: ghostty" { spawn "ghostty"; }
     Mod+Shift+O hotkey-overlay-title="Open Obsidian" { spawn "obsidian"; }
     Mod+E hotkey-overlay-title="Open Files: nautilus" { spawn "nautilus"; }
-    Mod+D hotkey-overlay-title="Run an Application: fuzzel" { spawn "fuzzel"; }
+    Mod+D hotkey-overlay-title="Run an Application: fuzzel" { spawn-sh "exec ${XDG_CONFIG_HOME:-$HOME/.config}/fuzzel/fuzzel-theme"; }
     Mod+Space hotkey-overlay-title="Run an Application: walker" { spawn "walker"; }
     Super+Alt+L hotkey-overlay-title="Lock the Screen: swaylock" { spawn "hyprlock"; }
 
@@ -515,6 +520,7 @@ binds {
     Mod+Shift+R { switch-preset-window-height; }
     Mod+Ctrl+R { reset-window-height; }
     Mod+F { maximize-column; }
+    Mod+M { maximize-window-to-edges; }
     Mod+Shift+F { fullscreen-window; }
 
     // Expand the focused column to space not taken up by other fully visible columns.

@@ -1,0 +1,31 @@
+#!/bin/sh
+
+set -eu
+
+current="$(powerprofilesctl get 2>/dev/null || true)"
+profiles="$(powerprofilesctl list | awk '
+  /^[[:space:]]*\*/ { gsub(":", "", $2); print $2; next }
+  /^[[:space:]]*[a-z-]+:/ { gsub(":", "", $1); print $1 }
+')"
+
+[ -n "$profiles" ] || exit 0
+
+items="$(printf '%s\n' "$profiles" | while read -r profile; do
+  [ -n "$profile" ] || continue
+  icon="󰾅"
+  [ "$profile" = "performance" ] && icon="󰓅"
+  [ "$profile" = "balanced" ] && icon="󰾆"
+  [ "$profile" = "power-saver" ] && icon="󰌪"
+  mark=" "
+  [ "$profile" = "$current" ] && mark="●"
+  printf '%s %s %s\n' "$mark" "$icon" "$profile"
+done)"
+
+pick="$(printf '%s\n' "$items" | tofi --prompt-text 'Power profile: ')"
+[ -n "$pick" ] || exit 0
+
+profile="$(printf '%s\n' "$pick" | awk '{ print $3 }')"
+[ -n "$profile" ] || exit 0
+
+powerprofilesctl set "$profile"
+notify-send "Power profile switched" "$profile" 2>/dev/null || true
