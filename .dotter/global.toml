@@ -1,7 +1,7 @@
 [helpers]
 
 [default]
-depends = ["zed", "scripts"]
+depends = ["scripts"]
 
 [scripts.files]
 scripts = "~/.local/bin/"
