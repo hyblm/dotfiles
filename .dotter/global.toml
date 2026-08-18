@@ -1,8 +1,10 @@
 [helpers]
 
 [default]
-depends = ["zed"]
+depends = ["zed", "scripts"]
 
+[scripts.files]
+scripts = "~/.local/bin/"
 [cargo.files]
 cargo = "~/.cargo"
 
