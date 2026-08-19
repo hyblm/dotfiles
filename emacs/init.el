@@ -25,6 +25,8 @@
 (add-to-list 'default-frame-alist '(font . "Lilex Nerd Font-10"))
 (add-hook 'dired-mode-hook #'dired-hide-details-mode)
 (add-to-list 'load-path (expand-file-name "config" user-emacs-directory))
+(require 'bluetooth)
+(require 'system-menus)
 
 (setq scroll-conservatively 101
       scroll-margin 5
@@ -287,14 +289,32 @@
 ;;   :ensure t
 ;;   :init (doom-modeline-mode 1))
 
+(use-package markdown-mode
+  :ensure t
+  :mode ("README\\.md\\'" . gfm-mode)
+  :init (setq markdown-command "multimarkdown")
+  :bind (:map markdown-mode-map
+              ("C-c C-e" . markdown-do)))
+(use-package mixed-pitch
+  :hook
+  ;; If you want it in all text modes:
+  (text-mode . mixed-pitch-mode))
+(set-face-attribute 'default nil :font "Lilex Nerd Font Mono" :weight 'normal :height 100)
+(set-face-attribute 'fixed-pitch nil :font "Lilex Nerd Font Mono" :weight 'normal :height 100)
+(set-face-attribute 'variable-pitch nil :font "Adwaita Sans" :weight 'normal :height 1.3)
+
+(use-package olivetti)
+(use-package mixed-pitch
+  :hook
+  ;; If you want it in all text modes:
+  (text-mode . mixed-pitch-mode))
 (use-package meow
   :config (require 'meow-config))
 
 (use-package exwm
   :config (require 'exwm-config))
-
+ 
 (use-package pi-coding-agent
  :config (defalias 'pi 'pi-coding-agent))
-
 
 (server-start)
