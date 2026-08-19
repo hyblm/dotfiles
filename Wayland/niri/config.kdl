@@ -324,7 +324,7 @@ binds {
     Mod+Return hotkey-overlay-title="Open a Terminal: ghostty" { spawn "ghostty"; }
     Mod+Shift+O hotkey-overlay-title="Open Obsidian" { spawn "obsidian"; }
     Mod+E hotkey-overlay-title="Open Files: nautilus" { spawn "nautilus"; }
-    Mod+D hotkey-overlay-title="Run an Application: fuzzel" { spawn-sh "exec ${XDG_CONFIG_HOME:-$HOME/.config}/fuzzel/fuzzel-theme"; }
+    Mod+D hotkey-overlay-title="Run an Application: tofi" { spawn "tofi"; }
     Mod+Space hotkey-overlay-title="Run an Application: walker" { spawn "walker"; }
     Super+Alt+L hotkey-overlay-title="Lock the Screen: swaylock" { spawn "hyprlock"; }
 

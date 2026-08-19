@@ -26,7 +26,7 @@ bat = "~/.config/bat"
 depends = ["nu", "fonts"]
 
 [foot.files]
-"foot" = "~/.config/foot/"
+"Wayland/foot" = "~/.config/foot/"
 [foot]
 depends = ["nu", "fonts"]
 
@@ -52,35 +52,35 @@ nix = "~/.config/nix"
 
 [kwm]
 depends = ["kwim", "tofi"]
-[kwm.files."kwm/config.zon"]
+[kwm.files."Wayland/kwm/config.zon"]
 target = "~/.config/kwm/config.zon"
 type = "symbolic"
 
-[kwm.files."kwm/kwm-status"]
+[kwm.files."Wayland/kwm/kwm-status"]
 target = "~/.config/kwm/kwm-status"
 type = "symbolic"
 
-[kwm.files."kwm/theme-menu"]
+[kwm.files."Wayland/kwm/theme-menu"]
 target = "~/.config/kwm/theme-menu"
 type = "symbolic"
 
-[kwm.files."kwm/audio-output-menu"]
+[kwm.files."Wayland/kwm/audio-output-menu"]
 target = "~/.config/kwm/audio-output-menu"
 type = "symbolic"
 
-[kwm.files."kwm/bluetooth-menu"]
+[kwm.files."Wayland/kwm/bluetooth-menu"]
 target = "~/.config/kwm/bluetooth-menu"
 type = "symbolic"
 
-[kwm.files."kwm/power-profile-menu"]
+[kwm.files."Wayland/kwm/power-profile-menu"]
 target = "~/.config/kwm/power-profile-menu"
 type = "symbolic"
 
-[kwm.files."kwm/tofi-menu"]
+[kwm.files."Wayland/kwm/tofi-menu"]
 target = "~/.config/kwm/tofi-menu"
 type = "symbolic"
 
-[kwim.files."kwim/config.zon"]
+[kwim.files."Wayland/kwim/config.zon"]
 target = "~/.config/kwim/config.zon"
 type = "symbolic"
 
@@ -103,26 +103,26 @@ ghostty = "~/.config/ghostty"
 tmux = "~/.config/tmux"
 
 [niri.files]
-niri = "~/.config/niri"
+"Wayland/niri" = "~/.config/niri"
 [niri]
 depends = ["fuzzel"]
 
 [river.files]
-river = "~/.config/river"
+"Wayland/river" = "~/.config/river"
 [river]
 depends = ["kwm", "mako", "kanshi", "foot"]
 
 [kanshi.files]
-kanshi = "~/.config/kanshi"
+"Wayland/kanshi" = "~/.config/kanshi"
 
 [mako.files]
-mako = "~/.config/mako"
+"Wayland/mako" = "~/.config/mako"
 
 [fuzzel.files]
-fuzzel = "~/.config/fuzzel"
+"Wayland/fuzzel" = "~/.config/fuzzel"
 
 [tofi.files]
-tofi = "~/.config/tofi"
+"Wayland/tofi" = "~/.config/tofi"
 
 [vdirsyncer.files]
 "vdirsyncer/config" = "~/.vdirsyncer/config"
