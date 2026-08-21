@@ -104,7 +104,7 @@ tmux = "~/.config/tmux"
 [niri.files]
 "Wayland/niri" = "~/.config/niri"
 [niri]
-depends = ["fuzzel"]
+depends = ["tofi"]
 
 [river.files]
 "Wayland/river" = "~/.config/river"
@@ -116,9 +116,6 @@ depends = ["kwm", "mako", "kanshi", "foot"]
 
 [mako.files]
 "Wayland/mako" = "~/.config/mako"
-
-[fuzzel.files]
-"Wayland/fuzzel" = "~/.config/fuzzel"
 
 [tofi.files]
 "Wayland/tofi" = "~/.config/tofi"
