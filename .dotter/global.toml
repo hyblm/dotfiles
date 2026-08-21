@@ -91,8 +91,7 @@ nvim = "~/.config/nvim"
 "emacs" = "~/.config/emacs"
 
 [exwm.files]
-"exwm/exwm.Desktop" = "~/.local/share/xsessions/exwm.Desktop"
-"exwm/udiskie/config.yml" = "~/.config/udiskie/config.yml"
+"exwm/exwm.desktop" = "~/.local/share/xsessions/exwm.desktop"
 [exwm]
 depends = ["emacs"]
 

@@ -1,0 +1,4 @@
+[Desktop Entry]
+Name=EXWM
+Exec=env EXWM_SESSION=1 emacs
+Type=Application

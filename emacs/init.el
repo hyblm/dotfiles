@@ -308,13 +308,20 @@
   :hook
   ;; If you want it in all text modes:
   (text-mode . mixed-pitch-mode))
+
 (use-package meow
   :config (require 'meow-config))
 
-(use-package exwm
-  :config (require 'exwm-config))
- 
 (use-package pi-coding-agent
  :config (defalias 'pi 'pi-coding-agent))
+
+;; Keep EXWM installed, but only start it from the EXWM desktop session.
+(use-package exwm
+  :defer t)
+
+;; Desktop Entry starts Emacs with EXWM_SESSION=1.  Loading this from init.el
+;; is reliable because command-line --load actions run only after init.el.
+(when (equal (getenv "EXWM_SESSION") "1")
+  (require 'exwm-config))
 
 (server-start)

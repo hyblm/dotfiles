@@ -89,7 +89,7 @@
                                  "--output" laptop "--auto"
                                  "--output" external "--auto" "--primary"
                                  "--left-of" laptop))
-          ;; Keep workspace 0 on the external display. Unspecified workspaces
+          ;; Keep workspace 0 on the laptop display. Unspecified workspaces
           ;; follow the RandR primary output, which is the external display.
           (setq exwm-randr-workspace-monitor-plist
                 (list 0 laptop 1 external))
