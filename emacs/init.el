@@ -1,4 +1,5 @@
 ;;; -*- lexical-binding: t; -*-
+
 ;; Bootstrap straight.el before declaring packages.
 (let* ((straight-base (expand-file-name "straight/" user-emacs-directory))
        (straight-dir (expand-file-name "repos/straight.el" straight-base))
@@ -25,14 +26,13 @@
 (add-to-list 'default-frame-alist '(font . "Lilex Nerd Font-10"))
 (add-hook 'dired-mode-hook #'dired-hide-details-mode)
 (add-to-list 'load-path (expand-file-name "config" user-emacs-directory))
-(require 'bluetooth)
 (require 'system-menus)
 
 (setq scroll-conservatively 101
       scroll-margin 5
       inhibit-startup-message t
       use-dialog-box nil
-      visible-bell nil
+      visible-bell t
       display-time-default-load-average nil)
 
 (display-time-mode 1)
@@ -281,13 +281,6 @@
   :config
   (setq mini-modeline-display-gui-line nil)
   (mini-modeline-mode t))
-;; (use-package nerd-icons
-;;   :ensure t
-;;   :custom
-;;   (nerd-icons-font-family "Lilex Nerd Font Mono"))
-;; (use-package doom-modeline
-;;   :ensure t
-;;   :init (doom-modeline-mode 1))
 
 (use-package markdown-mode
   :ensure t
@@ -295,12 +288,9 @@
   :init (setq markdown-command "multimarkdown")
   :bind (:map markdown-mode-map
               ("C-c C-e" . markdown-do)))
-(use-package mixed-pitch
-  :hook
-  ;; If you want it in all text modes:
-  (text-mode . mixed-pitch-mode))
-(set-face-attribute 'default nil :font "Lilex Nerd Font Mono" :weight 'normal :height 100)
-(set-face-attribute 'fixed-pitch nil :font "Lilex Nerd Font Mono" :weight 'normal :height 100)
+
+(set-face-attribute 'default nil :font "Lilex Nerd Font" :weight 'normal :height 100)
+(set-face-attribute 'fixed-pitch nil :font "Lilex Nerd Font" :weight 'normal :height 100)
 (set-face-attribute 'variable-pitch nil :font "Adwaita Sans" :weight 'normal :height 1.3)
 
 (use-package olivetti)

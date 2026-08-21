@@ -65,13 +65,79 @@
     (with-temp-file state-file (insert mode "\n"))
     (call-process "notify-send" nil nil nil "Theme switched" mode)))
 
+(defun my/bluetooth-menu ()
+  "Select a paired Bluetooth device and connect or disconnect it."
+  (interactive)
+  (unless (executable-find "bluetoothctl")
+    (user-error "bluetoothctl is not installed"))
+  (let ((paired (with-temp-buffer
+                  (call-process "bluetoothctl" nil t nil "devices" "Paired")
+                  (buffer-string)))
+        (connected (with-temp-buffer
+                     (call-process "bluetoothctl" nil t nil "devices" "Connected")
+                     (buffer-string)))
+        devices)
+    (dolist (line (split-string paired "\n" t))
+      (when (string-match "^Device[[:space:]]+\\([^[:space:]]+\\)[[:space:]]+\\(.+\\)$" line)
+        (let* ((mac (match-string 1 line))
+               (name (match-string 2 line))
+               (is-connected
+                (string-match-p
+                 (concat "^Device[[:space:]]+" (regexp-quote mac)
+                         "[[:space:]]") connected)))
+          (push (cons (format "%s %s" (if is-connected "󰂱" "󰂲") name)
+                      (list mac name is-connected)) devices))))
+    (unless devices
+      (user-error "No paired Bluetooth devices found"))
+    (let* ((choice (completing-read "Bluetooth: " (nreverse devices) nil t))
+           (device (cdr (assoc choice devices)))
+           (mac (nth 0 device))
+           (name (nth 1 device))
+           (action (if (nth 2 device) "disconnect" "connect")))
+      (if (= 0 (call-process "bluetoothctl" nil nil nil action mac))
+          (call-process "notify-send" nil nil nil
+                        (format "Bluetooth %s" action) name)
+        (user-error "Could not %s %s" action name)))))
+
+(defun my/session-menu--run (action description &rest args)
+  "Confirm and invoke loginctl ACTION, describing it as DESCRIPTION."
+  (unless (executable-find "loginctl")
+    (user-error "loginctl is not installed"))
+  (when (yes-or-no-p (format "%s? " description))
+    (unless (= 0 (apply #'call-process "loginctl" nil nil nil action args))
+      (user-error "Could not %s" (downcase description)))))
+
+(defun my/session-menu ()
+  "Choose a session or power action."
+  (interactive)
+  (pcase (completing-read
+          "Session: "
+          '("󰍃 Log out" "󰜉 Reboot" "󰐥 Power off" "󰒲 Hibernate" "󰤄 Suspend")
+          nil t)
+    ((pred (string-match-p "Log out"))
+     ;; Terminate only this graphical login session, rather than every session
+     ;; owned by the user.
+     (let ((session-id (getenv "XDG_SESSION_ID")))
+       (unless (and session-id (not (string-empty-p session-id)))
+         (user-error "XDG_SESSION_ID is not set; cannot determine session to log out"))
+       (my/session-menu--run "terminate-session" "Log out" session-id)))
+    ((pred (string-match-p "Reboot"))
+     (my/session-menu--run "reboot" "Reboot the system"))
+    ((pred (string-match-p "Power off"))
+     (my/session-menu--run "poweroff" "Power off the system"))
+    ((pred (string-match-p "Hibernate"))
+     (my/session-menu--run "hibernate" "Hibernate the system"))
+    ((pred (string-match-p "Suspend"))
+     (my/session-menu--run "suspend" "Suspend the system"))))
+
 (defun my/system-menu ()
   "Open the desktop system menu."
   (interactive)
-  (pcase (completing-read "Menu: " '("󰖨 Theme" "󰓃 Audio output" "󰂯 Bluetooth" "󰌪 Power profile") nil t)
+  (pcase (completing-read "Menu: " '("󰖨 Theme" "󰓃 Audio output" "󰂯 Bluetooth" "󰌪 Power profile" "󰐥 Session") nil t)
     ((pred (string-match-p "Theme")) (my/theme-menu))
     ((pred (string-match-p "Audio")) (my/audio-output-menu))
     ((pred (string-match-p "Bluetooth")) (my/bluetooth-menu))
-    ((pred (string-match-p "Power")) (my/power-profile-menu))))
+    ((pred (string-match-p "Power profile")) (my/power-profile-menu))
+    ((pred (string-match-p "Session")) (my/session-menu))))
 
 (provide 'system-menus)
