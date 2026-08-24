@@ -19,4 +19,5 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- )
+ '(custom-comment ((t nil)))
+ '(font-lock-comment-face ((t (:foreground "#947063" :slant italic)))))
