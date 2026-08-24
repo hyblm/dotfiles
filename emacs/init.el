@@ -15,6 +15,29 @@
 (setq straight-use-package-by-default t)
 (eval-when-compile (require 'use-package))
 
+(use-package doom-themes)
+
+(defun my/system-dark-mode-p ()
+  "Return non-nil when the desktop is currently using a dark theme."
+  (when (executable-find "gsettings")
+    (let ((color-scheme
+           (string-trim
+	    (shell-command-to-string "gsettings get org.gnome.desktop.interface color-scheme 2>/dev/null")))
+	  (gtk-theme
+	   (string-trim
+	    (shell-command-to-string "gsettings get org.gnome.desktop.interface gtk-theme 2>/dev/null"))))
+      (or (string-match-p "dark" color-scheme)
+          (string-match-p "dark" gtk-theme)))))
+
+(defun my/sync-theme-with-system ()
+  "Select the configured theme matching the desktop appearance."
+  (let ((theme (if (my/system-dark-mode-p) 'doom-plain-dark 'doom-plain)))
+    (unless (custom-theme-enabled-p theme)
+      (mapc #'disable-theme custom-enabled-themes)
+      (load-theme theme t))))
+
+(my/sync-theme-with-system)
+
 (setq custom-file (locate-user-emacs-file "custom-vars.el"))
 (load custom-file 'noerror 'nomessage)
 (setq backup-directory-alist
@@ -46,38 +69,12 @@
 (global-auto-revert-mode 1)
 (recentf-mode 1)
 (setq history-length 25)
-(savehist-mode 1)
 (save-place-mode 1)
-
-(use-package naysayer-theme)
-(use-package doom-themes
-  :ensure t)
-(use-package tao-theme)
-
-(defun my/system-dark-mode-p ()
-  "Return non-nil when the desktop is currently using a dark theme."
-  (when (executable-find "gsettings")
-    (let ((color-scheme
-           (string-trim
-	    (shell-command-to-string "gsettings get org.gnome.desktop.interface color-scheme 2>/dev/null")))
-	  (gtk-theme
-	   (string-trim
-	    (shell-command-to-string "gsettings get org.gnome.desktop.interface gtk-theme 2>/dev/null"))))
-      (or (string-match-p "dark" color-scheme)
-          (string-match-p "dark" gtk-theme)))))
-
-(defun my/sync-theme-with-system ()
-  "Select the Tao theme matching the desktop appearance."
-  (let ((theme (if (my/system-dark-mode-p) 'doom-tomorrow-night 'doom-tomorrow-day)))
-    (unless (custom-theme-enabled-p theme)
-      (mapc #'disable-theme custom-enabled-themes)
-      (load-theme theme t))))
-
-(my/sync-theme-with-system)
 
 (use-package magit)
 (use-package eat)
 (use-package vterm)
+(use-package vundo)
 
 ;; Enable Vertico.
 (use-package vertico
@@ -87,12 +84,14 @@
   ;; (vertico-resize t) ;; Grow and shrink the Vertico minibuffer
      (vertico-cycle t) ;; Enable cycling for `vertico-next/previous'
   :init
-  (vertico-mode))
+  (vertico-mode t))
 
 ;; Persist history over Emacs restarts. Vertico sorts by history position.
 (use-package savehist
-  :init
-  (savehist-mode))
+  :init (savehist-mode t))
+
+(use-package delsel
+  :config (delete-selection-mode 1))
 
 ;; Emacs minibuffer configurations.
 (use-package emacs
@@ -238,8 +237,6 @@
   )
 
 (use-package embark
-  :ensure t
-
   :bind
   (("C-." . embark-act)         ;; pick some comfortable binding
    ("C-;" . embark-dwim)        ;; good alternative: M-.
@@ -272,18 +269,18 @@
                  (window-parameters (mode-line-format . none)))))
 
 ;; Consult users will also want the embark-consult package.
-(use-package embark-consult
-  :ensure t) ; only need to install it, embark loads it after consult if found
+(use-package embark-consult) ; only need to install it, embark loads it after consult if found
 
-;; I'm activating mini-modeline after smart-mode-line
-(use-package mini-modeline
-  ;; :after smart-mode-line
-  :config
-  (setq mini-modeline-display-gui-line nil)
-  (mini-modeline-mode t))
-
+(use-package doom-modeline
+  :init (doom-modeline-mode 1))
+(use-package nerd-icons
+  ;; :custom
+  ;; The Nerd Font you want to use in GUI
+  ;; "Symbols Nerd Font Mono" is the default and is recommended
+  ;; but you can use any other Nerd Font if you want
+  ;; (nerd-icons-font-family "Symbols Nerd Font Mono")
+  )
 (use-package markdown-mode
-  :ensure t
   :mode ("README\\.md\\'" . gfm-mode)
   :init (setq markdown-command "multimarkdown")
   :bind (:map markdown-mode-map
@@ -293,7 +290,12 @@
 (set-face-attribute 'fixed-pitch nil :font "Lilex Nerd Font" :weight 'normal :height 100)
 (set-face-attribute 'variable-pitch nil :font "Adwaita Sans" :weight 'normal :height 1.3)
 
-(use-package olivetti)
+(use-package olivetti
+  :hook ((markdown-mode . olivetti-mode)
+         (org-mode . olivetti-mode)
+         (pi-coding-agent-chat-mode . olivetti-mode)
+         (pi-coding-agent-input-mode . olivetti-mode)))
+
 (use-package mixed-pitch
   :hook
   ;; If you want it in all text modes:
@@ -307,11 +309,20 @@
 
 ;; Keep EXWM installed, but only start it from the EXWM desktop session.
 (use-package exwm
-  :defer t)
+  :config
+  ;; Desktop Entry starts Emacs with EXWM_SESSION=1.  Loading this from init.el
+  ;; is reliable because command-line --load actions run only after init.el.
+  (when (equal (getenv "EXWM_SESSION") "1")
+    (require 'exwm-config)))
 
-;; Desktop Entry starts Emacs with EXWM_SESSION=1.  Loading this from init.el
-;; is reliable because command-line --load actions run only after init.el.
-(when (equal (getenv "EXWM_SESSION") "1")
-  (require 'exwm-config))
+(use-package exwm-modeline
+  :after (exwm)
+  :config
+  (setq exwm-modeline-short t)
+  (add-hook 'exwm-init-hook #'exwm-modeline-mode))
+
+(use-package xdg-launcher
+  :after (exwm)
+  :straight '(xdg-launcher :host github :repo "emacs-exwm/xdg-launcher"))
 
 (server-start)

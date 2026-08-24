@@ -1,9 +1,22 @@
 ;;; system-menus.el --- Desktop menus -*- lexical-binding: t; -*-
 
+(defun my/system-menu--call (program &rest args)
+  "Run PROGRAM with ARGS, or signal a useful error."
+  (unless (executable-find program)
+    (user-error "%s is not installed" program))
+  (let ((status (apply #'call-process program nil nil nil args)))
+    (unless (and (integerp status) (= status 0))
+      (user-error "%s failed" program))))
+
 (defun my/system-menu--output (program &rest args)
+  "Run PROGRAM with ARGS and return its output."
+  (unless (executable-find program)
+    (user-error "%s is not installed" program))
   (with-temp-buffer
-    (apply #'call-process program nil t nil args)
-    (buffer-string)))
+    (let ((status (apply #'call-process program nil t nil args)))
+      (unless (and (integerp status) (= status 0))
+        (user-error "%s failed" program))
+      (buffer-string))))
 
 (defun my/audio-output-menu ()
   "Select the default PulseAudio/PipeWire output." 
@@ -27,17 +40,17 @@
                               (cons (format "%s %s" (if (string= (car sink) default) "󰓃" "󰓄") (cadr sink)) sink)) sinks))
            (choice (completing-read "Audio output: " choices nil t))
            (sink (cdr (assoc choice choices))))
-      (call-process "pactl" nil nil nil "set-default-sink" (car sink))
+      (my/system-menu--call "pactl" "set-default-sink" (car sink))
       (dolist (line (split-string (my/system-menu--output "pactl" "list" "short" "sink-inputs") "\n" t))
         (let ((input (car (split-string line))))
-          (call-process "pactl" nil nil nil "move-sink-input" input (car sink))))
-      (call-process "notify-send" nil nil nil "Audio output switched" (cadr sink)))))
+          (my/system-menu--call "pactl" "move-sink-input" input (car sink))))
+      (when (executable-find "notify-send")
+        (my/system-menu--call "notify-send" "Audio output switched" (cadr sink))))))
 
 (defun my/power-profile-menu ()
   "Select the system power profile."
   (interactive)
-  (let* ((current (string-trim (my/system-menu--output "powerprofilesctl" "get")))
-         (text (my/system-menu--output "powerprofilesctl" "list"))
+  (let* ((text (my/system-menu--output "powerprofilesctl" "list"))
          profiles)
     (dolist (line (split-string text "\n" t))
       (when (string-match "^[[:space:]]*\\*?[[:space:]]*\\([a-z-]+\\):" line)
@@ -46,8 +59,9 @@
     (unless profiles (user-error "No power profiles found"))
     (let* ((choice (completing-read "Power profile: " profiles nil t))
            (profile choice))
-      (call-process "powerprofilesctl" nil nil nil "set" profile)
-      (call-process "notify-send" nil nil nil "Power profile switched" profile))))
+      (my/system-menu--call "powerprofilesctl" "set" profile)
+      (when (executable-find "notify-send")
+        (my/system-menu--call "notify-send" "Power profile switched" profile)))))
 
 (defun my/theme-menu (&optional choice)
   "Switch the desktop theme, or toggle it when CHOICE is nil." 
@@ -60,10 +74,13 @@
                      (t "dark")))
          (scheme (if (string= mode "dark") "prefer-dark" "default")))
     (make-directory (file-name-directory state-file) t)
-    (call-process "gsettings" nil nil nil "set" "org.gnome.desktop.interface" "color-scheme" scheme)
-    (call-process "gsettings" nil nil nil "set" "org.gnome.desktop.interface" "gtk-application-prefer-dark-theme" (if (string= mode "dark") "true" "false"))
+    (my/system-menu--call "gsettings" "set" "org.gnome.desktop.interface" "color-scheme" scheme)
+    (my/system-menu--call "gsettings" "set" "org.gnome.desktop.interface" "gtk-application-prefer-dark-theme" (if (string= mode "dark") "true" "false"))
     (with-temp-file state-file (insert mode "\n"))
-    (call-process "notify-send" nil nil nil "Theme switched" mode)))
+    ;; Changing GTK settings does not change Emacs's theme by itself.
+    (my/sync-theme-with-system)
+    (when (executable-find "notify-send")
+      (my/system-menu--call "notify-send" "Theme switched" mode))))
 
 (defun my/bluetooth-menu ()
   "Select a paired Bluetooth device and connect or disconnect it."
@@ -94,9 +111,10 @@
            (mac (nth 0 device))
            (name (nth 1 device))
            (action (if (nth 2 device) "disconnect" "connect")))
-      (if (= 0 (call-process "bluetoothctl" nil nil nil action mac))
-          (call-process "notify-send" nil nil nil
-                        (format "Bluetooth %s" action) name)
+      (if (= 0 (apply #'call-process "bluetoothctl" nil nil nil (list action mac)))
+          (when (executable-find "notify-send")
+            (my/system-menu--call "notify-send"
+                                  (format "Bluetooth %s" action) name))
         (user-error "Could not %s %s" action name)))))
 
 (defun my/session-menu--run (action description &rest args)
