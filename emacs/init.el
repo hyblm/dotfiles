@@ -15,8 +15,6 @@
 (setq straight-use-package-by-default t)
 (eval-when-compile (require 'use-package))
 
-(use-package doom-themes)
-
 (defun my/system-dark-mode-p ()
   "Return non-nil when the desktop is currently using a dark theme."
   (when (executable-find "gsettings")
@@ -31,10 +29,15 @@
 
 (defun my/sync-theme-with-system ()
   "Select the configured theme matching the desktop appearance."
-  (let ((theme (if (my/system-dark-mode-p) 'doom-plain-dark 'doom-plain)))
+  (let ((theme (if (my/system-dark-mode-p) 'zenbones-dark 'zenbones-light)))
     (unless (custom-theme-enabled-p theme)
       (mapc #'disable-theme custom-enabled-themes)
       (load-theme theme t))))
+
+;; Make local themes and their shared definitions discoverable.
+(let ((theme-dir (expand-file-name "themes" user-emacs-directory)))
+  (add-to-list 'custom-theme-load-path theme-dir)
+  (add-to-list 'load-path theme-dir))
 
 (my/sync-theme-with-system)
 
@@ -46,7 +49,6 @@
       `((".*" ,(expand-file-name "auto-saves/" user-emacs-directory) t)))
 
 (add-to-list 'default-frame-alist '(undecorated . t))
-(add-to-list 'default-frame-alist '(font . "Lilex Nerd Font-10"))
 (add-hook 'dired-mode-hook #'dired-hide-details-mode)
 (add-to-list 'load-path (expand-file-name "config" user-emacs-directory))
 (require 'system-menus)
@@ -273,33 +275,18 @@
 
 (use-package doom-modeline
   :init (doom-modeline-mode 1))
-(use-package nerd-icons
-  ;; :custom
-  ;; The Nerd Font you want to use in GUI
-  ;; "Symbols Nerd Font Mono" is the default and is recommended
-  ;; but you can use any other Nerd Font if you want
-  ;; (nerd-icons-font-family "Symbols Nerd Font Mono")
-  )
-(use-package markdown-mode
-  :mode ("README\\.md\\'" . gfm-mode)
-  :init (setq markdown-command "multimarkdown")
-  :bind (:map markdown-mode-map
-              ("C-c C-e" . markdown-do)))
+(use-package nerd-icons)
 
-(set-face-attribute 'default nil :font "Lilex Nerd Font" :weight 'normal :height 100)
-(set-face-attribute 'fixed-pitch nil :font "Lilex Nerd Font" :weight 'normal :height 100)
-(set-face-attribute 'variable-pitch nil :font "Adwaita Sans" :weight 'normal :height 1.3)
+(set-face-attribute 'default        nil :font "Lilex Nerd Font"            :weight 'normal :height 100)
+(set-face-attribute 'fixed-pitch    nil :font "Lilex Nerd Font"            :weight 'normal :height 1.0)
+(set-face-attribute 'variable-pitch nil :font "Atkinson Hyperlegible Next" :weight 'normal :height 1.2)
 
+;;; TODO: replace olivetti with visual-fill-column
 (use-package olivetti
   :hook ((markdown-mode . olivetti-mode)
          (org-mode . olivetti-mode)
          (pi-coding-agent-chat-mode . olivetti-mode)
          (pi-coding-agent-input-mode . olivetti-mode)))
-
-(use-package mixed-pitch
-  :hook
-  ;; If you want it in all text modes:
-  (text-mode . mixed-pitch-mode))
 
 (use-package meow
   :config (require 'meow-config))

@@ -1,4 +1,4 @@
 [Desktop Entry]
 Name=EXWM
-Exec=env EXWM_SESSION=1 emacs
+Exec=/usr/local/bin/exwm-session
 Type=Application

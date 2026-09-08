@@ -91,7 +91,7 @@ nvim = "~/.config/nvim"
 "emacs" = "~/.config/emacs"
 
 [exwm.files]
-"exwm/exwm.desktop" = "~/.local/share/xsessions/exwm.desktop"
+"exwm/run.sh" = "~/.xinitrc"
 [exwm]
 depends = ["emacs"]
 
