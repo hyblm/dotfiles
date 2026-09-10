@@ -1,2 +1,2 @@
 includes = [".dotter/windows.toml"]
-packages = ["default", "cargo", "zed", "nu", "starship", "emacs", "nvim"]
+packages = ["default", "cargo", "zed", "nu", "emacs", "nvim"]

@@ -1,1 +1,1 @@
-packages = ["tmux", "agents", "emacs", "fonts"]
+packages = ["default", "tmux", "agents", "emacs", "fonts"]

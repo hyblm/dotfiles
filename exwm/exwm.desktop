@@ -1,0 +1,4 @@
+[Desktop Entry]
+Name=EXWM
+Exec=/usr/local/bin/exwm-session
+Type=Application
