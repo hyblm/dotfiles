@@ -32,18 +32,54 @@ integrations remain separate from the everyday editor setup.
   (setq custom-file (locate-user-emacs-file "custom.el"))
   (load custom-file :no-error-if-file-missing)
 
-  (let* ((straight-base (expand-file-name "straight/" user-emacs-directory))
-         (straight-dir (expand-file-name "repos/straight.el" straight-base))
-         (bootstrap-file (expand-file-name "bootstrap.el" straight-dir)))
-    (unless (file-exists-p bootstrap-file)
-      (make-directory straight-base t)
-      (call-process "git" nil "*straight-bootstrap*" nil "clone"
-                    "https://github.com/radian-software/straight.el.git"
-                    straight-dir))
-    (load bootstrap-file nil 'nomessage))
+  ;; Elpaca bootstrap (see https://github.com/progfolio/elpaca).
+  (defvar elpaca-installer-version 0.12)
+  (defvar elpaca-directory (expand-file-name "elpaca/" user-emacs-directory))
+  (defvar elpaca-builds-directory (expand-file-name "builds/" elpaca-directory))
+  (defvar elpaca-sources-directory (expand-file-name "sources/" elpaca-directory))
+  (defvar elpaca-order
+    '(elpaca :repo "https://github.com/progfolio/elpaca.git"
+             :ref nil :depth 1 :inherit ignore
+             :files (:defaults "elpaca-test.el" (:exclude "extensions"))
+             :build (:not elpaca-activate)))
+  (let* ((repo (expand-file-name "elpaca/" elpaca-sources-directory))
+         (build (expand-file-name "elpaca/" elpaca-builds-directory))
+         (order (cdr elpaca-order))
+         (default-directory repo))
+    (add-to-list 'load-path (if (file-exists-p build) build repo))
+    (unless (file-exists-p repo)
+      (make-directory repo t)
+      (when (<= emacs-major-version 28) (require 'subr-x))
+      (condition-case err
+          (if-let* ((buffer (get-buffer-create "*elpaca-bootstrap*"))
+                    ((zerop (apply #'call-process
+                                   `("git" nil ,buffer t "clone"
+                                     ,@(when-let* ((depth (plist-get order :depth)))
+                                         (list (format "--depth=%d" depth) "--no-single-branch"))
+                                     ,(plist-get order :repo) ,repo))))
+                    ((zerop (call-process "git" nil buffer t "checkout"
+                                          (or (plist-get order :ref) "--"))))
+                    (emacs (expand-file-name invocation-name invocation-directory))
+                    ((zerop (call-process emacs nil buffer nil "-Q" "-L" "."
+                                          "--batch" "--eval"
+                                          "(byte-recompile-directory \".\" 0 'force)")))
+                    ((require 'elpaca))
+                    ((elpaca-generate-autoloads "elpaca" repo)))
+              (progn (message "%s" (with-current-buffer buffer (buffer-string)))
+                     (kill-buffer buffer))
+            (error "Elpaca bootstrap failed: %s"
+                   (with-current-buffer buffer (buffer-string))))
+        (error (warn "%s" err) (delete-directory repo 'recursive))))
+    (unless (require 'elpaca-autoloads nil t)
+      (require 'elpaca)
+      (elpaca-generate-autoloads "elpaca" repo)
+      (let ((load-source-file-function nil)) (load "./elpaca-autoloads"))))
+  (add-hook 'after-init-hook #'elpaca-process-queues)
+  (elpaca `(,@elpaca-order))
 
-  (straight-use-package 'use-package)
-  (setq straight-use-package-by-default t)
+  (elpaca elpaca-use-package
+    (elpaca-use-package-mode))
+  (setq use-package-always-ensure t)
   (eval-when-compile (require 'use-package))
 #+end_src
 
@@ -96,6 +132,7 @@ integrations remain separate from the everyday editor setup.
   (keymap-global-set "C-g" #'my/keyboard-quit-dwim)
 
   (use-package emacs
+    :ensure nil
     :custom
     (context-menu-mode t))
 #+end_src
@@ -139,6 +176,10 @@ integrations remain separate from the everyday editor setup.
 #+begin_src emacs-lisp :tangle "init.el"
   (use-package doom-modeline
     :init (doom-modeline-mode 1))
+
+  ;; Toggle the current buffer's modeline for distraction-free editing.
+  (use-package hide-mode-line
+    :bind ("C-c z" . hide-mode-line-mode))
 
   (use-package nerd-icons)
 
@@ -277,7 +318,7 @@ integrations remain separate from the everyday editor setup.
 #+begin_src emacs-lisp :tangle "init.el"
   (use-package dired
     :ensure nil
-    :straight (:type built-in)
+    :ensure nil
     :commands (dired)
     :hook ((dired-mode . dired-hide-details-mode)
            (dired-mode . hl-line-mode))
@@ -341,24 +382,194 @@ integrations remain separate from the everyday editor setup.
     :hook (text-mode . olivetti-mode))
 #+end_src
 
+* Languages
+** Zig
+#+begin_src emacs-lisp :tangle "init.el"
+  (use-package zig-mode
+    :ensure t
+    :mode "\\.zig\\'")
+#+end_src
 * Integrations
 ** Meow
+#+begin_src emacs-lisp :tangle "config/meow-config.el"
+  ;; -*- lexical-binding: t; -*-
+
+  (defun meow-setup ()
+    "Configure Meow's leader and normal-state keymaps."
+    (setq meow-cheatsheet-layout meow-cheatsheet-layout-qwerty)
+    (meow-leader-define-key
+     '("1" . meow-digit-argument) '("2" . meow-digit-argument)
+     '("3" . meow-digit-argument) '("4" . meow-digit-argument)
+     '("5" . meow-digit-argument) '("6" . meow-digit-argument)
+     '("7" . meow-digit-argument) '("8" . meow-digit-argument)
+     '("9" . meow-digit-argument) '("0" . meow-digit-argument)
+     '("/" . meow-keypad-describe-key) '("?" . meow-cheatsheet)
+     '("." . find-file) '("SPC" . project-find-file)
+     '("w v" . split-window-right) '("w s" . split-window-below)
+     '("w d" . delete-window) '("b b" . switch-to-buffer)
+     '("b n" . buffer-next))
+    (meow-normal-define-key
+     '("0" . meow-expand-0) '("9" . meow-expand-9)
+     '("8" . meow-expand-8) '("7" . meow-expand-7)
+     '("6" . meow-expand-6) '("5" . meow-expand-5)
+     '("4" . meow-expand-4) '("3" . meow-expand-3)
+     '("2" . meow-expand-2) '("1" . meow-expand-1)
+     '("-" . negative-argument) '(";" . meow-reverse)
+     '("," . meow-inner-of-thing) '("." . meow-bounds-of-thing)
+     '("[" . meow-beginning-of-thing) '("]" . meow-end-of-thing)
+     '("a" . meow-append) '("A" . meow-open-below)
+     '("b" . meow-back-word) '("B" . meow-back-symbol)
+     '("c" . meow-change) '("d" . meow-delete)
+     '("D" . meow-backward-delete) '("e" . meow-next-word)
+     '("E" . meow-next-symbol) '("f" . meow-find)
+     '("g" . meow-cancel-selection) '("G" . meow-grab)
+     '("h" . meow-left) '("H" . meow-left-expand)
+     '("i" . meow-insert) '("I" . meow-open-above)
+     '("j" . meow-next) '("J" . meow-next-expand)
+     '("k" . meow-prev) '("K" . meow-prev-expand)
+     '("l" . meow-right) '("L" . meow-right-expand)
+     '("m" . meow-join) '("n" . meow-search)
+     '("o" . meow-block) '("O" . meow-to-block)
+     '("p" . meow-yank) '("q" . meow-quit)
+     '("Q" . meow-goto-line) '("r" . meow-replace)
+     '("R" . meow-swap-grab) '("s" . meow-kill)
+     '("t" . meow-till) '("u" . meow-undo)
+     '("U" . meow-undo-in-selection) '("v" . meow-visit)
+     '("w" . meow-mark-word) '("W" . meow-mark-symbol)
+     '("x" . meow-line) '("X" . meow-goto-line)
+     '("y" . meow-save) '("Y" . meow-sync-grab)
+     '("z" . meow-pop-selection) '("'" . repeat)
+     '("<escape>" . ignore)))
+
+  (meow-setup)
+  (meow-global-mode 1)
+  (provide 'meow-config)
+  ;;; meow-config.el ends here
+#+end_src
+
 #+begin_src emacs-lisp :tangle "init.el"
   (add-to-list 'load-path (expand-file-name "config" user-emacs-directory))
   (use-package meow
+    :ensure t
+    :demand t
     :config (require 'meow-config))
 #+end_src
 
-** Pi
-#+begin_src emacs-lisp :tangle "init.el"
-  (use-package pi-coding-agent
-    :config (defalias 'pi 'pi-coding-agent))
+** EXWM
+#+begin_src emacs-lisp :tangle "config/exwm-config.el"
+  (setq exwm-workspace-number 4)
+
+  (add-hook 'exwm-update-class-hook
+            (lambda () (exwm-workspace-rename-buffer exwm-class-name)))
+
+  (defun exwm-run-shell-command (command)
+    "Run COMMAND asynchronously from an EXWM key binding."
+    (interactive)
+    (start-process-shell-command command nil command))
+
+  (defun exwm-switch-workspace-relative (offset)
+    "Switch to the workspace OFFSET places from the current workspace."
+    (interactive)
+    (exwm-workspace-switch
+     (mod (+ exwm-workspace-current-index offset) exwm-workspace-number)))
+
+  (setq exwm-input-global-keys
+        `(([?\\s-r] . exwm-reset)
+          ([?\\s-f] . exwm-layout-toggle-fullscreen)
+          ([?\\s-t] . exwm-floating-toggle-floating)
+          ([?\\s-q] . delete-window)
+          ([?\\s-b] . balance-windows)
+          ([?\\s-w] . exwm-workspace-switch)
+          ([?\\s-p] . xdg-launcher-run-app)
+          ([?\\s-&] . (lambda (cmd)
+                         (interactive (list (read-shell-command "$ ")))
+                         (start-process-shell-command cmd nil cmd)))
+          ,@(mapcar (lambda (i)
+                      `(,(kbd (format "s-%d" i)) .
+                        (lambda () (interactive) (exwm-workspace-switch-create ,i))))
+                    (number-sequence 0 9))
+          ([?\\s-h] . (lambda () (interactive) (exwm-switch-workspace-relative -1)))
+          ([?\\s-l] . (lambda () (interactive) (exwm-switch-workspace-relative 1)))
+          ([?\\s-j] . (lambda () (interactive) (other-window 1)))
+          ([?\\s-k] . (lambda () (interactive) (other-window -1)))
+          ([XF86AudioRaiseVolume] . (lambda () (interactive) (exwm-run-shell-command "wpctl set-volume @DEFAULT_AUDIO_SINK@ 0.1+ -l 1.0")))
+          ([XF86AudioLowerVolume] . (lambda () (interactive) (exwm-run-shell-command "wpctl set-volume @DEFAULT_AUDIO_SINK@ 0.1-")))
+          ([XF86AudioMute] . (lambda () (interactive) (exwm-run-shell-command "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle")))
+          ([XF86MonBrightnessUp] . (lambda () (interactive) (exwm-run-shell-command "brightnessctl --class=backlight set +10%")))
+          ([XF86MonBrightnessDown] . (lambda () (interactive) (exwm-run-shell-command "brightnessctl --class=backlight set 10%-")))))
+
+  (require 'exwm-randr)
+
+  (defun exwm-configure-monitors ()
+    "Place an external monitor to the left of the laptop display."
+    (let* ((laptop "eDP-1")
+           (external (with-temp-buffer
+                       (when (and (executable-find "xrandr")
+                                  (= 0 (call-process "xrandr" nil t "--query")))
+                         (goto-char (point-min))
+                         (catch 'found
+                           (while (re-search-forward
+                                   "^\\([^[:space:]]+\\)[[:space:]]+connected\\(?:[[:space:]]\\|$\\)"
+                                   nil t)
+                             (let ((output (match-string 1)))
+                               (unless (string= output laptop)
+                                 (throw 'found output)))))))))
+      (if external
+          (when (and (executable-find "xrandr")
+                     (= 0 (call-process "xrandr" nil nil nil
+                                        "--output" laptop "--auto"
+                                        "--output" external "--auto" "--primary"
+                                        "--left-of" laptop)))
+            (setq exwm-randr-workspace-monitor-plist (list 0 laptop 1 external))
+            (when exwm-randr--connection (exwm-randr-refresh)))
+        (setq exwm-randr-workspace-monitor-plist nil)
+        (when exwm-randr--connection (exwm-randr-refresh)))))
+  (add-hook 'exwm-randr-screen-change-hook #'exwm-configure-monitors)
+
+  (defun exwm-async-run (name)
+    "Run a process asynchronously."
+    (interactive)
+    (start-process name nil name))
+
+  (defun run-or-raise-or-dismiss (program program-buffer-name)
+    "Toggle PROGRAM's buffer, launching PROGRAM if it is not running."
+    (if (string= (buffer-name) program-buffer-name)
+        (bury-buffer)
+      (if (get-buffer program-buffer-name)
+          (if (get-buffer-window program-buffer-name)
+              (select-window (display-buffer program-buffer-name) nil)
+            (exwm-workspace-switch-to-buffer program-buffer-name))
+        (exwm-async-run program))))
+
+  (setq exwm-input-simulation-keys
+        '(([?\\C-b] . [left]) ([?\\C-f] . [right])
+          ([?\\C-p] . [up]) ([?\\C-n] . [down])
+          ([?\\C-a] . [home]) ([?\\C-e] . [end])
+          ([?\\M-v] . [prior]) ([?\\C-v] . [next])
+          ([?\\C-d] . [delete]) ([?\\C-k] . [S-end delete])))
+
+  (exwm-randr-mode 1)
+  (exwm-wm-mode 1)
+  (exwm-systemtray-mode 1)
+
+  (dolist (program '("nm-applet" "kdeconnect-indicator"))
+    (when (executable-find program) (start-process program nil program)))
+
+  (when (executable-find "setxkbmap")
+    (call-process "setxkbmap" nil nil nil "-option" "ctrl:nocaps"))
+
+  (when (and (executable-find "bash") (executable-find "xinput"))
+    (start-process
+     "enable-natural-trackpad-scrolling" nil "bash" "-c"
+     "for id in $(xinput list --short 2>/dev/null | sed -n 's/.*[Tt]ouchPad.*id=\\([0-9]*\\).*/\\1/p'); do xinput set-prop \"$id\" 'libinput Natural Scrolling Enabled' 1 2>/dev/null; done"))
+
+  (provide 'exwm-config)
 #+end_src
 
-** EXWM
 #+begin_src emacs-lisp :tangle "init.el"
   (add-to-list 'load-path (expand-file-name "config" user-emacs-directory))
   (use-package exwm
+    :ensure t
     :config
     (when (equal (getenv "EXWM_SESSION") "1")
       (require 'exwm-config)))
@@ -371,5 +582,5 @@ integrations remain separate from the everyday editor setup.
 
   (use-package xdg-launcher
     :after exwm
-    :straight '(xdg-launcher :host github :repo "emacs-exwm/xdg-launcher"))
+    :ensure (:host github :repo "emacs-exwm/xdg-launcher"))
 #+end_src

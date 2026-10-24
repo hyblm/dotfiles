@@ -3,18 +3,54 @@
 (setq custom-file (locate-user-emacs-file "custom.el"))
 (load custom-file :no-error-if-file-missing)
 
-(let* ((straight-base (expand-file-name "straight/" user-emacs-directory))
-       (straight-dir (expand-file-name "repos/straight.el" straight-base))
-       (bootstrap-file (expand-file-name "bootstrap.el" straight-dir)))
-  (unless (file-exists-p bootstrap-file)
-    (make-directory straight-base t)
-    (call-process "git" nil "*straight-bootstrap*" nil "clone"
-                  "https://github.com/radian-software/straight.el.git"
-                  straight-dir))
-  (load bootstrap-file nil 'nomessage))
+;; Elpaca bootstrap (see https://github.com/progfolio/elpaca).
+(defvar elpaca-installer-version 0.12)
+(defvar elpaca-directory (expand-file-name "elpaca/" user-emacs-directory))
+(defvar elpaca-builds-directory (expand-file-name "builds/" elpaca-directory))
+(defvar elpaca-sources-directory (expand-file-name "sources/" elpaca-directory))
+(defvar elpaca-order
+  '(elpaca :repo "https://github.com/progfolio/elpaca.git"
+           :ref nil :depth 1 :inherit ignore
+           :files (:defaults "elpaca-test.el" (:exclude "extensions"))
+           :build (:not elpaca-activate)))
+(let* ((repo (expand-file-name "elpaca/" elpaca-sources-directory))
+       (build (expand-file-name "elpaca/" elpaca-builds-directory))
+       (order (cdr elpaca-order))
+       (default-directory repo))
+  (add-to-list 'load-path (if (file-exists-p build) build repo))
+  (unless (file-exists-p repo)
+    (make-directory repo t)
+    (when (<= emacs-major-version 28) (require 'subr-x))
+    (condition-case err
+        (if-let* ((buffer (get-buffer-create "*elpaca-bootstrap*"))
+                  ((zerop (apply #'call-process
+                                 `("git" nil ,buffer t "clone"
+                                   ,@(when-let* ((depth (plist-get order :depth)))
+                                       (list (format "--depth=%d" depth) "--no-single-branch"))
+                                   ,(plist-get order :repo) ,repo))))
+                  ((zerop (call-process "git" nil buffer t "checkout"
+                                        (or (plist-get order :ref) "--"))))
+                  (emacs (expand-file-name invocation-name invocation-directory))
+                  ((zerop (call-process emacs nil buffer nil "-Q" "-L" "."
+                                        "--batch" "--eval"
+                                        "(byte-recompile-directory \".\" 0 'force)")))
+                  ((require 'elpaca))
+                  ((elpaca-generate-autoloads "elpaca" repo)))
+            (progn (message "%s" (with-current-buffer buffer (buffer-string)))
+                   (kill-buffer buffer))
+          (error "Elpaca bootstrap failed: %s"
+                 (with-current-buffer buffer (buffer-string))))
+      (error (warn "%s" err) (delete-directory repo 'recursive))))
+  (unless (require 'elpaca-autoloads nil t)
+    (require 'elpaca)
+    (elpaca-generate-autoloads "elpaca" repo)
+    (let ((load-source-file-function nil)) (load "./elpaca-autoloads"))))
+(add-hook 'after-init-hook #'elpaca-process-queues)
+(elpaca `(,@elpaca-order))
 
-(straight-use-package 'use-package)
-(setq straight-use-package-by-default t)
+(elpaca elpaca-use-package
+  (elpaca-use-package-mode))
+(setq use-package-always-ensure t)
 (eval-when-compile (require 'use-package))
 
 (add-to-list 'display-buffer-alist
@@ -64,6 +100,7 @@
 (keymap-global-set "C-g" #'my/keyboard-quit-dwim)
 
 (use-package emacs
+  :ensure nil
   :custom
   (context-menu-mode t))
 
@@ -97,6 +134,10 @@
 
 (use-package doom-modeline
   :init (doom-modeline-mode 1))
+
+;; Toggle the current buffer's modeline for distraction-free editing.
+(use-package hide-mode-line
+  :bind ("C-c z" . hide-mode-line-mode))
 
 (use-package nerd-icons)
 
@@ -226,7 +267,7 @@
 
 (use-package dired
   :ensure nil
-  :straight (:type built-in)
+  :ensure nil
   :commands (dired)
   :hook ((dired-mode . dired-hide-details-mode)
          (dired-mode . hl-line-mode))
@@ -283,15 +324,19 @@
   :config (setq-default olivetti-body-width 0.7)
   :hook (text-mode . olivetti-mode))
 
+(use-package zig-mode
+  :ensure t
+  :mode "\\.zig\\'")
+
 (add-to-list 'load-path (expand-file-name "config" user-emacs-directory))
 (use-package meow
+  :ensure t
+  :demand t
   :config (require 'meow-config))
-
-(use-package pi-coding-agent
-  :config (defalias 'pi 'pi-coding-agent))
 
 (add-to-list 'load-path (expand-file-name "config" user-emacs-directory))
 (use-package exwm
+  :ensure t
   :config
   (when (equal (getenv "EXWM_SESSION") "1")
     (require 'exwm-config)))
@@ -304,4 +349,4 @@
 
 (use-package xdg-launcher
   :after exwm
-  :straight '(xdg-launcher :host github :repo "emacs-exwm/xdg-launcher"))
+  :ensure (:host github :repo "emacs-exwm/xdg-launcher"))
