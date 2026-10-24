@@ -18,5 +18,9 @@ xset r rate 200 60
 #export QT_IM_MODULE=xim
 #export CLUTTER_IM_MODULE=xim
 
-# Finally start Emacs
-exec env EXWM_SESSION=1 emacs
+# Keep Emacs as the editor for commands launched from this session.
+export VISUAL=emacsclient
+export EDITOR="$VISUAL"
+
+# Finally start Emacs with the user DBus session and activate the EXWM config.
+exec dbus-launch --exit-with-session env EXWM_SESSION=1 emacs -mm
