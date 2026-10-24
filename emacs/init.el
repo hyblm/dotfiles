@@ -130,7 +130,8 @@
 (let ((theme-dir (expand-file-name "themes" user-emacs-directory)))
   (add-to-list 'custom-theme-load-path theme-dir)
   (add-to-list 'load-path theme-dir))
-(my/sync-theme-with-system)
+;; Avoid blocking startup on synchronous desktop settings queries.
+(run-with-idle-timer 0.5 nil #'my/sync-theme-with-system)
 
 (use-package doom-modeline
   :init (doom-modeline-mode 1))
