@@ -81,7 +81,8 @@
 (display-battery-mode 1)
 (pixel-scroll-precision-mode 1)
 (global-auto-revert-mode 1)
-(recentf-mode 1)
+(setq recentf-max-saved-items 100)
+(add-hook 'after-init-hook #'recentf-mode)
 (save-place-mode 1)
 (server-start)
 
@@ -266,6 +267,8 @@
   :hook ((prog-mode text-mode) . goggles-mode)
   :custom (goggles-pulse t))
 
+(add-to-list 'auto-mode-alist '("\\.mc\\'" . c-mode))
+
 (use-package dired
   :ensure nil
   :ensure nil
@@ -336,11 +339,11 @@
   :config (require 'meow-config))
 
 (add-to-list 'load-path (expand-file-name "config" user-emacs-directory))
-(use-package exwm
-  :ensure t
-  :config
-  (when (equal (getenv "EXWM_SESSION") "1")
-    (require 'exwm-config)))
+(when (equal (getenv "EXWM_SESSION") "1")
+  (elpaca exwm
+    (require 'exwm)
+    (require 'exwm-config))
+  (elpaca-wait))
 
 (use-package exwm-modeline
   :after exwm

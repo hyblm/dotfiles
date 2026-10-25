@@ -113,7 +113,8 @@ integrations remain separate from the everyday editor setup.
   (display-battery-mode 1)
   (pixel-scroll-precision-mode 1)
   (global-auto-revert-mode 1)
-  (recentf-mode 1)
+  (setq recentf-max-saved-items 100)
+  (add-hook 'after-init-hook #'recentf-mode)
   (save-place-mode 1)
   (server-start)
 
@@ -169,7 +170,8 @@ integrations remain separate from the everyday editor setup.
   (let ((theme-dir (expand-file-name "themes" user-emacs-directory)))
     (add-to-list 'custom-theme-load-path theme-dir)
     (add-to-list 'load-path theme-dir))
-  (my/sync-theme-with-system)
+  ;; Avoid blocking startup on synchronous desktop settings queries.
+  (run-with-idle-timer 0.5 nil #'my/sync-theme-with-system)
 #+end_src
 
 *** Modeline and icons
@@ -312,6 +314,11 @@ integrations remain separate from the everyday editor setup.
   (use-package goggles
     :hook ((prog-mode text-mode) . goggles-mode)
     :custom (goggles-pulse t))
+#+end_src
+
+** Programming
+#+begin_src emacs-lisp :tangle "init.el"
+  (add-to-list 'auto-mode-alist '("\\.mc\\'" . c-mode))
 #+end_src
 
 ** Files and directories
@@ -474,24 +481,24 @@ integrations remain separate from the everyday editor setup.
      (mod (+ exwm-workspace-current-index offset) exwm-workspace-number)))
 
   (setq exwm-input-global-keys
-        `(([?\\s-r] . exwm-reset)
-          ([?\\s-f] . exwm-layout-toggle-fullscreen)
-          ([?\\s-t] . exwm-floating-toggle-floating)
-          ([?\\s-q] . delete-window)
-          ([?\\s-b] . balance-windows)
-          ([?\\s-w] . exwm-workspace-switch)
-          ([?\\s-p] . xdg-launcher-run-app)
-          ([?\\s-&] . (lambda (cmd)
+        `(([?\s-r] . exwm-reset)
+          ([?\s-f] . exwm-layout-toggle-fullscreen)
+          ([?\s-t] . exwm-floating-toggle-floating)
+          ([?\s-q] . delete-window)
+          ([?\s-b] . balance-windows)
+          ([?\s-w] . exwm-workspace-switch)
+          ([?\s-p] . xdg-launcher-run-app)
+          ([?\s-&] . (lambda (cmd)
                          (interactive (list (read-shell-command "$ ")))
                          (start-process-shell-command cmd nil cmd)))
           ,@(mapcar (lambda (i)
                       `(,(kbd (format "s-%d" i)) .
                         (lambda () (interactive) (exwm-workspace-switch-create ,i))))
                     (number-sequence 0 9))
-          ([?\\s-h] . (lambda () (interactive) (exwm-switch-workspace-relative -1)))
-          ([?\\s-l] . (lambda () (interactive) (exwm-switch-workspace-relative 1)))
-          ([?\\s-j] . (lambda () (interactive) (other-window 1)))
-          ([?\\s-k] . (lambda () (interactive) (other-window -1)))
+          ([?\s-h] . (lambda () (interactive) (exwm-switch-workspace-relative -1)))
+          ([?\s-l] . (lambda () (interactive) (exwm-switch-workspace-relative 1)))
+          ([?\s-j] . (lambda () (interactive) (other-window 1)))
+          ([?\s-k] . (lambda () (interactive) (other-window -1)))
           ([XF86AudioRaiseVolume] . (lambda () (interactive) (exwm-run-shell-command "wpctl set-volume @DEFAULT_AUDIO_SINK@ 0.1+ -l 1.0")))
           ([XF86AudioLowerVolume] . (lambda () (interactive) (exwm-run-shell-command "wpctl set-volume @DEFAULT_AUDIO_SINK@ 0.1-")))
           ([XF86AudioMute] . (lambda () (interactive) (exwm-run-shell-command "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle")))
@@ -542,11 +549,11 @@ integrations remain separate from the everyday editor setup.
         (exwm-async-run program))))
 
   (setq exwm-input-simulation-keys
-        '(([?\\C-b] . [left]) ([?\\C-f] . [right])
-          ([?\\C-p] . [up]) ([?\\C-n] . [down])
-          ([?\\C-a] . [home]) ([?\\C-e] . [end])
-          ([?\\M-v] . [prior]) ([?\\C-v] . [next])
-          ([?\\C-d] . [delete]) ([?\\C-k] . [S-end delete])))
+        '(([?\C-b] . [left]) ([?\C-f] . [right])
+          ([?\C-p] . [up]) ([?\C-n] . [down])
+          ([?\C-a] . [home]) ([?\C-e] . [end])
+          ([?\M-v] . [prior]) ([?\C-v] . [next])
+          ([?\C-d] . [delete]) ([?\C-k] . [S-end delete])))
 
   (exwm-randr-mode 1)
   (exwm-wm-mode 1)
@@ -568,11 +575,11 @@ integrations remain separate from the everyday editor setup.
 
 #+begin_src emacs-lisp :tangle "init.el"
   (add-to-list 'load-path (expand-file-name "config" user-emacs-directory))
-  (use-package exwm
-    :ensure t
-    :config
-    (when (equal (getenv "EXWM_SESSION") "1")
-      (require 'exwm-config)))
+  (when (equal (getenv "EXWM_SESSION") "1")
+    (elpaca exwm
+      (require 'exwm)
+      (require 'exwm-config))
+    (elpaca-wait))
 
   (use-package exwm-modeline
     :after exwm
