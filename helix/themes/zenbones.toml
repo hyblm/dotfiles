@@ -1,0 +1,116 @@
+# Zenbones, adapted from zenbones.nvim.
+# https://github.com/zenbones-theme/zenbones.nvim
+
+# UI
+"ui.background" = { fg = "foreground", bg = "background" }
+"ui.text" = "foreground"
+"ui.text.focus" = { fg = "foreground", bg = "selection", modifiers = ["bold"] }
+"ui.selection" = { bg = "selection" }
+"ui.selection.primary" = { bg = "selection" }
+"ui.cursor" = { fg = "background", bg = "cursor" }
+"ui.cursor.primary" = { fg = "background", bg = "cursor" }
+"ui.cursor.match" = { fg = "background", bg = "warning", modifiers = ["bold"] }
+"ui.cursorline.primary" = { bg = "active_line" }
+"ui.linenr" = { fg = "muted" }
+"ui.linenr.selected" = { fg = "foreground", bg = "active_line", modifiers = ["bold"] }
+"ui.gutter" = { fg = "muted", bg = "background" }
+"ui.statusline" = { fg = "foreground", bg = "active_line" }
+"ui.statusline.inactive" = { fg = "muted", bg = "background" }
+"ui.statusline.normal" = { fg = "background", bg = "muted", modifiers = ["bold"] }
+"ui.statusline.insert" = { fg = "background", bg = "error", modifiers = ["bold"] }
+"ui.statusline.select" = { fg = "background", bg = "warning", modifiers = ["bold"] }
+"ui.bufferline" = { fg = "muted", bg = "background" }
+"ui.bufferline.active" = { fg = "foreground", bg = "active_line" }
+"ui.bufferline.background" = { bg = "background" }
+"ui.popup" = { fg = "foreground", bg = "active_line" }
+"ui.window" = { fg = "border" }
+"ui.help" = { fg = "foreground", bg = "active_line" }
+"ui.menu" = { fg = "foreground", bg = "active_line" }
+"ui.menu.selected" = { fg = "foreground", bg = "selection", modifiers = ["bold"] }
+"ui.menu.scroll" = { fg = "muted", bg = "selection" }
+"ui.virtual" = "muted"
+"ui.virtual.indent-guide" = { fg = "border" }
+"ui.virtual.inlay-hint" = { fg = "muted", modifiers = ["italic"] }
+"ui.virtual.ruler" = { bg = "active_line" }
+"ui.highlight" = { bg = "selection" }
+"ui.debug.breakpoint" = "error"
+"ui.debug.active" = "warning"
+
+# Diagnostics
+"diagnostic.error" = { underline = { color = "error", style = "curl" } }
+"diagnostic.warning" = { underline = { color = "warning", style = "curl" } }
+"diagnostic.info" = { underline = { color = "info", style = "curl" } }
+"diagnostic.hint" = { underline = { color = "muted", style = "curl" } }
+"diagnostic.unnecessary" = { modifiers = ["dim"] }
+"diagnostic.deprecated" = { modifiers = ["crossed_out"] }
+error = "error"
+warning = "warning"
+info = "info"
+hint = "muted"
+
+# Diff and version control
+"diff.plus" = "green"
+"diff.minus" = "red"
+"diff.delta" = "orange"
+
+# Syntax
+"attribute" = { fg = "foreground", modifiers = ["bold"] }
+"type" = "brown"
+"type.builtin" = { fg = "brown", modifiers = ["bold"] }
+"constructor" = { fg = "constructor", modifiers = ["bold"] }
+"constant" = { fg = "constant", modifiers = ["bold"] }
+"constant.builtin" = { fg = "foreground", modifiers = ["italic"] }
+"constant.numeric" = "muted"
+"constant.character.escape" = { fg = "constructor", modifiers = ["bold"] }
+"string" = { fg = "muted", modifiers = ["italic"] }
+"string.regexp" = { fg = "muted", modifiers = ["italic"] }
+"string.special" = { fg = "constructor", modifiers = ["bold"] }
+"string.special.url" = { fg = "muted", modifiers = ["italic", "underlined"] }
+"comment" = { fg = "comment", modifiers = ["italic"] }
+"variable" = "constant"
+"variable.builtin" = { fg = "muted", modifiers = ["italic"] }
+"variable.parameter" = "constant"
+"variable.other.member" = "constant"
+"label" = "constructor"
+"punctuation" = "punctuation"
+"keyword" = { fg = "foreground", modifiers = ["bold"] }
+"keyword.control.exception" = "red"
+"keyword.directive" = { fg = "foreground", modifiers = ["bold"] }
+"operator" = { fg = "foreground", modifiers = ["bold"] }
+"function" = "foreground"
+"function.builtin" = "foreground"
+"function.macro" = { fg = "foreground", modifiers = ["bold"] }
+"tag" = { fg = "constructor", modifiers = ["bold"] }
+"namespace" = "brown"
+"special" = "red"
+
+# Markup
+"markup.heading" = { fg = "foreground", modifiers = ["bold"] }
+"markup.list" = "punctuation"
+"markup.bold" = { modifiers = ["bold"] }
+"markup.italic" = { modifiers = ["italic"] }
+"markup.strikethrough" = { modifiers = ["crossed_out"] }
+"markup.link.text" = { fg = "muted", modifiers = ["italic"] }
+"markup.link.url" = { fg = "muted", modifiers = ["italic", "underlined"] }
+"markup.quote" = "brown"
+"markup.raw" = "muted"
+
+[palette]
+background = "#1C1917"
+active_line = "#24201D"
+selection = "#403833"
+border = "#403833"
+foreground = "#B4BDC3"
+muted = "#868C91"
+comment = "#6E6763"
+punctuation = "#867A74"
+constant = "#979FA4"
+constructor = "#8D9499"
+brown = "#A1938C"
+cursor = "#C4CACF"
+red = "#DE6E7C"
+error = "#E8838F"
+orange = "#D68C67"
+warning = "#B77E64"
+info = "#6099C0"
+green = "#819B69"
