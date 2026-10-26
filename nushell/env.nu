@@ -19,7 +19,8 @@
 
 {{#if dotter.windows}}
 $env.PATH ++= [
-  'C:\Program Files\LLVM\bin'
+    'C:\Program Files\LLVM\bin',
+    'C:\Users\hybl\AppData\Local\pi-node\current'
 ]
 $env.EDITOR = "nvim"
 {{/if}}
