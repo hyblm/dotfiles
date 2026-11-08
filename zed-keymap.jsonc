@@ -29,6 +29,14 @@
     },
   },
   {
+    "context": "Editor",
+    "bindings": {
+      // Override modal editor bindings in every mode, including Helix normal/select.
+      "ctrl-b": "workspace::ToggleLeftDock",
+      "ctrl-alt-b": "workspace::ToggleRightDock",
+    },
+  },
+  {
     "context": "Editor && vim_mode == normal",
     "bindings": {
       // HELIX-compat mappings from nvim/lua/hyblm/keymaps.lua.
