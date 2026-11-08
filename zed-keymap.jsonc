@@ -2,6 +2,15 @@
   {
     "context": "Workspace",
     "bindings": {
+      // Keep dock toggles available regardless of the modal editing mode.
+      "ctrl-b": "workspace::ToggleLeftDock",
+      "ctrl-alt-b": "workspace::ToggleRightDock",
+
+      // Project tasks (defined in each project's .zed/tasks.json).
+      "alt-shift-1": ["task::Spawn", { "task_name": "Build" }],
+      "alt-shift-2": ["task::Spawn", { "task_name": "Build and Run" }],
+      "alt-shift-3": ["task::Spawn", { "task_name": "Build and Debug" }],
+
       // Neovim: <A-h/j/k/l> window navigation.
       "alt-h": "workspace::ActivatePaneLeft",
       "alt-j": "workspace::ActivatePaneDown",
