@@ -6,13 +6,27 @@
       "user": null,
       "projects": [
         {
-          "paths": ["/home/hybl/code/ca-backend-compose"],
+          "paths": [
+            "/home/hybl/code/ca-backend-compose"
+          ]
         },
         {
-          "paths": ["/home/hybl/code/salty"],
+          "paths": [
+            "/home/hybl/code/ca-backend-tools"
+          ]
         },
-      ],
-    },
+        {
+          "paths": [
+            "/home/hybl/code/salty"
+          ]
+        },
+        {
+          "paths": [
+            "/home/hybl/code/unify-salty/microscope-control-service"
+          ]
+        }
+      ]
+    }
   ],
   "ssh_connections": [
     {
@@ -41,6 +55,8 @@
     "dock": "right",
   },
   "git_panel": {
+    "group_by": "staging",
+    "tree_view": true,
     "dock": "right",
   },
   "disable_ai": false,
@@ -160,31 +176,43 @@
   "unnecessary_code_fade": 0.4,
   "use_smartcase_search": true,
   "theme_overrides": {
+    "Zenbones Light": {
+      "syntax": {
+        "constant.comment.todo": {
+          "color": "#50a14fff",
+          "font_style": "italic"
+        },
+        "string.comment.info": {
+          "color": "#4078f2ff",
+          "font_style": "italic"
+        },
+        "keyword.comment.warn": {
+          "color": "#c18401ff",
+          "font_style": "italic"
+        },
+        "property.comment.error": {
+          "color": "#ca1243ff",
+          "font_style": "italic"
+        },
+      },
+    },
     "Zenbones Dark": {
       "syntax": {
         "constant.comment.todo": {
           "color": "#50a14fff",
-          // "background_color": "#00000000",
-          // "font_weight": "bold",
-          // "font_style": "italic"
+          "font_style": "italic"
         },
         "string.comment.info": {
           "color": "#4078f2ff",
-          // "background_color": "#00000000",
-          // "font_weight": "bold",
-          // "font_style": "italic"
+          "font_style": "italic"
         },
         "keyword.comment.warn": {
           "color": "#c18401ff",
-          // "background_color": "#00000000",
-          // "font_weight": "bold",
-          // "font_style": "italic"
+          "font_style": "italic"
         },
         "property.comment.error": {
           "color": "#ca1243ff",
-          // "background_color": "#00000000",
-          // "font_weight": "bold",
-          // "font_style": "italic"
+          "font_style": "italic"
         },
       },
     },
